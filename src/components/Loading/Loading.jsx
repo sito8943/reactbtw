@@ -20,7 +20,7 @@ const Loading = (props) => {
       ) : (
         <Spinner id="loading" size={SpinnerSize.large} />
       )}
-    </modion.div>
+    </motion.div>
   );
 };
 
