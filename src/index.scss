@@ -1,24 +1,33 @@
 body {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 .view {
-	height: 100vh;
-	width: 100vw;
-	background: #222333;
+  height: 100vh;
+  width: 100vw;
+  background: #222333;
 
-	img {
-		object-fit: cover;
-	}
+  img {
+    object-fit: cover;
+  }
 
-	.form {
-		width: 350px;
+  .form {
+    width: 350px;
+    padding: 40px;
+    margin: 100px auto;
+    z-index: 1;
 
-		input, 
-		label {
-			padding: 5px;
-		}
+    .toggle {
+      margin: 10px 0;
+    }
 
-	}
+    .row {
+      margin: 10px 0;
 
+      input,
+      label {
+        color: aliceblue;
+      }
+    }
+  }
 }
