@@ -19,16 +19,11 @@
       "Labels": {
         "User": "Nombre de usuario",
         "Password": "Contraseña",
+        "ShowPassword" : "Mostrar contraseña",
         "Remember": "Recodar"
       },
       "Placeholders": {
-        "Users": [
-          "Ej: R0b3rt0*556",
-          "Ej: S1t0@8943",
-          "Ej: C4rl0sM0r4",
-          "Ej: 1nFant3.6",
-          "Ej: Fr0b0Vr:12"
-        ],
+        "User": "Ej: S1t0@8943",
         "Password": "**********"
       }
     },
