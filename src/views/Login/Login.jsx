@@ -68,7 +68,7 @@ const Login = (props) => {
     <div className="view">
       {loading ? <Loading type="backdrop" visible={loading} /> : <></>}
       <form onSubmit={handleSubmit(signIn)} className="form">
-        <div className="row">
+        <div className="row flex flex-column">
           <label htmlFor="user">{texts.Labels.User}</label>
           <input
             id="user"
@@ -78,7 +78,7 @@ const Login = (props) => {
           />
           <label htmlFor="user">{userError}</label>
         </div>
-        <div className="row">
+        <div className="row flex flex-column">
           <label htmlFor="password">{texts.Labels.Password}</label>
           <input
             id="password"
@@ -87,7 +87,7 @@ const Login = (props) => {
           />
           <label htmlFor="password">{passwordError}</label>
         </div>
-        <div className="row flex">
+        <div className="row flex align-center">
           <Toggle
             className="toggle"
             id="remember"
