@@ -22,6 +22,7 @@ import User from "../../models/User";
 // components
 import Loading from "../../components/Loading/Loading";
 import ShootingStars from "../../components/ShootingStars/ShootingStars";
+import Toggle from "../../components/Toggle/Toggle";
 
 const Login = (props) => {
   const { texts } = props;
@@ -57,6 +58,8 @@ const Login = (props) => {
     setLoading(false);
   };
 
+  const toggleRemember = (e) => setRemember(!remember);
+
   useEffect(() => {
     init();
   }, []);
@@ -64,7 +67,6 @@ const Login = (props) => {
   return (
     <div className="view">
       {loading ? <Loading type="backdrop" visible={loading} /> : <></>}
-      <ShootingStars />
       <form onSubmit={handleSubmit(signIn)} className="form">
         <div className="row">
           <label htmlFor="user">{texts.Labels.User}</label>
@@ -77,24 +79,22 @@ const Login = (props) => {
           <label htmlFor="user">{userError}</label>
         </div>
         <div className="row">
+          <label htmlFor="password">{texts.Labels.Password}</label>
           <input
-            label={texts.Labels.Password}
+            id="password"
             placeholder={texts.Placeholders.Password}
             type="password"
-            canRevealPassword
-            revealPasswordAriaLabel={texts.Labels.ShowPassword}
           />
+          <label htmlFor="password">{passwordError}</label>
         </div>
-        <div className="row">
-          <ToggleButton
+        <div className="row flex">
+          <Toggle
             className="toggle"
             id="remember"
-            inactiveLabel={<></>}
-            activeLabel={<></>}
+            offRender={<></>}
+            onRender={<></>}
             value={remember}
-            onToggle={(value) => {
-              setRemember(!value);
-            }}
+            onToggle={toggleRemember}
           />
           <label htmlFor="remember">{texts.Labels.Remember}</label>
         </div>

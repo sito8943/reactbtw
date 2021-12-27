@@ -1,42 +1,53 @@
-
-*, *::after, *:before {
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+*,
+*::after,
+*:before {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-.loading_container {
-    background-color: #13589c;
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    -webkit-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    transition: all 1s ease;
-    z-index: 15;
+.big {
+  background-color: #13589c;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+  z-index: 15;
 }
 
-.loading_container #loading {
-    height: 58px;
-    width: 58px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    -webkit-animation: girar 1.5s linear infinite;
-    -o-animation: girar 1.5s linear infinite;
-    animation: girar 1.5s linear infinite;
-
+#loading {
+  height: 58px;
+  width: 58px;
+  -webkit-animation: girar 1.5s linear infinite;
+  -o-animation: girar 1.5s linear infinite;
+  animation: girar 1.5s linear infinite;
 }
 
 @keyframes girar {
-    from { transform: rotate(360deg); }
-    to { transform: rotate(0deg); }
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
 }
+
 .backdrop {
-	
+  background-color: rgba(19, 88, 156, 0.438);
+  backdrop-filter: blur(5px);
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+  z-index: 15;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }

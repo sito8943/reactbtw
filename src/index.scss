@@ -2,9 +2,15 @@ body {
   overflow: hidden;
 }
 
+.flex {
+  display: flex !important;
+  flex-direction: row !important;
+}
+
 .view {
   height: 100vh;
   width: 100vw;
+  padding: 40px;
   background: #222333;
 
   img {
@@ -14,19 +20,29 @@ body {
   .form {
     width: 350px;
     padding: 40px;
-    margin: 100px auto;
-    z-index: 1;
-
-    .toggle {
-      margin: 10px 0;
-    }
+    margin: auto;
+    z-index: 2;
 
     .row {
       margin: 10px 0;
+      display: flex;
+      flex-direction: column;
 
       input,
       label {
+        margin: 5px 0;
         color: aliceblue;
+      }
+
+      input {
+        padding: 10px;
+        border-radius: 20px;
+        border: 1px solid gray;
+        background: none;
+
+        &:hover {
+          border: 1px solid dodgerblue;
+        }
       }
     }
   }
