@@ -68,13 +68,14 @@ const Login = (props) => {
     <div className="view">
       {loading ? <Loading type="backdrop" visible={loading} /> : <></>}
       <form onSubmit={handleSubmit(signIn)} className="form">
+		<h3>{}</h3>
         <div className="row flex flex-column">
           <label htmlFor="user">{texts.Labels.User}</label>
           <input
             id="user"
             placeholder={texts.Placeholders.User}
             autoComplete="off"
-            {...register("user")}
+            {...register("n")}
           />
           <label htmlFor="user">{userError}</label>
         </div>
@@ -84,6 +85,7 @@ const Login = (props) => {
             id="password"
             placeholder={texts.Placeholders.Password}
             type="password"
+            {...register("p")}
           />
           <label htmlFor="password">{passwordError}</label>
         </div>

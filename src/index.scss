@@ -56,6 +56,11 @@ body {
         &:hover {
           border: 1px solid dodgerblue;
         }
+
+        &:focus {
+          outline: 1px solid dodgerblue;
+          border: 1px solid dodgerblue;
+        }
       }
     }
   }
