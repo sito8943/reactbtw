@@ -127,7 +127,7 @@ const Login = (props) => {
           </div>
         </form>
       ) : (
-        <Card className="welcome-card">
+        <Card className="welcome-card" animation="pop-up">
           <div>
             <h3>{texts.Labels.Welcome}</h3>
             <h1>{contextState.user.Name}</h1>
