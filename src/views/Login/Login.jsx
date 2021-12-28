@@ -67,8 +67,10 @@ const Login = (props) => {
   return (
     <div className="view">
       {loading ? <Loading type="backdrop" visible={loading} /> : <></>}
+      <img src={main} alt="main-bg" className="kenburns" />
+      <ShootingStars />
       <form onSubmit={handleSubmit(signIn)} className="form">
-		<h3>{}</h3>
+        <h3>{}</h3>
         <div className="row flex flex-column">
           <label htmlFor="user">{texts.Labels.User}</label>
           <input

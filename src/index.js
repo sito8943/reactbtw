@@ -7,6 +7,7 @@ import { ContextProvider } from "./context/ContextProvider";
 
 // styles
 import "./index.scss";
+import "./components/Kenburns/kenburns.scss";
 
 ReactDOM.render(
   <React.StrictMode>
