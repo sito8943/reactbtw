@@ -7,6 +7,41 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+h3 {
+  color: aliceblue;
+}
+
+h1,
+h2 {
+  color: dodgerblue;
+}
+
+button {
+  cursor: pointer;
+}
+
+a,
+input,
+button {
+  transition: all 300ms linear;
+}
+
+.primary {
+  background: #2d2f48;
+
+  &:hover {
+    background: #22244e;
+  }
+}
+
+.ghost {
+  background: none;
+
+  &:hover {
+    box-shadow: 0px 0px 10px 2px #22244e;
+  }
+}
+
 .flex {
   display: flex !important;
 }
@@ -26,7 +61,7 @@ body {
 .view {
   height: 100vh;
   width: 100vw;
-  padding: 20vh 0;
+  padding: 10vh 0;
   background: #222333;
 
   img {
@@ -36,13 +71,24 @@ body {
 
   .form {
     position: absolute;
+    border-radius: 40px;
+    overflow: hidden;
     left: 0;
     right: 0;
-    width: 350px;
+    width: 400px;
     padding: 40px;
     margin: auto;
     background-color: #222333;
     z-index: 3;
+
+    img {
+      position: absolute;
+      z-index: -1;
+      opacity: 0.04;
+      transform: rotate3d(1, 1, 1, 45deg);
+      left: -100px;
+      top: -80px;
+    }
 
     .row {
       margin: 10px 0;
@@ -56,8 +102,17 @@ body {
       input,
       label {
         margin: 5px 0;
-        color: aliceblue;
+        color: #aeb4b9;
         z-index: 3;
+      }
+
+      button {
+        margin: 0 10px 0 0;
+        border: 2px solid #22244e;
+        border-radius: 40px;
+        padding: 10px 25px;
+        color: #aeb4b9;
+        text-transform: uppercase;
       }
 
       input {
@@ -68,16 +123,38 @@ body {
         z-index: 3;
 
         &:hover {
-          border: 1px solid dodgerblue;
+          border: 1px solid #22244e;
+          box-shadow: 0px 0px 10px 2px #22244e;
           z-index: 3;
         }
 
         &:focus {
-          outline: 1px solid dodgerblue;
-          border: 1px solid dodgerblue;
+          outline: 1px solid #22244e;
+          border: 1px solid #22244e;
+          box-shadow: 0px 0px 10px 2px #22244e;
           z-index: 3;
         }
       }
+
+      .error {
+        color: #ff4568 !important;
+      }
+
+      a {
+        color: #aeb4b9;
+
+        &:hover {
+          color: dodgerblue;
+        }
+      }
     }
+
+    hr {
+        border: 1px dashed #22244e;
+        border-radius: 50%;
+        margin: 10px 0;
+    }
+
+
   }
 }

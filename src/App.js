@@ -53,21 +53,26 @@ const App = () => {
   return (
     <div>
       <Loading type="big" visible={loading} />
-      <Router>
-        <Routes exact path="/" element={<div></div>}>
-          <Route
-            index
-            element={<Login texts={GetTexts(contextState.lang, "Login")} />}
-          />
-          <Route
-            path="*"
-            element={
-              <NotMatch texts={GetTexts(contextState.lang, "NotMatch")} />
-            }
-          />
-        </Routes>
-        <Footer texts={GetTexts(contextState.lang, "Footer")} />
-      </Router>
+      {!loading ? (
+        <Router>
+          <Routes exact path="/" element={<div></div>}>
+            <Route
+              index
+              element={<Login texts={GetTexts(contextState.lang, "Login")} />}
+            />
+            <Route
+              path="*"
+              element={
+                <NotMatch texts={GetTexts(contextState.lang, "NotMatch")} />
+              }
+            />
+          </Routes>
+          <Footer texts={GetTexts(contextState.lang, "Footer")} />
+        </Router>
+        ) : (
+        <></>
+      )}
+      
     </div>
   );
 };

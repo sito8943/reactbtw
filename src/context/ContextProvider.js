@@ -78,7 +78,7 @@ const contextReducer = (contextState, action) => {
 
 const ContextProvider = ({ children }) => {
   const [contextState, setContextState] = React.useReducer(contextReducer, {
-    user: {},
+    user: new User("1", "Sito"),
     lang: "ES",
     netStatus: "",
     mode: "dark",

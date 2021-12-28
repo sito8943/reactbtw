@@ -1,0 +1,29 @@
+.card {
+	width: 350px;
+    height: 250px;
+    background: #222333;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 40px;
+    border-radius: 40px;
+    margin: auto;
+
+    button {
+        margin: 0 10px 0 0;
+        border: 2px solid #22244e;
+        border-radius: 40px;
+        padding: 10px 25px;
+        color: #aeb4b9;
+        text-transform: uppercase;
+    }
+
+}
+
+.welcome-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}

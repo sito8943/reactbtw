@@ -2,7 +2,7 @@
   "ES": {
     "Footer" : {
       "Comunity": "Comunidad",
-      "Soporte": "Support"
+      "Support": "Soporte"
     },
     "Notification": {
       "NotConnected": "No tienes conexión con el servidor",
@@ -10,17 +10,21 @@
       "CheckingConnection": "Verificando conexión"
     },
     "Login": {
-      "Title": "Iniciar sesión",
+      "Title": ["Inicia sesión en", "Beyond the World"],
       "Errors": {
         "WrongUser": "Usuario o contraseña incorrecta",
-        "NotConnected": "No tienes conexión con el servidor"
+        "NotConnected": "No tienes conexión con el servidor",
+        "EmptyUser": "Debes introducir tu nombre de usuario",
+        "EmptyPassword": "Debes introducir tu contraseña"
       },
       "Buttons": {
         "SignIn": "Inicia sesión",
         "SignUp": "Registrarse",
-        "Forgot": "¿Has olvidado tu contraseña?"
+        "Forgot": "¿Has olvidado tu contraseña?",
+        "Continue": "Continuar"
       },
       "Labels": {
+        "Welcome": "Bienvenido ",
         "User": "Nombre de usuario",
         "Password": "Contraseña",
         "ShowPassword" : "Mostrar contraseña",

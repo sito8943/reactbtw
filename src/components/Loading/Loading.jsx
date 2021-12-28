@@ -14,11 +14,15 @@ const Loading = (props) => {
   const { type, visible } = props;
   const [hide, setHide] = useState(false);
 
-  useEffect(() => {
+  const init = () => {
     if (visible)
       setTimeout(() => {
         setHide(true);
       }, 200);
+  }
+
+  useEffect(() => {
+    init();
   }, []);
 
   return (
