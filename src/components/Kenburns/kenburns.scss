@@ -1,10 +1,10 @@
 .kenburns {
-  animation: move 40s ease;
+  animation: move 40s infinity;
   /* Add infinite to loop. */
 
-  -ms-animation: move 40s ease;
-  -webkit-animation: move 40s ease;
-  -moz-animation: move 40s ease;
+  -ms-animation: move 40s infinity;
+  -webkit-animation: move 40s infinity;
+  -moz-animation: move 40s infinity;
 }
 
 @keyframes move {

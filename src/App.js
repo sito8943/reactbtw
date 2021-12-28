@@ -14,6 +14,7 @@ import { GetTexts } from "./lang/texts";
 
 // components
 import Loading from "./components/Loading/Loading";
+import Footer from "./components/Footer/Footer";
 
 // views
 import Login from "./views/Login/Login";
@@ -65,6 +66,7 @@ const App = () => {
             }
           />
         </Routes>
+        <Footer texts={GetTexts(contextState.lang, "Footer")} />
       </Router>
     </div>
   );

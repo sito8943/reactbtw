@@ -1,5 +1,9 @@
 {
   "ES": {
+    "Footer" : {
+      "Comunity": "Comunidad",
+      "Soporte": "Support"
+    },
     "Notification": {
       "NotConnected": "No tienes conexión con el servidor",
       "Connected": "Se ha restablecido la conexión",
