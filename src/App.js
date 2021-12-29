@@ -15,6 +15,7 @@ import { GetTexts } from "./lang/texts";
 // components
 import Loading from "./components/Loading/Loading";
 import Footer from "./components/Footer/Footer";
+import TopBar from "./components/TopBar/TopBar";
 
 // views
 import Login from "./views/Login/Login";
@@ -57,6 +58,7 @@ const App = () => {
       {!loading ? (
         <Router>
           <Routes exact path="/" element={<div></div>}>
+            {contextState.user.Name !== undefined ? <TopBar texts={GetTexts(contextState.lang, "Topbar")} /> : <></>}
             <Route
               index
               element={<Login texts={GetTexts(contextState.lang, "Login")} />}
