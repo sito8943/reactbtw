@@ -4,4 +4,17 @@
 	width: 100vw;
 	top: 0;
 	background: #222333;
+	z-index: 1;
+
+	button {
+		background: none;
+	    border: none;
+	    width: 30px;
+	    margin: 5px 0px 1px 0px;
+
+	    img {
+	    	width: 25px;
+	    	object-fit: contain;
+	    }
+	}
 }
