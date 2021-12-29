@@ -16,13 +16,15 @@ h2 {
   color: dodgerblue;
 }
 
-button {
+button,
+.btn {
   cursor: pointer;
 }
 
 a,
 input,
-button {
+button,
+.btn {
   transition: all 300ms linear;
 }
 
@@ -66,6 +68,12 @@ button {
 
 .flex-column {
   flex-direction: column !important;
+}
+
+// dialog-stars
+.dialog-stars {
+  position: inherit !important;
+  width: 100px;
 }
 
 .view {
@@ -116,13 +124,16 @@ button {
         z-index: 3;
       }
 
-      button {
+      button,
+      .btn {
         margin: 0 10px 0 0;
         border: 2px solid #22244e;
         border-radius: 40px;
         padding: 10px 25px;
         color: #aeb4b9;
         text-transform: uppercase;
+        text-align: center;
+        text-decoration: none;
       }
 
       input {

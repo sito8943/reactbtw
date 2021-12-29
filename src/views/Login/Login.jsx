@@ -146,10 +146,12 @@ const Login = (props) => {
               <h1>{contextState.user.Name}</h1>
             </div>
             <div>
-              <img src={compass} alt="stars" />
+              <img src={compass} className="dialog-stars" alt="stars" />
             </div>
           </div>
-          <button className="primary">{texts.Buttons.Continue}</button>
+          <Link to="/home" className="primary btn">
+            {texts.Buttons.Continue}
+          </Link>
         </Card>
       )}
     </div>
