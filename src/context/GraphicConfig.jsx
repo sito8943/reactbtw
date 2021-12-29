@@ -16,12 +16,17 @@ const graphicConfigReducer = (graphicConfigState, action) => {
 };
 
 const GraphicConfigProvider = ({ children }) => {
-  const [graphicConfigState, setGraphicConfigState] = React.useReducer(graphicConfigReducer, {
-    animations: false,
-  });
+  const [graphicConfigState, setGraphicConfigState] = React.useReducer(
+    graphicConfigReducer,
+    {
+      animations: true,
+    }
+  );
 
   const value = { graphicConfigState, setGraphicConfigState };
-  return <GraphicConfig.Provider value={value}>{children}</GraphicConfig.Provider>;
+  return (
+    <GraphicConfig.Provider value={value}>{children}</GraphicConfig.Provider>
+  );
 };
 
 //hooks
