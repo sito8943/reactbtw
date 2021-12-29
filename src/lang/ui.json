@@ -1,7 +1,9 @@
 {
   "ES": {
     "TopBar": {
-      
+      "Labels" : {
+        "Settings": "Ajustes"
+      }
     },
     "Footer" : {
       "Comunity": "Comunidad",

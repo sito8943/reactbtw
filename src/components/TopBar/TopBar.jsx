@@ -26,9 +26,12 @@ const TopBar = (props) => {
         </button>
       </div>
       <OffCanvas visible={toggleMenu}>
-        <button>
-          <MdSettings />
-        </button>
+        <div className="row">
+          <button className="ghost">
+            <MdSettings />
+            {texts.Labels.Settings}
+          </button>
+        </div>
       </OffCanvas>
     </>
   );

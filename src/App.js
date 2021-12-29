@@ -57,7 +57,7 @@ const App = () => {
       <Loading type="big" visible={loading} />
       {!loading ? (
         <Router>
-          {contextState.user.Name !== undefined ? <TopBar texts={GetTexts(contextState.lang, "Topbar")} /> : <></>}
+          {contextState.user.Name !== undefined ? <TopBar texts={GetTexts(contextState.lang, "TopBar")} /> : <></>}
           <Routes exact path="/" element={<div></div>}>
             <Route
               index
