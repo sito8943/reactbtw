@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // 3d libs
 import { MdSettings, MdMenu, MdMenuOpen } from "react-icons/md";
 
+// components
+import OffCanvas from "../OffCanvas/OffCanvas";
 
 // styles
 import "./style.scss";
@@ -18,16 +20,16 @@ const TopBar = (props) => {
 
   return (
     <>
-      <div className="top-bar flex justify-left align-center">
+      <div className="top-bar flex justify-right align-center">
+        <button onClick={toggleMenuHandler}>
+        {toggleMenu ? <MdMenuOpen /> : <MdMenu />}
+        </button>
+      </div>
+      <OffCanvas visible={toggleMenu}>
         <button>
           <MdSettings />
         </button>
-        <button onClick={toggleMenuHandler}>
-        {toggleMenu ? <MdMenu /> : <MdMenuOpen />}
-        </button>
-      </div>
-      <div>
-      </div>
+      </OffCanvas>
     </>
   );
 };

@@ -2,45 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 
+// utils
+import { getInitial, getAnimation, getTransition } from "../../utils/animation";
+
 // styles
 import "./style.scss";
 
 const Card = (props) => {
   const { children, className, id, name, style, animation } = props;
-
-  /**
-   * @param {string} animation
-   */
-  const getAnimation = (animation) => {
-    switch (animation) {
-      default:
-        return { 
-          rotate: 0, 
-          scale: 1 
-        };
-    }
-  }
-
-  const getTransition = (animation) => {
-    switch (animation) {
-      default:
-        return {
-          type: "spring",
-          stiffness: 260,
-          damping: 20
-        };
-    }
-  }
-
-  /**
-   * @param {string} animation
-   */
-  const getInitial = (animation) => {
-    switch (animation) {
-      default:
-        return { scale: 0 };
-    }
-  }
 
   return (
     <motion.div initial={getInitial(animation)} animate={getAnimation(animation)} transition={getTransition(animation)} className={`card ${className}`} style={style} id={id} name={name}>

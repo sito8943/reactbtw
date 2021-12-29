@@ -55,7 +55,11 @@ button,
 }
 
 .justify-space-between {
-  justify-content: space-between;
+  justify-content: space-between !important;
+}
+
+.justify-right {
+  justify-content: right !important;
 }
 
 // align
