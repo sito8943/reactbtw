@@ -18,6 +18,7 @@ import Footer from "./components/Footer/Footer";
 
 // views
 import Login from "./views/Login/Login";
+import Home from "./views/Home/Home";
 import NotMatch from "./views/NotMatch/NotMatch";
 
 const App = () => {
@@ -61,6 +62,10 @@ const App = () => {
               element={<Login texts={GetTexts(contextState.lang, "Login")} />}
             />
             <Route
+              path="/home"
+              element={<Home texts={GetTexts(contextState.lang, "Login")} />}
+            />
+            <Route
               path="*"
               element={
                 <NotMatch texts={GetTexts(contextState.lang, "NotMatch")} />
@@ -69,10 +74,9 @@ const App = () => {
           </Routes>
           <Footer texts={GetTexts(contextState.lang, "Footer")} />
         </Router>
-        ) : (
+      ) : (
         <></>
       )}
-      
     </div>
   );
 };

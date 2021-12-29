@@ -53,7 +53,8 @@ const Login = (props) => {
       };
       const data = await login(user);
       if (data !== "1") {
-        if (data !== 200 && data[0] !== "E") setPasswordError(texts.Errors.WrongUser);
+        if (data !== 200 && data[0] !== "E")
+          setPasswordError(texts.Errors.WrongUser);
         else setPasswordError(texts.Errors.NotConnected);
       } else {
         const loginUser = new User(base64encode(user.n), user.n);
@@ -61,8 +62,7 @@ const Login = (props) => {
           type: "log-in",
           user: loginUser,
         });
-        if (!remember)
-          storageFunction.toLocalStorage("user", user.n);
+        if (!remember) storageFunction.toLocalStorage("user", user.n);
         else storageFunction.toSessionStorage("user", user.n);
       }
       setLoading(false);
@@ -79,7 +79,11 @@ const Login = (props) => {
   return (
     <div className="view">
       {loading ? <Loading type="backdrop" visible={loading} /> : <></>}
-      <img src={main} alt="main-bg" className={graphicConfigState.animations ? "kenburns" : ""} />
+      <img
+        src={main}
+        alt="main-bg"
+        className={graphicConfigState.animations ? "kenburns" : ""}
+      />
       {!loading && graphicConfigState.animations ? <ShootingStars /> : <></>}
       {contextState.user.Name === undefined ? (
         <form onSubmit={handleSubmit(signIn)} className="form">
@@ -94,7 +98,9 @@ const Login = (props) => {
               autoComplete="off"
               {...register("n")}
             />
-            <label className="error" htmlFor="user">{userError}</label>
+            <label className="error" htmlFor="user">
+              {userError}
+            </label>
           </div>
           <div className="row flex flex-column">
             <label htmlFor="password">{texts.Labels.Password}</label>
@@ -104,7 +110,9 @@ const Login = (props) => {
               type="password"
               {...register("p")}
             />
-            <label className="error" htmlFor="password">{passwordError}</label>
+            <label className="error" htmlFor="password">
+              {passwordError}
+            </label>
           </div>
           <div className="row flex align-center">
             <Toggle
@@ -118,21 +126,32 @@ const Login = (props) => {
             <label htmlFor="remember">{texts.Labels.Remember}</label>
           </div>
           <div className="row flex">
-            <button type="submit" className="primary">{texts.Buttons.SignIn}</button>
-            <button type="button" className="ghost">{texts.Buttons.SignUp}</button>
+            <button type="submit" className="primary">
+              {texts.Buttons.SignIn}
+            </button>
+            <button type="button" className="ghost">
+              {texts.Buttons.SignUp}
+            </button>
           </div>
-          <hr/>
+          <hr />
           <div className="row flex align-center">
             <Link to="/forgot">{texts.Buttons.Forgot}</Link>
           </div>
         </form>
       ) : (
         <Card className="welcome-card" animation="pop-up">
-          <div>
-            <h3>{texts.Labels.Welcome}</h3>
-            <h1>{contextState.user.Name}</h1>
+          <div className="flex justify-space-between">
+            <div>
+              <h3>{texts.Labels.Welcome}</h3>
+              <h1>{contextState.user.Name}</h1>
+            </div>
+            <div>
+              <img src={compass} className="dialog-stars" alt="stars" />
+            </div>
           </div>
-          <button className="primary">{texts.Buttons.Continue}</button>
+          <Link to="/home" className="primary btn">
+            {texts.Buttons.Continue}
+          </Link>
         </Card>
       )}
     </div>
