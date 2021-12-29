@@ -4,6 +4,7 @@
 	width: 100vw;
 	top: 0;
 	background: #222333;
+	background: linear-gradient(180deg, rgba(34, 35, 51, 1), rgba(0,0,0,0));
 	z-index: 1;
 
 	button {
@@ -11,10 +12,6 @@
 	    border: none;
 	    width: 30px;
 	    margin: 5px 0px 1px 0px;
-
-	    img {
-	    	width: 25px;
-	    	object-fit: contain;
-	    }
+	    color: #aeb4b9;
 	}
 }
