@@ -5,6 +5,7 @@ import { storageFunction } from "storage-function";
 
 // context
 import { useContext } from "./context/ContextProvider";
+import { useOffCanvas } from "./context/OffCanvas";
 
 // models
 import User from "./models/User";
@@ -23,8 +24,10 @@ import Home from "./views/Home/Home";
 import NotMatch from "./views/NotMatch/NotMatch";
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
+  const { setOffCanvasState } = useOffCanvas();
   const { contextState, setContextState } = useContext();
+
+  const [loading, setLoading] = useState(true);
 
   const init = async () => {
     if (contextState.name === undefined) {
@@ -47,13 +50,20 @@ const App = () => {
     }
   };
 
+  const closeOffCanvas = (e) => {
+    if (e.target.id !== "off-canvas")
+      setOffCanvasState({type: "toggle"});
+  }
+
   useEffect(() => {
     init();
     setLoading(false);
   }, []);
 
   return (
-    <div>
+    <div onClick={(e) => {
+      alert(e.target.id)
+    }}>
       <Loading type="big" visible={loading} />
       {!loading ? (
         <Router>

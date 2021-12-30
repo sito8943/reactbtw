@@ -5,6 +5,7 @@ import App from "./App";
 // context
 import { ContextProvider } from "./context/ContextProvider";
 import { GraphicConfigProvider } from "./context/GraphicConfig";
+import { OffCanvasProvider } from "./context/OffCanvas";
 
 // styles
 import "./index.scss";
@@ -14,7 +15,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ContextProvider>
       <GraphicConfigProvider>
-        <App />
+        <OffCanvas>
+          <App />
+        </OffCanvas>
       </GraphicConfigProvider>
     </ContextProvider>
   </React.StrictMode>,

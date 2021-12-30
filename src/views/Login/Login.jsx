@@ -89,7 +89,7 @@ const Login = (props) => {
         className={graphicConfigState.animations ? "kenburns" : ""}
       />
       {!loading && graphicConfigState.animations ? <ShootingStars /> : <></>}
-      {contextState.user.Name === undefined ? (
+      {contextState.name === undefined ? (
         <form onSubmit={handleSubmit(signIn)} className="form">
           <img src={compass} alt="compass-bg" />
           <h3>{texts.Title[0]}</h3>
@@ -147,7 +147,7 @@ const Login = (props) => {
           <div className="flex justify-space-between">
             <div>
               <h3>{texts.Labels.Welcome}</h3>
-              <h1>{contextState.user.Name}</h1>
+              <h1>{contextState.name}</h1>
             </div>
             <div>
               <img src={compass} className="dialog-stars" alt="stars" />
