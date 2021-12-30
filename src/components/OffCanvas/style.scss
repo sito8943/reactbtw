@@ -6,11 +6,17 @@
     z-index: 3;
     background: #222333;
     transition: all 100ms linear;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 
     .row {
     	display: flex;
     	align-items: center;
+    	justify-content: center;
     	margin: 10px;
+    	width: 85%;
 
     	button {
     		display: flex;
@@ -24,6 +30,7 @@
 	        text-align: center;
 	        text-decoration: none;
 	        font-size: 14px;
+	        width: 100%;
 
 	        svg {
 	        	font-size: 20px;
