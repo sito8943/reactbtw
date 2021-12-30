@@ -6,6 +6,7 @@ import { MdSettings, MdMenu, MdMenuOpen } from "react-icons/md";
 
 // components
 import OffCanvas from "../OffCanvas/OffCanvas";
+import CharacterPortrait from "../CharacterPortrait/CharacterPortrait";
 
 // styles
 import "./style.scss";
@@ -26,6 +27,7 @@ const TopBar = (props) => {
         </button>
       </div>
       <OffCanvas visible={toggleMenu}>
+        <CharacterPortrait />
         <div className="row">
           <button className="ghost">
             <MdSettings />

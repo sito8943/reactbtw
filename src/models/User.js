@@ -3,11 +3,15 @@ export default class User {
    *
    * @param {number} id
    * @param {string} name
+   * @param {string} photo
+   * @param {number} level
    */
-  constructor(id = "", name = "", email = "") {
+  constructor(id = "", name = "", email = "", photo = "", level = 0) {
     this.id = id;
     this.name = name;
     this.email = email;
+    this.photo = photo;
+    this.level = level;
   }  
 
   /**
@@ -51,4 +55,33 @@ export default class User {
   set Email(email) {
     this.email = email;
   }
+
+  /**
+   * @returns user's photo
+   */
+  get Photo() {
+    return this.photo;
+  }
+
+  /**
+   * @param {string} photo
+   */
+  set Photo(photo) {
+    this.photo = photo;
+  }
+
+  /**
+   * @returns user's level
+   */
+  get Level() {
+    return this.level;
+  }
+
+  /**
+   * @param {string} level
+   */
+  set Level(level) {
+    this.level = level;
+  }
+
 }
