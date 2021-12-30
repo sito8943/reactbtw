@@ -26,7 +26,7 @@ const TopBar = (props) => {
         {toggleMenu ? <MdMenuOpen /> : <MdMenu />}
         </button>
       </div>
-      <OffCanvas visible={toggleMenu}>
+      <OffCanvas onClick={toggleMenuHandler} visible={toggleMenu}>
         <CharacterPortrait />
         <div className="row">
           <button className="ghost">

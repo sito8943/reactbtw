@@ -36,6 +36,10 @@ const Login = (props) => {
 
   const init = () => {};
 
+  const setUserPlaying = () => {
+    setContextState({ type: "change-user-action" })
+  }
+
   const signIn = async (d) => {
     setUserError("");
     setPasswordError("");
@@ -149,7 +153,7 @@ const Login = (props) => {
               <img src={compass} className="dialog-stars" alt="stars" />
             </div>
           </div>
-          <Link to="/home" className="primary btn">
+          <Link to="/home" className="primary btn" onClick={setUserPlaying}>
             {texts.Buttons.Continue}
           </Link>
         </Card>

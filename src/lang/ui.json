@@ -5,6 +5,13 @@
         "Settings": "Ajustes"
       }
     },
+    "CharacterPortrait": {
+      "Level": [
+        "Iniciado",
+        "Aventurero",
+        "Experto"
+      ]
+    },
     "Footer" : {
       "Comunity": "Comunidad",
       "Support": "Soporte"

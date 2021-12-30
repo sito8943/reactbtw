@@ -11,6 +11,23 @@
     justify-content: flex-start;
     align-items: center;
 
+    .close-button-row {
+    	margin-right: 10px;
+    	margin-top: 10px;
+    	position: absolute;
+    	z-index: 1;
+
+    	button {
+    		background: none;
+    		border: none;
+    		color: #aeb4b9;
+
+    		&:hover {
+    			box-shadow: 0px 0px 10px 2px #22244e;
+    		}
+    	}
+    }
+
     .row {
     	display: flex;
     	align-items: center;

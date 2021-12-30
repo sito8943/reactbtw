@@ -27,22 +27,22 @@ const App = () => {
   const { contextState, setContextState } = useContext();
 
   const init = async () => {
-    if (contextState.user.Name === undefined) {
-      if (storageFunction.fromLocalStorage("user") !== null)
+    if (contextState.name === undefined) {
+      if (storageFunction.fromLocalStorage("user").Id !== null)
         setContextState({
           type: "log-in",
-          user: new User(
-            base64encode(storageFunction.fromLocalStorage("user")),
-            storageFunction.fromLocalStorage("user")
-          ),
+          id: storageFunction.fromLocalStorage("user").Id,
+          name: storageFunction.fromLocalStorage("user").Name,
+          photo: storageFunction.fromLocalStorage("user").Photo,
+          level: storageFunction.fromLocalStorage("user").Level,
         });
       else if (storageFunction.fromSessionStorage("user") !== null)
         setContextState({
           type: "log-in",
-          user: new User(
-            base64encode(storageFunction.fromSessionStorage("user")),
-            storageFunction.fromSessionStorage("user")
-          ),
+          id: storageFunction.fromSessionStorage("user").Id,
+          name: storageFunction.fromSessionStorage("user").Name,
+          photo: storageFunction.fromSessionStorage("user").Photo,
+          level: storageFunction.fromSessionStorage("user").Level,
         });
     }
   };
@@ -57,7 +57,7 @@ const App = () => {
       <Loading type="big" visible={loading} />
       {!loading ? (
         <Router>
-          {contextState.user.Name !== undefined ? <TopBar texts={GetTexts(contextState.lang, "TopBar")} /> : <></>}
+          {contextState.name !== undefined ? <TopBar texts={GetTexts(contextState.lang, "TopBar")} /> : <></>}
           <Routes exact path="/" element={<div></div>}>
             <Route
               index
@@ -74,7 +74,7 @@ const App = () => {
               }
             />
           </Routes>
-          <Footer texts={GetTexts(contextState.lang, "Footer")} />
+          {contextState.action != 1 ? <Footer texts={GetTexts(contextState.lang, "Footer")} /> : <></> }
         </Router>
       ) : (
         <></>

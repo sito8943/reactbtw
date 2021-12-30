@@ -6,9 +6,26 @@ const Context = React.createContext();
 
 const contextReducer = (contextState, action) => {
   switch (action.type) {
+    case "change-user-action": {
+      return {
+        id: contextState.id,
+        name: contextState.name,
+        photo: contextState.photo,
+        level: action.level,
+        action: contextState.checking,
+        lang: contextState.lang,
+        mode: contextState.mode,
+        netStatus: contextState.netStatus,
+        showingNotification: contextState.showingNotification,
+      }
+    }
     case "changeLanguage": {
       return {
-        user: contextState.user,
+        id: contextState.id,
+        name: contextState.name,
+        photo: contextState.photo,
+        level: contextState.level,
+        action: contextState.checking,
         lang: action.newLang,
         mode: contextState.mode,
         netStatus: contextState.netStatus,
@@ -17,7 +34,11 @@ const contextReducer = (contextState, action) => {
     }
     case "changeMode":
       return {
-        user: contextState.user,
+        id: contextState.id,
+        name: contextState.name,
+        photo: contextState.photo,
+        level: contextState.level,
+        action: contextState.checking,
         lang: contextState.lang,
         mode: action.mode,
         netStatus: contextState.netStatus,
@@ -25,7 +46,11 @@ const contextReducer = (contextState, action) => {
       };
     case "showing":
       return {
-        user: contextState.user,
+        id: contextState.id,
+        name: contextState.name,
+        photo: contextState.photo,
+        level: contextState.level,
+        action: contextState.checking,
         lang: contextState.lang,
         mode: contextState.mode,
         netStatus: contextState.netStatus,
@@ -33,7 +58,11 @@ const contextReducer = (contextState, action) => {
       };
     case "offline":
       return {
-        user: contextState.user,
+        id: contextState.id,
+        name: contextState.name,
+        photo: contextState.photo,
+        level: contextState.level,
+        action: contextState.checking,
         lang: contextState.lang,
         netStatus: 0,
         mode: contextState.mode,
@@ -41,7 +70,11 @@ const contextReducer = (contextState, action) => {
       };
     case "online":
       return {
-        user: contextState.user,
+        id: contextState.id,
+        name: contextState.name,
+        photo: contextState.photo,
+        level: contextState.level,
+        action: contextState.checking,
         lang: contextState.lang,
         netStatus: 1,
         mode: contextState.mode,
@@ -49,7 +82,11 @@ const contextReducer = (contextState, action) => {
       };
     case "checking":
       return {
-        user: contextState.user,
+        id: contextState.id,
+        name: contextState.name,
+        photo: contextState.photo,
+        level: contextState.level,
+        action: contextState.checking,
         lang: contextState.lang,
         mode: contextState.mode,
         netStatus: 2,
@@ -57,15 +94,23 @@ const contextReducer = (contextState, action) => {
       };
     case "log-in":
       return {
-        user: action.user,
-        lang: contextState.lang,
+        id: action.id,
+        name: action.name,
+        photo: action.photo,
+        level: action.level,
+        action: 0,
+        lang: action.lang,
         mode: contextState.mode,
         netStatus: contextState.netStatus,
         showingNotification: contextState.showingNotification,
       };
     case "log-off":
       return {
-        user: {},
+        id: 0,
+        name: "",
+        photo: undefined,
+        level: 0,
+        action: 0,
         lang: contextState.lang,
         mode: contextState.mode,
         netStatus: contextState.netStatus,
@@ -78,7 +123,11 @@ const contextReducer = (contextState, action) => {
 
 const ContextProvider = ({ children }) => {
   const [contextState, setContextState] = React.useReducer(contextReducer, {
-    user: new User("1", "Sito"),
+    id: 1,
+    name: "Sito",
+    photo: undefined,
+    level: 0,
+    action: 0,
     lang: "ES",
     netStatus: "",
     mode: "dark",
