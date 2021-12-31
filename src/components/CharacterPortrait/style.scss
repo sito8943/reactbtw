@@ -1,0 +1,26 @@
+.character-portrait {
+	display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    padding: 10px;
+
+    h3 {
+    	color: #aeb4b9;
+    }
+
+    span {
+    	color: #5e6264;
+    }
+
+    .image-container {
+    	border-radius: 100%;
+    	background-color: #22244e;
+    	margin-right: 10px;
+
+    	img {
+			width: 70px;
+		}
+
+    }
+}
