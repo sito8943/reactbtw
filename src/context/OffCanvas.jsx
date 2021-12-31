@@ -3,10 +3,15 @@ import * as React from "react";
 const OffCanvas = React.createContext();
 
 const offCanvasReducer = (offCanvasState, action) => {
+  console.log(action);
   switch (action.type) {
-    case "toggle":
+    case "hidden":
       return {
-        visible: !offCanvasState.visible,
+        visible: false,
+      }
+    case "visible":
+      return {
+        visible: true,
       };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);

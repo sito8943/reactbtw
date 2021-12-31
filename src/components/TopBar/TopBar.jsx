@@ -23,8 +23,17 @@ const TopBar = (props) => {
   const { setAudioControllerState } = useAudioController();
 
   const toggleMenuHandler = () => {
-    setOffCanvasState({ type: "toggle"})
-    if (audioConfigState.sfx) setAudioControllerState({ type: "play", who:"pop-up"});
+    if (offCanvasState.visible)
+      setOffCanvasState({ type: "hidden"});
+    else
+      setOffCanvasState({ type: "visible"});
+    if (audioConfigState.sfx) setAudioControllerState({ type: "play-pop-up"});
+  }
+
+  const closeOffCanvas = () => {
+    if (offCanvasState.visible)
+      setOffCanvasState({ type: "hidden"});
+    if (audioConfigState.sfx) setAudioControllerState({ type: "play-pop-up"}); 
   }
 
   return (
@@ -34,7 +43,7 @@ const TopBar = (props) => {
         {offCanvasState.visible ? <MdMenuOpen /> : <MdMenu />}
         </button>
       </div>
-      <OffCanvas id="off-canvas" onClick={toggleMenuHandler} visible={offCanvasState.visible}>
+      <OffCanvas id="off-canvas" onClick={closeOffCanvas} visible={offCanvasState.visible}>
         <CharacterPortrait />
         <div className="row">
           <button className="ghost">

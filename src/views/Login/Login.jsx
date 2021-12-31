@@ -104,14 +104,11 @@ const Login = (props) => {
   }, []);
 
   const play = (who) => {
-    return setAudioControllerState({ type: "play", who });
+    return setAudioControllerState({ type: `play-${who}` });
   }
 
   return (
     <div className="view">
-      <audio className="audio-element">
-        <source src="https://assets.coderrocketfuel.com/pomodoro-times-up.mp3"></source>
-      </audio>
       {loading ? <Loading type="backdrop" visible={loading} /> : <></>}
       <img
         src={main}
@@ -174,12 +171,6 @@ const Login = (props) => {
         </form>
       ) : (
         <Card className="welcome-card" animation="pop-up">
-          {audioConfigState.sfx ? 
-            <>
-              {play("pop-up")}
-            </> : 
-            <></>
-          }
           <div className="flex justify-space-between">
             <div>
               <h3>{texts.Labels.Welcome}</h3>

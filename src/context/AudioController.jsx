@@ -3,15 +3,25 @@ import * as React from "react";
 const AudioController = React.createContext();
 
 const audioControllerReducer = (audioControllerState, action) => {
-  const value = action.who;
-  const localAudioControllerState = audioControllerState;
-  localAudioControllerState[value] = true;
+  console.log("context");
   switch (action.type) {
-    case "play":
+    case "play-space":
       return {
-        space: localAudioControllerState.space,
-        popUp: localAudioControllerState.popUp,
-        bigClick: localAudioControllerState.bigClick,
+        space: true,
+        popUp: audioControllerState.popUp,
+        bigClick: audioControllerState.bigClick,
+      }
+    case "play-big-click":
+      return {
+        space: audioControllerState.space,
+        popUp: audioControllerState.popUp,
+        bigClick: true,
+      }
+    case "play-pop-up":
+      return {
+        space: audioControllerState.space,
+        popUp: true,
+        bigClick: audioControllerState.bigClick,
       }
     default:
       throw new Error(`Unhandled action type: ${action.type}`);

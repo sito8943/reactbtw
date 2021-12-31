@@ -57,8 +57,8 @@ const App = () => {
 
   const closeOffCanvas = (e) => {
     if (e.target.id !== "off-canvas" && offCanvasState.visible) {
-      setOffCanvasState({type: "toggle"});
-      if (audioConfigState.sfx) setAudioControllerState({ type: "play", who: "pop-up" });
+      setOffCanvasState({type: "hidden"});
+      if (audioConfigState.sfx) setAudioControllerState({ type: "play-pop-up" });
     }
   }
 
@@ -72,6 +72,7 @@ const App = () => {
       <Loading type="big" visible={loading} />
       {!loading ? (
         <Router>
+          <AudioController />     
           {contextState.name !== undefined ? <TopBar texts={GetTexts(contextState.lang, "TopBar")} /> : <></>}
           <Routes exact path="/" element={<div></div>}>
             <Route
