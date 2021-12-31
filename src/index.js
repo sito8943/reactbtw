@@ -5,6 +5,7 @@ import App from "./App";
 // context
 import { ContextProvider } from "./context/ContextProvider";
 import { GraphicConfigProvider } from "./context/GraphicConfig";
+import { AudioConfigProvider } from "./context/AudioConfig";
 import { OffCanvasProvider } from "./context/OffCanvas";
 
 // styles
@@ -15,9 +16,11 @@ ReactDOM.render(
   <React.StrictMode>
     <ContextProvider>
       <GraphicConfigProvider>
-        <OffCanvasProvider>
-          <App />
-        </OffCanvasProvider>
+        <AudioConfigProvider>
+          <OffCanvasProvider>
+            <App />
+          </OffCanvasProvider>
+        </AudioConfigProvider>
       </GraphicConfigProvider>
     </ContextProvider>
   </React.StrictMode>,

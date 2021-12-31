@@ -33,7 +33,7 @@ const audioConfigReducer = (audioConfigState, action) => {
 
 const AudioConfigProvider = ({ children }) => {
   const [audioConfigState, setAudioConfigState] = React.useReducer(
-    graphicConfigReducer,
+    audioConfigReducer,
     {
       bfx: true,
       sfx: true,

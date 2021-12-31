@@ -5,13 +5,15 @@ import { base64encode } from "nodejs-base64";
 // context
 import { useContext } from "./context/ContextProvider";
 import { useOffCanvas } from "./context/OffCanvas";
+import { useAudioConfig } from "./context/AudioConfig";
+import { useGraphicConfig } from "./context/GraphicConfig";
 
 // models
 import User from "./models/User";
 
 // utils
 import { GetTexts } from "./lang/texts";
-import { LoadFromStorage } from "./utils/storageFuncions";
+import { LoadFromStorage } from "./utils/storageFunctions";
 
 // components
 import Loading from "./components/Loading/Loading";
@@ -26,12 +28,26 @@ import NotMatch from "./views/NotMatch/NotMatch";
 const App = () => {
   const { setOffCanvasState } = useOffCanvas();
   const { contextState, setContextState } = useContext();
+  const { audioConfigState, setAudioConfigState } = useAudioConfig();
+  const { graphicConfigState, setGraphicConfigState } = useGraphicConfig();
 
   const [loading, setLoading] = useState(true);
 
   const init = async () => {
     if (contextState.name === undefined) {
-      LoadFromStorate();  
+      const result = LoadFromStorage();  
+      setContextState({
+        type: "log-in",
+        data: result.user,
+      });
+      setAudioConfigState({
+        type: "set",
+        data: result.audio,
+      })
+      setGraphicConfigState({
+        type: "set",
+        data: result.graphic,
+      })
     }
     
   };
