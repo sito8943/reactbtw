@@ -8,14 +8,11 @@ import { base64encode } from "nodejs-base64";
 import main from "../../img/bg/main.jpg";
 import compass from "../../img/compass.svg";
 
-// sfx
-import space from "../../audio/sfx/space3.mp3";
-import popUp from "../../audio/sfx/popUp.mp3";
-
 // context
 import { useContext } from "../../context/ContextProvider";
 import { useGraphicConfig } from "../../context/GraphicConfig";
 import { useAudioConfig } from "../../context/AudioConfig";
+import { useAudioController } from "../../context/AudioController";
 
 // utils
 import { login } from "../../services/post";
@@ -37,28 +34,18 @@ const Login = (props) => {
   const { contextState, setContextState } = useContext();
   const { graphicConfigState, setGraphicConfigState } = useGraphicConfig();
   const { audioConfigState, setAudioConfigState } = useAudioConfig();
+  const { setAudioControllerState } = useAudioController();
 
   const [remember, setRemember] = useState(false);
   const [userError, setUserError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [audio] = useState(new Audio(space));
-  const [playing, setPlaying] = useState(false);
-
-  const toggle = () => setPlaying(!playing);
-
-  useEffect(() => {
-      playing ? audio.play() : audio.pause();
-    },
-    [playing]
-  );
-
-
 
   const init = () => {};
 
   const setUserPlaying = () => {
-    setContextState({ type: "change-user-action" })
+    setContextState({ type: "change-user-action" });
+    if (audioConfigState.sfx) play("big-click");
   }
 
   const signIn = async (d) => {
@@ -116,13 +103,15 @@ const Login = (props) => {
     setLoading(false);
   }, []);
 
-  /*const play = (who) => {
-    const song = new Audio(popUp);
-    song.play();
-  }*/
+  const play = (who) => {
+    return setAudioControllerState({ type: "play", who });
+  }
 
   return (
     <div className="view">
+      <audio className="audio-element">
+        <source src="https://assets.coderrocketfuel.com/pomodoro-times-up.mp3"></source>
+      </audio>
       {loading ? <Loading type="backdrop" visible={loading} /> : <></>}
       <img
         src={main}
@@ -180,11 +169,17 @@ const Login = (props) => {
           </div>
           <hr />
           <div className="row flex align-center">
-            <Link to="/forgot">{texts.Buttons.Forgot}</Link>
+            <Link to="/forgot" onClick={() => {if (audioConfigState.sfx) play("big-click")}}>{texts.Buttons.Forgot}</Link>
           </div>
         </form>
       ) : (
         <Card className="welcome-card" animation="pop-up">
+          {audioConfigState.sfx ? 
+            <>
+              {play("pop-up")}
+            </> : 
+            <></>
+          }
           <div className="flex justify-space-between">
             <div>
               <h3>{texts.Labels.Welcome}</h3>

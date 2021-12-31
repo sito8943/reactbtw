@@ -7,6 +7,7 @@ import { ContextProvider } from "./context/ContextProvider";
 import { GraphicConfigProvider } from "./context/GraphicConfig";
 import { AudioConfigProvider } from "./context/AudioConfig";
 import { OffCanvasProvider } from "./context/OffCanvas";
+import { AudioControllerProvider } from "./context/AudioController";
 
 // styles
 import "./index.scss";
@@ -18,7 +19,9 @@ ReactDOM.render(
       <GraphicConfigProvider>
         <AudioConfigProvider>
           <OffCanvasProvider>
-            <App />
+            <AudioControllerProvider>
+              <App />
+            </AudioControllerProvider>
           </OffCanvasProvider>
         </AudioConfigProvider>
       </GraphicConfigProvider>

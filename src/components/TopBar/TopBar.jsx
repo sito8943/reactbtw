@@ -6,6 +6,8 @@ import { MdSettings, MdMenu, MdMenuOpen } from "react-icons/md";
 
 // contexts
 import { useOffCanvas } from "../../context/OffCanvas";
+import { useAudioConfig } from "../../context/AudioConfig";
+import { useAudioController } from "../../context/AudioController";
 
 // components
 import OffCanvas from "../OffCanvas/OffCanvas";
@@ -17,9 +19,12 @@ import "./style.scss";
 const TopBar = (props) => {
   const { texts } = props;
   const { offCanvasState, setOffCanvasState } = useOffCanvas();
+  const { audioConfigState } = useAudioConfig();
+  const { setAudioControllerState } = useAudioController();
 
   const toggleMenuHandler = () => {
     setOffCanvasState({ type: "toggle"})
+    if (audioConfigState.sfx) setAudioControllerState({ type: "play", who:"pop-up"});
   }
 
   return (

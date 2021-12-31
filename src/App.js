@@ -7,6 +7,7 @@ import { useContext } from "./context/ContextProvider";
 import { useOffCanvas } from "./context/OffCanvas";
 import { useAudioConfig } from "./context/AudioConfig";
 import { useGraphicConfig } from "./context/GraphicConfig";
+import { useAudioController } from "./context/AudioController";
 
 // models
 import User from "./models/User";
@@ -19,6 +20,7 @@ import { LoadFromStorage } from "./utils/storageFunctions";
 import Loading from "./components/Loading/Loading";
 import Footer from "./components/Footer/Footer";
 import TopBar from "./components/TopBar/TopBar";
+import AudioController from "./components/AudioController/AudioController";
 
 // views
 import Login from "./views/Login/Login";
@@ -30,6 +32,7 @@ const App = () => {
   const { contextState, setContextState } = useContext();
   const { audioConfigState, setAudioConfigState } = useAudioConfig();
   const { graphicConfigState, setGraphicConfigState } = useGraphicConfig();
+  const { setAudioControllerState } = useAudioController();
 
   const [loading, setLoading] = useState(true);
 
@@ -53,8 +56,10 @@ const App = () => {
   };
 
   const closeOffCanvas = (e) => {
-    if (e.target.id !== "off-canvas" && offCanvasState.visible)
+    if (e.target.id !== "off-canvas" && offCanvasState.visible) {
       setOffCanvasState({type: "toggle"});
+      if (audioConfigState.sfx) setAudioControllerState({ type: "play", who: "pop-up" });
+    }
   }
 
   useEffect(() => {
