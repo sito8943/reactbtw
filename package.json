@@ -44,9 +44,11 @@
     "react-hook-form": "^7.22.5",
     "react-icons": "^4.3.1",
     "react-loader-spinner": "^4.0.0",
+    "react-player": "^2.9.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.0",
     "react-toggle-button": "^2.2.0",
-    "storage-function": "^2.1.9"
+    "storage-function": "^2.1.9",
+    "use-sound": "^4.0.1"
   }
 }

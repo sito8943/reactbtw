@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { base64encode } from "nodejs-base64";
@@ -6,6 +7,10 @@ import { base64encode } from "nodejs-base64";
 // images
 import main from "../../img/bg/main.jpg";
 import compass from "../../img/compass.svg";
+
+// sfx
+import space from "../../audio/sfx/space3.mp3";
+import popUp from "../../audio/sfx/popUp.mp3";
 
 // context
 import { useContext } from "../../context/ContextProvider";
@@ -37,6 +42,18 @@ const Login = (props) => {
   const [userError, setUserError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [audio] = useState(new Audio(space));
+  const [playing, setPlaying] = useState(false);
+
+  const toggle = () => setPlaying(!playing);
+
+  useEffect(() => {
+      playing ? audio.play() : audio.pause();
+    },
+    [playing]
+  );
+
+
 
   const init = () => {};
 
@@ -98,6 +115,11 @@ const Login = (props) => {
     init();
     setLoading(false);
   }, []);
+
+  /*const play = (who) => {
+    const song = new Audio(popUp);
+    song.play();
+  }*/
 
   return (
     <div className="view">

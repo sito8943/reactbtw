@@ -37,8 +37,8 @@ const AudioConfigProvider = ({ children }) => {
     {
       bfx: true,
       sfx: true,
-      bfxVolumen: 100,
-      sfxVolumen: 100,
+      bfxVolumen: 1,
+      sfxVolumen: 1,
     }
   );
 

@@ -26,7 +26,7 @@ import Home from "./views/Home/Home";
 import NotMatch from "./views/NotMatch/NotMatch";
 
 const App = () => {
-  const { setOffCanvasState } = useOffCanvas();
+  const { offCanvasState, setOffCanvasState } = useOffCanvas();
   const { contextState, setContextState } = useContext();
   const { audioConfigState, setAudioConfigState } = useAudioConfig();
   const { graphicConfigState, setGraphicConfigState } = useGraphicConfig();
@@ -53,7 +53,7 @@ const App = () => {
   };
 
   const closeOffCanvas = (e) => {
-    if (e.target.id !== "off-canvas")
+    if (e.target.id !== "off-canvas" && offCanvasState.visible)
       setOffCanvasState({type: "toggle"});
   }
 
@@ -63,9 +63,7 @@ const App = () => {
   }, []);
 
   return (
-    <div onClick={(e) => {
-      alert(e.target.id)
-    }}>
+    <div onClick={closeOffCanvas}>
       <Loading type="big" visible={loading} />
       {!loading ? (
         <Router>
