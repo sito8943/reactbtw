@@ -94,12 +94,12 @@ const contextReducer = (contextState, action) => {
       };
     case "log-in":
       return {
-        id: action.id,
-        name: action.name,
-        photo: action.photo,
-        level: action.level,
+        id: action.data.id,
+        name: action.data.name,
+        photo: action.data.photo,
+        level: action.data.level,
         action: 0,
-        lang: action.lang,
+        lang: action.data.lang,
         mode: contextState.mode,
         netStatus: contextState.netStatus,
         showingNotification: contextState.showingNotification,

@@ -15,9 +15,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ContextProvider>
       <GraphicConfigProvider>
-        <OffCanvas>
+        <OffCanvasProvider>
           <App />
-        </OffCanvas>
+        </OffCanvasProvider>
       </GraphicConfigProvider>
     </ContextProvider>
   </React.StrictMode>,

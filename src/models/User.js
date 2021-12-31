@@ -14,7 +14,19 @@ export default class User {
     this.photo = photo;
     this.level = level;
     this.action = action;
-  }  
+  }
+
+  /**
+   * @param {object} user
+   */
+  setUser (user) {
+    this.id = user.id;
+    this.name = user.name;
+    this.email = user.email;
+    this.photo = user.photo;
+    this.level = user.level;
+    this.action = user.action;
+  }
 
   /**
    * @returns user's id

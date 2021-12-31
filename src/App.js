@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { base64encode } from "nodejs-base64";
-import { storageFunction } from "storage-function";
 
 // context
 import { useContext } from "./context/ContextProvider";
@@ -12,6 +11,7 @@ import User from "./models/User";
 
 // utils
 import { GetTexts } from "./lang/texts";
+import { LoadFromStorage } from "./utils/storageFuncions";
 
 // components
 import Loading from "./components/Loading/Loading";
@@ -31,23 +31,9 @@ const App = () => {
 
   const init = async () => {
     if (contextState.name === undefined) {
-      if (storageFunction.fromLocalStorage("user").Id !== null)
-        setContextState({
-          type: "log-in",
-          id: storageFunction.fromLocalStorage("user").Id,
-          name: storageFunction.fromLocalStorage("user").Name,
-          photo: storageFunction.fromLocalStorage("user").Photo,
-          level: storageFunction.fromLocalStorage("user").Level,
-        });
-      else if (storageFunction.fromSessionStorage("user") !== null)
-        setContextState({
-          type: "log-in",
-          id: storageFunction.fromSessionStorage("user").Id,
-          name: storageFunction.fromSessionStorage("user").Name,
-          photo: storageFunction.fromSessionStorage("user").Photo,
-          level: storageFunction.fromSessionStorage("user").Level,
-        });
+      LoadFromStorate();  
     }
+    
   };
 
   const closeOffCanvas = (e) => {

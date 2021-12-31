@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { storageFunction } from "storage-function";
 import { base64encode } from "nodejs-base64";
 
 // images
@@ -14,9 +13,11 @@ import { useGraphicConfig } from "../../context/GraphicConfig";
 
 // utils
 import { login } from "../../services/post";
+import { SaveToStorage } from "../../utils/storageFunctions.js"
 
 // models
 import User from "../../models/User";
+import Config from "../../models/Config";
 
 // components
 import Loading from "../../components/Loading/Loading";
@@ -56,18 +57,26 @@ const Login = (props) => {
         p: d.p,
       };
       const data = await login(user);
-      if (data !== "1") {
+      if (data.user === undefined) {
         if (data !== 200 && data[0] !== "E")
           setPasswordError(texts.Errors.WrongUser);
         else setPasswordError(texts.Errors.NotConnected);
       } else {
-        const loginUser = new User(base64encode(user.n), user.n);
+        // taking from server
+        // user
+        const loginUser = new User();
+        loginUser.setUser(data.user);
+        // audio
+        const audioConfig = new Config(data.audio);
+        // graphic
+        const audioConfig = new Config(data.graphic);
         setContextState({
           type: "log-in",
-          user: loginUser,
+          data: data.user,
         });
-        if (!remember) storageFunction.toLocalStorage("user", user.n);
-        else storageFunction.toSessionStorage("user", user.n);
+        setAudio
+        if (!remember) SaveToStorage(false, {user: loginUser, audio: audioConfig, graphic: graphicConfig});
+        else SaveToStorage(true, {user: loginUser, audio: audioConfig, graphic: graphicConfig});
       }
       setLoading(false);
     }
