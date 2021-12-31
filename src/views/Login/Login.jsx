@@ -10,6 +10,7 @@ import compass from "../../img/compass.svg";
 // context
 import { useContext } from "../../context/ContextProvider";
 import { useGraphicConfig } from "../../context/GraphicConfig";
+import { useAudioConfig } from "../../context/AudioConfig";
 
 // utils
 import { login } from "../../services/post";
@@ -30,6 +31,8 @@ const Login = (props) => {
   const { register, handleSubmit } = useForm();
   const { contextState, setContextState } = useContext();
   const { graphicConfigState, setGraphicConfigState } = useGraphicConfig();
+  const { audioConfigState, setAudioConfigState } = useAudioConfig();
+
   const [remember, setRemember] = useState(false);
   const [userError, setUserError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -69,12 +72,19 @@ const Login = (props) => {
         // audio
         const audioConfig = new Config(data.audio);
         // graphic
-        const audioConfig = new Config(data.graphic);
+        const graphicConfig = new Config(data.graphic);
         setContextState({
           type: "log-in",
           data: data.user,
         });
-        setAudio
+        setAudioConfigState({
+          type: "set",
+          data: data.audio,
+        })
+        setGraphicConfigState({
+          type: "set",
+          data: data.graphic,
+        })
         if (!remember) SaveToStorage(false, {user: loginUser, audio: audioConfig, graphic: graphicConfig});
         else SaveToStorage(true, {user: loginUser, audio: audioConfig, graphic: graphicConfig});
       }

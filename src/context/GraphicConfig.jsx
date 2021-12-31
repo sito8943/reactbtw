@@ -4,6 +4,10 @@ const GraphicConfig = React.createContext();
 
 const graphicConfigReducer = (graphicConfigState, action) => {
   switch (action.type) {
+    case "set":
+      return {
+        animations: action.data.animations
+      }
     case "change":
       return {
         animations: action.animations,

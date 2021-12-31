@@ -4,6 +4,13 @@ const AudioConfig = React.createContext();
 
 const audioConfigReducer = (audioConfigState, action) => {
   switch (action.type) {
+    case "set": 
+      return {
+        bfx: action.data.bfx,
+        sfx: action.data.sfx,
+        bfxVolumen: action.data.bfxVolumen,
+        sfxVolumen: action.data.sfxVolumen,
+      }
     case "toggle-audio":
       return {
         bfx: action.bfx,
