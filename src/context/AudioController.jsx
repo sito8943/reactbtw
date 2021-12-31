@@ -23,6 +23,24 @@ const audioControllerReducer = (audioControllerState, action) => {
         popUp: true,
         bigClick: audioControllerState.bigClick,
       }
+    case "stop-space":
+      return {
+        space: false,
+        popUp: audioControllerState.popUp,
+        bigClick: audioControllerState.bigClick,
+      }
+    case "stop-big-click":
+      return {
+        space: audioControllerState.space,
+        popUp: audioControllerState.popUp,
+        bigClick: false,
+      }
+    case "stop-pop-up":
+      return {
+        space: audioControllerState.space,
+        popUp: false,
+        bigClick: audioControllerState.bigClick,
+      }
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
