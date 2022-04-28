@@ -13,7 +13,6 @@ import { useLanguage } from "./context/Language";
 import User from "./models/User";
 
 // utils
-import { GetTexts } from "./lang/texts";
 import { LoadFromStorage } from "./utils/storageFunctions";
 
 // components
@@ -36,7 +35,7 @@ const App = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const { setLanguageState } = useLanguage();
+  const { languageState, setLanguageState } = useLanguage();
 
   useEffect(() => {
     // fetching from local storage
@@ -87,32 +86,13 @@ const App = () => {
       {!loading ? (
         <Router>
           <AudioController />
-          {contextState.name !== undefined ? (
-            <TopBar texts={GetTexts(contextState.lang, "TopBar")} />
-          ) : (
-            <></>
-          )}
+          {contextState.name !== undefined && <TopBar />}
           <Routes exact path="/" element={<div></div>}>
-            <Route
-              index
-              element={<Login texts={GetTexts(contextState.lang, "Login")} />}
-            />
-            <Route
-              path="/home"
-              element={<Home texts={GetTexts(contextState.lang, "Login")} />}
-            />
-            <Route
-              path="*"
-              element={
-                <NotMatch texts={GetTexts(contextState.lang, "NotMatch")} />
-              }
-            />
+            <Route index element={<Login />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="*" element={<NotMatch />} />
           </Routes>
-          {contextState.action !== 1 ? (
-            <Footer texts={GetTexts(contextState.lang, "Footer")} />
-          ) : (
-            <></>
-          )}
+          {contextState.action !== 1 && <Footer />}
         </Router>
       ) : (
         <></>

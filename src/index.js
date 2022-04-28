@@ -14,6 +14,9 @@ import { LanguageProvider } from "./context/Language";
 import "./index.scss";
 import "./components/Kenburns/kenburns.scss";
 
+import Container from "./components/Container/Container";
+import CharacterPortrait from "./components/CharacterPortrait/CharacterPortrait";
+
 ReactDOM.render(
   <React.StrictMode>
     <LanguageProvider>
@@ -21,7 +24,12 @@ ReactDOM.render(
         <GraphicConfigProvider>
           <AudioConfigProvider>
             <OffCanvasProvider>
-              <AudioControllerProvider>{/*<App />*/}</AudioControllerProvider>
+              <AudioControllerProvider>
+                {/*<App />*/}
+                <Container>
+                  <CharacterPortrait />
+                </Container>
+              </AudioControllerProvider>
             </OffCanvasProvider>
           </AudioConfigProvider>
         </GraphicConfigProvider>

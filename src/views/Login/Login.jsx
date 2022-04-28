@@ -12,6 +12,7 @@ import { useContext } from "../../context/ContextProvider";
 import { useGraphicConfig } from "../../context/GraphicConfig";
 import { useAudioConfig } from "../../context/AudioConfig";
 import { useAudioController } from "../../context/AudioController";
+import { useLanguage } from "../../context/Language";
 import { useForm } from "react-hook-form";
 
 // utils
@@ -28,8 +29,8 @@ import ShootingStars from "../../components/ShootingStars/ShootingStars";
 import Toggle from "../../components/Toggle/Toggle";
 import Card from "../../components/Card/Card";
 
-const Login = (props) => {
-  const { texts } = props;
+const Login = () => {
+  const { languageState } = useLanguage();
   const { register, handleSubmit } = useForm();
   const { contextState, setContextState } = useContext();
   const { graphicConfigState, setGraphicConfigState } = useGraphicConfig();
@@ -52,10 +53,10 @@ const Login = (props) => {
     setUserError("");
     setPasswordError("");
     if (d.n === "") {
-      setUserError(texts.Errors.EmptyUser);
+      setUserError(languageState.texts.Login.Errors.EmptyUser);
       document.getElementById("user").focus();
     } else if (d.p === "") {
-      setPasswordError(texts.Errors.EmptyPassword);
+      setPasswordError(languageState.texts.Login.Errors.EmptyPassword);
       document.getElementById("password").focus();
     } else {
       setLoading(true);
@@ -66,8 +67,8 @@ const Login = (props) => {
       const data = await login(user);
       if (data.user === undefined) {
         if (data !== 200 && data[0] !== "E")
-          setPasswordError(texts.Errors.WrongUser);
-        else setPasswordError(texts.Errors.NotConnected);
+          setPasswordError(languageState.texts.Login.Errors.WrongUser);
+        else setPasswordError(languageState.texts.Login.Errors.NotConnected);
       } else {
         // taking from server
         // user
@@ -129,13 +130,15 @@ const Login = (props) => {
       {contextState.name === undefined ? (
         <form onSubmit={handleSubmit(signIn)} className="form">
           <img src={compass} alt="compass-bg" />
-          <h3>{texts.Title[0]}</h3>
-          <h2>{texts.Title[1]}</h2>
+          <h3>{languageState.texts.Login.Title[0]}</h3>
+          <h2>{languageState.texts.Login.Title[1]}</h2>
           <div className="row flex flex-column">
-            <label htmlFor="user">{texts.Labels.User}</label>
+            <label htmlFor="user">
+              {languageState.texts.Login.Labels.User}
+            </label>
             <input
               id="user"
-              placeholder={texts.Placeholders.User}
+              placeholder={languageState.texts.Login.Placeholders.User}
               autoComplete="off"
               {...register("n")}
             />
@@ -144,10 +147,12 @@ const Login = (props) => {
             </label>
           </div>
           <div className="row flex flex-column">
-            <label htmlFor="password">{texts.Labels.Password}</label>
+            <label htmlFor="password">
+              {languageState.texts.Login.Labels.Password}
+            </label>
             <input
               id="password"
-              placeholder={texts.Placeholders.Password}
+              placeholder={languageState.texts.Login.Placeholders.Password}
               type="password"
               {...register("p")}
             />
@@ -164,14 +169,16 @@ const Login = (props) => {
               value={remember}
               onToggle={toggleRemember}
             />
-            <label htmlFor="remember">{texts.Labels.Remember}</label>
+            <label htmlFor="remember">
+              {languageState.texts.Login.Labels.Remember}
+            </label>
           </div>
           <div className="row flex">
             <button type="submit" className="primary">
-              {texts.Buttons.SignIn}
+              {languageState.texts.Login.Buttons.SignIn}
             </button>
             <button type="button" className="ghost">
-              {texts.Buttons.SignUp}
+              {languageState.texts.Login.Buttons.SignUp}
             </button>
           </div>
           <hr />
@@ -182,7 +189,7 @@ const Login = (props) => {
                 if (audioConfigState.sfx) play("big-click");
               }}
             >
-              {texts.Buttons.Forgot}
+              {languageState.texts.Login.Buttons.Forgot}
             </Link>
           </div>
         </form>
@@ -190,7 +197,7 @@ const Login = (props) => {
         <Card className="welcome-card" animation="pop-up">
           <div className="flex justify-space-between">
             <div>
-              <h3>{texts.Labels.Welcome}</h3>
+              <h3>{languageState.texts.Login.Labels.Welcome}</h3>
               <h1>{contextState.name}</h1>
             </div>
             <div>
@@ -198,7 +205,7 @@ const Login = (props) => {
             </div>
           </div>
           <Link to="/home" className="primary btn" onClick={setUserPlaying}>
-            {texts.Buttons.Continue}
+            {languageState.texts.Login.Buttons.Continue}
           </Link>
         </Card>
       )}

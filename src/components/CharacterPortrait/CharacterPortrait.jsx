@@ -6,9 +6,7 @@ import PropTypes from "prop-types";
 
 // contexts
 import { useContext } from "../../context/ContextProvider";
-
-// utils
-import { GetTexts } from "../../lang/texts";
+import { useLanguage } from "../../context/Language";
 
 // images
 import femaleHighElf from "../../img/portrait/femalehighelf.webp";
@@ -20,6 +18,8 @@ import Container from "../Container/Container";
 import "./style.scss";
 
 const CharacterPortrait = (props) => {
+  const { languageState } = useLanguage();
+
   const { id, name, style } = props;
   const { contextState } = useContext();
 
@@ -60,9 +60,7 @@ const CharacterPortrait = (props) => {
       <div>
         <h3>{contextState.name}</h3>
         <span>{`${
-          GetTexts(contextState.lang, "CharacterPortrait").Level[
-            Number(contextState.level)
-          ]
+          languageState.texts.CharacterPortrait.Level[contextState.level]
         }`}</span>
       </div>
     </Container>
