@@ -67,7 +67,7 @@ const ContextProvider = ({ children }) => {
   const [contextState, setContextState] = React.useReducer(contextReducer, {
     id: 1,
     name: "Sito",
-    class: ClassEnumType.Fighter,
+    class: ClassEnumType.Hunter,
     photo: undefined,
     level: 0,
     action: 0,

@@ -2,7 +2,7 @@
 import {
   // classes
   GiBroadsword, // fighter
-  GiBullseye, // hunter
+  GiCrossbow, // hunter
   GiBurningMeteor, // mage
   GiCrenulatedShield, // defender
   // attributes
@@ -17,7 +17,7 @@ import {
 
 export const ClassIcons = [
   <GiBroadsword />,
-  <GiBullseye />,
+  <GiCrossbow />,
   <GiBurningMeteor />,
   <GiCrenulatedShield />,
 ];

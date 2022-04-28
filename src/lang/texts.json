@@ -7,7 +7,7 @@
     },
     "CharacterPortrait": {
       "Labels": {
-        "Name": "Nombre",
+        "Name": "Nombre:",
         "Level": "Nivel:",
         "Range": "Rango:"
       },
