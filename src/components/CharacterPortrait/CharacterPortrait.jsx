@@ -29,6 +29,13 @@ const CharacterPortrait = (props) => {
     span: {
       color: "#5e6264",
     },
+    ".label": {
+      marginRight: "10px",
+      fontWeight: "500",
+    },
+    ".portrait-row": {
+      marginTop: "10px",
+    },
   };
 
   const imageContainer = css({
@@ -55,11 +62,27 @@ const CharacterPortrait = (props) => {
           alt="character-portrait"
         />
       </div>
-      <Container >
-        <h3>{contextState.name}</h3>
-        <span>{`${
-          languageState.texts.CharacterPortrait.Level[contextState.level]
-        }`}</span>
+      <Container flexDirection="column">
+        <Container className="portrait-row" id="name-row">
+          <span className="label">
+            {`${languageState.texts.CharacterPortrait.Labels.Name}`}{" "}
+          </span>
+          <span>{`${contextState.name}`}</span>
+        </Container>
+        <Container className="portrait-row" id="level-row">
+          <span className="label">
+            {`${languageState.texts.CharacterPortrait.Labels.Level}`}{" "}
+          </span>
+          <span>{`${contextState.level}`}</span>
+        </Container>
+        <Container className="portrait-row" id="range-row">
+          <span className="label">
+            {`${languageState.texts.CharacterPortrait.Labels.Range}`}{" "}
+          </span>
+          <span>{`${
+            languageState.texts.CharacterPortrait.Range[contextState.level]
+          }`}</span>
+        </Container>
       </Container>
     </Container>
   );

@@ -16,6 +16,7 @@ const Container = (props) => {
     alignItems,
     justifyContent,
     flexDirection,
+    className,
     sx,
     id,
     name,
@@ -36,7 +37,7 @@ const Container = (props) => {
       style={style}
       id={id}
       name={name}
-      className={newSx}
+      className={`${newSx} ${className}`}
       {...extraProps}
     >
       {children}
@@ -50,6 +51,7 @@ Container.defaultProps = {
   alignItems: "left",
   justifyContent: "left",
   flexDirection: "row",
+  className: "",
   id: "",
   name: "",
   sx: {},
@@ -62,6 +64,7 @@ Container.propTypes = {
   display: PropTypes.string,
   component: PropTypes.string,
   flexDirection: PropTypes.string,
+  className: PropTypes.string,
   alignItems: PropTypes.string,
   justifyContent: PropTypes.string,
   id: PropTypes.string,

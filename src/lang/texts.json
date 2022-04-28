@@ -6,7 +6,12 @@
       }
     },
     "CharacterPortrait": {
-      "Level": ["Iniciado", "Aventurero", "Experto"]
+      "Labels": {
+        "Name": "Nombre",
+        "Level": "Nivel:",
+        "Range": "Rango:"
+      },
+      "Range": ["Iniciado", "Aventurero", "Experto"]
     },
     "Footer": {
       "Community": "Comunidad",
