@@ -21,9 +21,7 @@ ReactDOM.render(
         <GraphicConfigProvider>
           <AudioConfigProvider>
             <OffCanvasProvider>
-              <AudioControllerProvider>
-                <App />
-              </AudioControllerProvider>
+              <AudioControllerProvider>{/*<App />*/}</AudioControllerProvider>
             </OffCanvasProvider>
           </AudioConfigProvider>
         </GraphicConfigProvider>
