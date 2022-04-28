@@ -1,18 +1,14 @@
 {
-  "ES": {
+  "es": {
     "TopBar": {
-      "Labels" : {
+      "Labels": {
         "Settings": "Ajustes"
       }
     },
     "CharacterPortrait": {
-      "Level": [
-        "Iniciado",
-        "Aventurero",
-        "Experto"
-      ]
+      "Level": ["Iniciado", "Aventurero", "Experto"]
     },
-    "Footer" : {
+    "Footer": {
       "Comunity": "Comunidad",
       "Support": "Soporte"
     },
@@ -39,7 +35,7 @@
         "Welcome": "Bienvenido ",
         "User": "Nombre de usuario",
         "Password": "Contraseña",
-        "ShowPassword" : "Mostrar contraseña",
+        "ShowPassword": "Mostrar contraseña",
         "Remember": "Recodar"
       },
       "Placeholders": {

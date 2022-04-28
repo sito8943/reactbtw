@@ -8,6 +8,7 @@ import { GraphicConfigProvider } from "./context/GraphicConfig";
 import { AudioConfigProvider } from "./context/AudioConfig";
 import { OffCanvasProvider } from "./context/OffCanvas";
 import { AudioControllerProvider } from "./context/AudioController";
+import { LanguageProvider } from "./context/Language";
 
 // styles
 import "./index.scss";
@@ -15,17 +16,19 @@ import "./components/Kenburns/kenburns.scss";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ContextProvider>
-      ``<GraphicConfigProvider>
-        <AudioConfigProvider>
-          <OffCanvasProvider>
-            <AudioControllerProvider>
-              <App />
-            </AudioControllerProvider>
-          </OffCanvasProvider>
-        </AudioConfigProvider>
-      </GraphicConfigProvider>
-    </ContextProvider>
+    <LanguageProvider>
+      <ContextProvider>
+        <GraphicConfigProvider>
+          <AudioConfigProvider>
+            <OffCanvasProvider>
+              <AudioControllerProvider>
+                <App />
+              </AudioControllerProvider>
+            </OffCanvasProvider>
+          </AudioConfigProvider>
+        </GraphicConfigProvider>
+      </ContextProvider>
+    </LanguageProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

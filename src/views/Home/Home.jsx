@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+
+// react-router-dom
 import { Link } from "react-router-dom";
-import { storageFunction } from "storage-function";
 
 // images
 import main from "../../img/bg/main.jpg";
@@ -31,11 +32,7 @@ const Home = (props) => {
     setLoading(false);
   }, []);
 
-  return (
-    <div className="view">
-      
-    </div>
-  );
+  return <div className="view"></div>;
 };
 
 export default Home;

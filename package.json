@@ -33,22 +33,22 @@
   "author": "sito",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.24.0",
-    "crypto-js": "^4.1.1",
-    "framer-motion": "^5.5.5",
-    "node-sass": "6",
-    "nodejs-base64": "^2.0.0",
+    "@emotion/css": "^11.9.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.1.1",
+    "@testing-library/user-event": "^14.1.1",
+    "axios": "^0.27.2",
+    "framer-motion": "^6.3.3",
+    "js-base64": "^3.7.2",
     "prop-types": "^15.8.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "react-hook-form": "^7.22.5",
     "react-icons": "^4.3.1",
     "react-loader-spinner": "^4.0.0",
     "react-player": "^2.9.0",
     "react-router-dom": "^6.2.1",
-    "react-scripts": "^5.0.0",
-    "react-toggle-button": "^2.2.0",
-    "storage-function": "^2.1.9",
-    "use-sound": "^4.0.1"
+    "react-scripts": "^5.0.1",
+    "react-toggle-button": "^2.2.0"
   }
 }

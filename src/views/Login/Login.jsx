@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import ReactPlayer from "react-player";
+
+// react-router-dom
 import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { base64encode } from "nodejs-base64";
 
 // images
 import main from "../../img/bg/main.jpg";
@@ -13,10 +12,11 @@ import { useContext } from "../../context/ContextProvider";
 import { useGraphicConfig } from "../../context/GraphicConfig";
 import { useAudioConfig } from "../../context/AudioConfig";
 import { useAudioController } from "../../context/AudioController";
+import { useForm } from "react-hook-form";
 
 // utils
 import { login } from "../../services/post";
-import { SaveToStorage } from "../../utils/storageFunctions.js"
+import { SaveToStorage } from "../../utils/storageFunctions.js";
 
 // models
 import User from "../../models/User";
@@ -46,7 +46,7 @@ const Login = (props) => {
   const setUserPlaying = () => {
     setContextState({ type: "change-user-action" });
     if (audioConfigState.sfx) play("big-click");
-  }
+  };
 
   const signIn = async (d) => {
     setUserError("");
@@ -84,13 +84,23 @@ const Login = (props) => {
         setAudioConfigState({
           type: "set",
           data: data.audio,
-        })
+        });
         setGraphicConfigState({
           type: "set",
           data: data.graphic,
-        })
-        if (!remember) SaveToStorage(false, {user: loginUser, audio: audioConfig, graphic: graphicConfig});
-        else SaveToStorage(true, {user: loginUser, audio: audioConfig, graphic: graphicConfig});
+        });
+        if (!remember)
+          SaveToStorage(false, {
+            user: loginUser,
+            audio: audioConfig,
+            graphic: graphicConfig,
+          });
+        else
+          SaveToStorage(true, {
+            user: loginUser,
+            audio: audioConfig,
+            graphic: graphicConfig,
+          });
       }
       setLoading(false);
     }
@@ -105,7 +115,7 @@ const Login = (props) => {
 
   const play = (who) => {
     return setAudioControllerState({ type: `play-${who}` });
-  }
+  };
 
   return (
     <div className="view">
@@ -166,7 +176,14 @@ const Login = (props) => {
           </div>
           <hr />
           <div className="row flex align-center">
-            <Link to="/forgot" onClick={() => {if (audioConfigState.sfx) play("big-click")}}>{texts.Buttons.Forgot}</Link>
+            <Link
+              to="/forgot"
+              onClick={() => {
+                if (audioConfigState.sfx) play("big-click");
+              }}
+            >
+              {texts.Buttons.Forgot}
+            </Link>
           </div>
         </form>
       ) : (

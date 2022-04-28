@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { base64encode } from "nodejs-base64";
 
 // context
 import { useContext } from "./context/ContextProvider";
@@ -8,6 +7,7 @@ import { useOffCanvas } from "./context/OffCanvas";
 import { useAudioConfig } from "./context/AudioConfig";
 import { useGraphicConfig } from "./context/GraphicConfig";
 import { useAudioController } from "./context/AudioController";
+import { useLanguage } from "./context/Language";
 
 // models
 import User from "./models/User";
@@ -36,9 +36,23 @@ const App = () => {
 
   const [loading, setLoading] = useState(true);
 
+  const { setLanguageState } = useLanguage();
+
+  useEffect(() => {
+    // fetching from local storage
+    const lang =
+      localStorage.getItem("lang") === null ||
+      localStorage.getItem("lang") === undefined
+        ? "en"
+        : localStorage.getItem("lang");
+    if (lang !== window.navigator.language)
+      localStorage.setItem("lang", window.navigator.language);
+    setLanguageState({ type: "set", lang: lang.split("-")[0] });
+  }, []);
+
   const init = async () => {
     if (contextState.name === undefined) {
-      const result = LoadFromStorage();  
+      const result = LoadFromStorage();
       setContextState({
         type: "log-in",
         data: result.user,
@@ -46,25 +60,25 @@ const App = () => {
       setAudioConfigState({
         type: "set",
         data: result.audio,
-      })
+      });
       setGraphicConfigState({
         type: "set",
         data: result.graphic,
-      })
+      });
     }
-    
+    setLoading(false);
   };
 
   const closeOffCanvas = (e) => {
     if (e.target.id !== "off-canvas" && offCanvasState.visible) {
-      setOffCanvasState({type: "hidden"});
-      if (audioConfigState.sfx) setAudioControllerState({ type: "play-pop-up" });
+      setOffCanvasState({ type: "hidden" });
+      if (audioConfigState.sfx)
+        setAudioControllerState({ type: "play-pop-up" });
     }
-  }
+  };
 
   useEffect(() => {
     init();
-    setLoading(false);
   }, []);
 
   return (
@@ -72,8 +86,12 @@ const App = () => {
       <Loading type="big" visible={loading} />
       {!loading ? (
         <Router>
-          <AudioController />     
-          {contextState.name !== undefined ? <TopBar texts={GetTexts(contextState.lang, "TopBar")} /> : <></>}
+          <AudioController />
+          {contextState.name !== undefined ? (
+            <TopBar texts={GetTexts(contextState.lang, "TopBar")} />
+          ) : (
+            <></>
+          )}
           <Routes exact path="/" element={<div></div>}>
             <Route
               index
@@ -90,7 +108,11 @@ const App = () => {
               }
             />
           </Routes>
-          {contextState.action != 1 ? <Footer texts={GetTexts(contextState.lang, "Footer")} /> : <></> }
+          {contextState.action !== 1 ? (
+            <Footer texts={GetTexts(contextState.lang, "Footer")} />
+          ) : (
+            <></>
+          )}
         </Router>
       ) : (
         <></>

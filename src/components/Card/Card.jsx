@@ -1,5 +1,9 @@
 import React from "react";
+
+// prop-types
 import PropTypes from "prop-types";
+
+// framer-motion
 import { motion } from "framer-motion";
 
 // utils
@@ -12,7 +16,15 @@ const Card = (props) => {
   const { children, className, id, name, style, animation } = props;
 
   return (
-    <motion.div initial={getInitial(animation)} animate={getAnimation(animation)} transition={getTransition(animation)} className={`card ${className}`} style={style} id={id} name={name}>
+    <motion.div
+      initial={getInitial(animation)}
+      animate={getAnimation(animation)}
+      transition={getTransition(animation)}
+      className={`card ${className}`}
+      style={style}
+      id={id}
+      name={name}
+    >
       {children}
     </motion.div>
   );
@@ -26,14 +38,14 @@ Card.defaultProps = {
   id: "",
   name: "",
   style: {},
-}
+};
 
-/*Card.checkPropTypes = {
+Card.propTypes = {
   className: PropTypes.string,
   name: PropTypes.string,
   id: PropTypes.string,
   style: PropTypes.object,
-  children: PropTypes.element.isRequired()
-}*/
+  children: PropTypes.element.isRequired(),
+};
 
 export default Card;
