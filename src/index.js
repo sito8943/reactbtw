@@ -1,6 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
+import { StrictMode } from "react";
+import * as ReactDOMClient from "react-dom/client";
+//import App from "./App";
 
 // context
 import { ContextProvider } from "./context/ContextProvider";
@@ -11,14 +11,19 @@ import { AudioControllerProvider } from "./context/AudioController";
 import { LanguageProvider } from "./context/Language";
 
 // styles
-import "./index.scss";
-import "./components/Kenburns/kenburns.scss";
+import "./index.css";
+import "./components/Kenburns/kenburns.css";
 
 import Container from "./components/Container/Container";
 import CharacterPortrait from "./components/CharacterPortrait/CharacterPortrait";
 
-ReactDOM.render(
-  <React.StrictMode>
+const container = document.getElementById("root");
+
+// Create a root.
+const root = ReactDOMClient.createRoot(container);
+
+root.render(
+  <StrictMode>
     <LanguageProvider>
       <ContextProvider>
         <GraphicConfigProvider>
@@ -35,6 +40,5 @@ ReactDOM.render(
         </GraphicConfigProvider>
       </ContextProvider>
     </LanguageProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </StrictMode>
 );

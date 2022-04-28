@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-// 3rd libs
-import Loader from "react-loader-spinner";
-
 // images
 import compass from "../../img/compass.svg";
 
 // styles
-import "./style.scss";
+import "./style.css";
 
 const Loading = (props) => {
   const { type, visible } = props;

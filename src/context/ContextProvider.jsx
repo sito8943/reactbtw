@@ -1,6 +1,4 @@
-import { base64encode } from "nodejs-base64";
 import * as React from "react";
-import User from "../models/User";
 
 const Context = React.createContext();
 
@@ -17,7 +15,7 @@ const contextReducer = (contextState, action) => {
         mode: contextState.mode,
         netStatus: contextState.netStatus,
         showingNotification: contextState.showingNotification,
-      }
+      };
     }
     case "changeLanguage": {
       return {

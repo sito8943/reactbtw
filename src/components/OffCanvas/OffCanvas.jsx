@@ -1,37 +1,55 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { MdSettings, MdMenu, MdMenuOpen } from "react-icons/md";
+// prop-types
+import PropTypes from "prop-types";
 
-// 3rd lib
+// framer-motion
+import { motion } from "framer-motion";
+
+// @emotion/css
+import { css } from "@emotion/css";
+
+// react-icons
 import { MdClose } from "react-icons/md";
 
-// utils
-import { getInitial, getAnimation, getTransition } from "../../utils/animation";
-
 // style
-import "./style.scss";
+import "./style.css";
 
 const OffCanvas = (props) => {
-	const {visible, children, className, id, name, style, onClick} = props;
+  const { visible, children, className, id, name, style, onClick } = props;
 
-	return <motion.div animate={{left: !visible ? "-250px" : 0}} className={`off-canvas ${className}`} style={style} id={id} name={name}>
-		<div className="close-button-row flex justify-right full-width">
-			<button onClick={onClick}>
-				<MdClose />
-			</button>
-		</div>
-		{children}
-	</motion.div>
-}
+  return (
+    <motion.div
+      animate={{ left: !visible ? "-250px" : 0 }}
+      className={`off-canvas ${className}`}
+      style={style}
+      id={id}
+      name={name}
+    >
+      <div className="close-button-row flex justify-right full-width">
+        <button onClick={onClick}>
+          <MdClose />
+        </button>
+      </div>
+      {children}
+    </motion.div>
+  );
+};
 
 OffCanvas.defaultName = "OffCanvas";
 
 OffCanvas.defaultProps = {
-	visible: false,
-	className: "",
-	id: "",
-	name: "",
-	style: {},
-}
+  visible: false,
+  className: "",
+  id: "",
+  name: "",
+  style: {},
+};
+
+OffCanvas.propTypes = {
+  visible: PropTypes.bool,
+  className: "",
+  id: "",
+  name: "",
+  style: {},
+};
 
 export default OffCanvas;

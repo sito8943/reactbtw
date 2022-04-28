@@ -1,0 +1,184 @@
+body {
+  overflow: hidden;
+}
+
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+h3 {
+  color: aliceblue;
+}
+
+h1,
+h2 {
+  color: dodgerblue;
+}
+
+button,
+.btn {
+  cursor: pointer;
+}
+
+a,
+input,
+button,
+.btn {
+  transition: all 300ms linear;
+}
+
+.primary {
+  background: #2d2f48;
+}
+
+.primary:hover {
+  background: #22244e;
+}
+
+.ghost {
+  background: none;
+}
+
+.ghost:hover {
+  box-shadow: 0px 0px 10px 2px #22244e;
+}
+
+.flex {
+  display: flex !important;
+}
+
+.justify-center {
+  justify-content: center !important;
+}
+
+.justify-space-between {
+  justify-content: space-between !important;
+}
+
+.justify-right {
+  justify-content: right !important;
+}
+
+.justify-left {
+  justify-content: left !important;
+}
+
+.align-center {
+  align-items: center !important;
+}
+
+.flex-column {
+  flex-direction: column !important;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.dialog-stars {
+  position: inherit !important;
+  width: 100px;
+}
+
+.view {
+  height: 100vh;
+  width: 100vw;
+  padding: 10vh 0;
+  background: #222333;
+}
+
+.view .form {
+  position: absolute;
+  border-radius: 40px;
+  overflow: hidden;
+  left: 0;
+  right: 0;
+  width: 400px;
+  padding: 40px;
+  margin: auto;
+  background-color: #222333;
+  z-index: 3;
+}
+
+.view .form img {
+  position: absolute;
+  z-index: -1;
+  opacity: 0.04;
+  transform: rotate3d(1, 1, 1, 45deg);
+  left: -100px;
+  top: -80px;
+}
+
+.view .form .row {
+  margin: 10px 0;
+  z-index: 3;
+}
+
+.view .form .row .toggle {
+  margin: 10px;
+  z-index: 3;
+}
+
+.view .form .row input,
+.view .form .row label {
+  margin: 5px 0;
+  color: #aeb4b9;
+  z-index: 3;
+}
+
+.view .form .row button,
+.view .form .row .btn {
+  margin: 0 10px 0 0;
+  border: 2px solid #22244e;
+  border-radius: 40px;
+  padding: 10px 25px;
+  color: #aeb4b9;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+}
+
+.view .form .row input {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid gray;
+  background: none;
+  z-index: 3;
+}
+
+.view .form .row:hover {
+  border: 1px solid #22244e;
+  box-shadow: 0px 0px 10px 2px #22244e;
+  z-index: 3;
+}
+
+.view .form .row:focus {
+  outline: 1px solid #22244e;
+  border: 1px solid #22244e;
+  box-shadow: 0px 0px 10px 2px #22244e;
+  z-index: 3;
+}
+
+.view .form .row .error {
+  color: #ff4568 !important;
+}
+
+.view .form .row a {
+  color: #aeb4b9;
+}
+
+.view .form .row a:hover {
+  color: dodgerblue;
+}
+
+.view .form hr {
+  border: 1px dashed #22244e;
+  border-radius: 50%;
+  margin: 10px 0;
+}
+
+.view img {
+  top: 0;
+  position: absolute;
+}

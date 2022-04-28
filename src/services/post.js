@@ -1,5 +1,4 @@
 // import { getAuth } from "../auth/auth";
-import CryptoJs from "crypto-js";
 import axios from "axios";
 
 import config from "../config";

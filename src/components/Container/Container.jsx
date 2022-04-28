@@ -1,13 +1,11 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/prop-types */
-import React from "react";
+// @emotion/css
+import { css } from "@emotion/css";
 
 // prop-types
 import PropTypes from "prop-types";
-
-// @mui components
-import { Box } from "@mui/material";
 
 const Container = (props) => {
   const {
@@ -15,46 +13,46 @@ const Container = (props) => {
     component,
     children,
     display,
-    align,
-    justify,
-    direction,
-    className,
+    alignItems,
+    justifyContent,
+    flexDirection,
+    sx,
     id,
     name,
     style,
   } = props;
 
-  const sx = {
-    flexDirection: direction,
+  const newSx = css({
+    flexDirection: flexDirection,
     display,
-    alignItems: align,
-    justifyContent: justify,
-    ...className,
-  };
+    alignItems: alignItems,
+    justifyContent: justifyContent,
+    ...sx,
+  });
 
   return (
-    <Box
+    <div
       component={component}
       style={style}
       id={id}
       name={name}
-      sx={sx}
+      className={newSx}
       {...extraProps}
     >
       {children}
-    </Box>
+    </div>
   );
 };
 
 Container.defaultProps = {
   component: "div",
   display: "flex",
-  align: "left",
-  justify: "left",
-  direction: "row",
-  className: "",
+  alignItems: "left",
+  justifyContent: "left",
+  flexDirection: "row",
   id: "",
   name: "",
+  sx: {},
   style: {},
   extraProps: {},
 };
@@ -63,12 +61,12 @@ Container.propTypes = {
   children: PropTypes.node.isRequired,
   display: PropTypes.string,
   component: PropTypes.string,
-  direction: PropTypes.string,
-  align: PropTypes.string,
-  justify: PropTypes.string,
-  className: PropTypes.any,
+  flexDirection: PropTypes.string,
+  alignItems: PropTypes.string,
+  justifyContent: PropTypes.string,
   id: PropTypes.string,
   name: PropTypes.string,
+  sx: PropTypes.objectOf(PropTypes.any),
   style: PropTypes.objectOf(PropTypes.any),
   extraProps: PropTypes.objectOf(PropTypes.any),
 };

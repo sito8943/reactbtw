@@ -12,9 +12,6 @@ import OffCanvas from "../OffCanvas/OffCanvas";
 import CharacterPortrait from "../CharacterPortrait/CharacterPortrait";
 import Container from "../Container/Container";
 
-// styles
-import "./style.scss";
-
 const TopBar = () => {
   const { offCanvasState, setOffCanvasState } = useOffCanvas();
   const { audioConfigState } = useAudioConfig();

@@ -1,9 +1,6 @@
 // @emotion/css
 import { css } from "@emotion/css";
 
-// prop-types
-import PropTypes from "prop-types";
-
 // contexts
 import { useContext } from "../../context/ContextProvider";
 import { useLanguage } from "../../context/Language";
@@ -14,39 +11,40 @@ import femaleHighElf from "../../img/portrait/femalehighelf.webp";
 // own components
 import Container from "../Container/Container";
 
-// styles
-import "./style.scss";
-
 const CharacterPortrait = (props) => {
   const { languageState } = useLanguage();
 
   const { id, name, style } = props;
   const { contextState } = useContext();
 
-  const characterPortrait = css({
-    width: "100%",
+  const characterPortrait = {
     padding: "10px",
+    background: "#222222",
+    borderRadius: "1rem",
+    width: "200px",
+    height: "300px",
     h3: {
       color: "#aeb4b9",
     },
     span: {
       color: "#5e6264",
     },
-  });
+  };
 
   const imageContainer = css({
     borderRadius: "100%",
     backgroundColor: "#22244e",
-    marginRight: "10px",
     img: {
-      width: "70px",
+      width: "130px",
     },
   });
 
   return (
     <Container
+      flexDirection="column"
       alignItems="center"
-      className={characterPortrait}
+      justifyContent="space-around"
+      sx={characterPortrait}
       id={id}
       name={name}
       style={style}
@@ -57,12 +55,12 @@ const CharacterPortrait = (props) => {
           alt="character-portrait"
         />
       </div>
-      <div>
+      <Container >
         <h3>{contextState.name}</h3>
         <span>{`${
           languageState.texts.CharacterPortrait.Level[contextState.level]
         }`}</span>
-      </div>
+      </Container>
     </Container>
   );
 };
@@ -76,12 +74,12 @@ CharacterPortrait.defaultProps = {
   style: {},
 };
 
-CharacterPortrait.propTypes = {
+/*CharacterPortrait.propTypes = {
   className: PropTypes.string,
   name: PropTypes.string,
   id: PropTypes.string,
   style: PropTypes.object,
   children: PropTypes.element.isRequired(),
-};
+};*/
 
 export default CharacterPortrait;

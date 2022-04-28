@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-import "./style.scss";
+import "./style.css";
 
 const Toggle = (props) => {
   const { className, id, value, offRender, onRender, onToggle } = props;
@@ -9,7 +9,7 @@ const Toggle = (props) => {
 
   useEffect(() => {
     setToggle(value);
-  });
+  }, []);
 
   return (
     <div className={`toggle ${className}`} id={id} onClick={onToggle}>
