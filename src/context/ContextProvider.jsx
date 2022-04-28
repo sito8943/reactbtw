@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ClassEnumType } from "../models/Classes";
 
 const Context = React.createContext();
 
@@ -6,113 +7,56 @@ const contextReducer = (contextState, action) => {
   switch (action.type) {
     case "change-user-action": {
       return {
-        id: contextState.id,
-        name: contextState.name,
-        photo: contextState.photo,
+        ...contextState,
         level: action.level,
-        action: contextState.checking,
-        lang: contextState.lang,
-        mode: contextState.mode,
-        netStatus: contextState.netStatus,
-        showingNotification: contextState.showingNotification,
       };
     }
     case "changeLanguage": {
       return {
-        id: contextState.id,
-        name: contextState.name,
-        photo: contextState.photo,
-        level: contextState.level,
-        action: contextState.checking,
+        ...contextState,
         lang: action.newLang,
-        mode: contextState.mode,
-        netStatus: contextState.netStatus,
-        showingNotification: contextState.showingNotification,
       };
     }
     case "changeMode":
       return {
-        id: contextState.id,
-        name: contextState.name,
-        photo: contextState.photo,
-        level: contextState.level,
-        action: contextState.checking,
-        lang: contextState.lang,
+        ...contextState,
         mode: action.mode,
-        netStatus: contextState.netStatus,
-        showingNotification: contextState.showingNotification,
       };
     case "showing":
       return {
-        id: contextState.id,
-        name: contextState.name,
-        photo: contextState.photo,
-        level: contextState.level,
-        action: contextState.checking,
-        lang: contextState.lang,
-        mode: contextState.mode,
-        netStatus: contextState.netStatus,
+        ...contextState,
         showingNotification: true,
       };
     case "offline":
       return {
-        id: contextState.id,
-        name: contextState.name,
-        photo: contextState.photo,
-        level: contextState.level,
-        action: contextState.checking,
-        lang: contextState.lang,
+        ...contextState,
         netStatus: 0,
-        mode: contextState.mode,
-        showingNotification: contextState.showingNotification,
       };
     case "online":
       return {
-        id: contextState.id,
-        name: contextState.name,
-        photo: contextState.photo,
-        level: contextState.level,
-        action: contextState.checking,
-        lang: contextState.lang,
+        ...contextState,
         netStatus: 1,
-        mode: contextState.mode,
-        showingNotification: contextState.showingNotification,
       };
     case "checking":
       return {
-        id: contextState.id,
-        name: contextState.name,
-        photo: contextState.photo,
-        level: contextState.level,
-        action: contextState.checking,
-        lang: contextState.lang,
-        mode: contextState.mode,
+        ...contextState,
         netStatus: 2,
         showingNotification: false,
       };
     case "log-in":
       return {
-        id: action.data.id,
-        name: action.data.name,
-        photo: action.data.photo,
-        level: action.data.level,
+        ...contextState,
         action: 0,
         lang: action.data.lang,
-        mode: contextState.mode,
-        netStatus: contextState.netStatus,
-        showingNotification: contextState.showingNotification,
       };
     case "log-off":
       return {
+        ...contextState,
         id: 0,
         name: "",
         photo: undefined,
         level: 0,
         action: 0,
-        lang: contextState.lang,
-        mode: contextState.mode,
-        netStatus: contextState.netStatus,
-        showingNotification: contextState.showingNotification,
       };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -123,6 +67,7 @@ const ContextProvider = ({ children }) => {
   const [contextState, setContextState] = React.useReducer(contextReducer, {
     id: 1,
     name: "Sito",
+    class: ClassEnumType.Fighter,
     photo: undefined,
     level: 0,
     action: 0,

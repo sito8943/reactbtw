@@ -1,5 +1,6 @@
 // @emotion/css
 import { css } from "@emotion/css";
+import { ClassIcons } from "../../assets/icons/icons";
 
 // contexts
 import { useContext } from "../../context/ContextProvider";
@@ -44,6 +45,13 @@ const CharacterPortrait = (props) => {
     img: {
       width: "130px",
     },
+    zIndex: 1,
+  });
+
+  const characterClass = css({
+    fontSize: "12rem",
+    position: "absolute",
+    opacity: 0.1,
   });
 
   return (
@@ -56,13 +64,14 @@ const CharacterPortrait = (props) => {
       name={name}
       style={style}
     >
+      <span className={characterClass}>{ClassIcons[contextState.class]}</span>
       <div className={imageContainer}>
         <img
           src={contextState.photo ? contextState.user.photo : femaleHighElf}
           alt="character-portrait"
         />
       </div>
-      <Container flexDirection="column">
+      <Container sx={{ zIndex: 1 }} flexDirection="column">
         <Container className="portrait-row" id="name-row">
           <span className="label">
             {`${languageState.texts.CharacterPortrait.Labels.Name}`}{" "}

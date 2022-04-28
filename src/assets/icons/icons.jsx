@@ -14,3 +14,10 @@ import {
   // skills
   // spells
 } from "react-icons/gi";
+
+export const ClassIcons = [
+  <GiBroadsword />,
+  <GiBullseye />,
+  <GiBurningMeteor />,
+  <GiCrenulatedShield />,
+];
