@@ -16,7 +16,7 @@ import "./components/Kenburns/kenburns.scss";
 ReactDOM.render(
   <React.StrictMode>
     <ContextProvider>
-      <GraphicConfigProvider>
+      ``<GraphicConfigProvider>
         <AudioConfigProvider>
           <OffCanvasProvider>
             <AudioControllerProvider>
