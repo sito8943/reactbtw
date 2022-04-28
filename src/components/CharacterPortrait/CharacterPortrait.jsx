@@ -12,6 +12,9 @@ import femaleHighElf from "../../img/portrait/femalehighelf.webp";
 // own components
 import Container from "../Container/Container";
 
+// styles
+import "./style.css";
+
 const CharacterPortrait = (props) => {
   const { languageState } = useLanguage();
 
@@ -63,6 +66,7 @@ const CharacterPortrait = (props) => {
       id={id}
       name={name}
       style={style}
+      className="rotate-card"
     >
       <span className={characterClass}>{ClassIcons[contextState.class]}</span>
       <div className={imageContainer}>
