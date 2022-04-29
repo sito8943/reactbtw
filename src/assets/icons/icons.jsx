@@ -8,6 +8,7 @@ import {
   // attributes
   GiClover, // luck
   GiHearts, // life
+  GiSpikesInit, // mana
   GiAbdominalArmor, // defense
   GiHeartShield, // protected
   GiCrossedSwords, // attack
@@ -21,3 +22,11 @@ export const ClassIcons = [
   <GiBurningMeteor />,
   <GiCrenulatedShield />,
 ];
+
+export const AttributeIcons = {
+  life: <GiHearts />,
+  mana: <GiSpikesInit />,
+  luck: <GiClover />,
+  armor: <GiAbdominalArmor />,
+  attack: <GiCrossedSwords />,
+};

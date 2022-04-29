@@ -7,9 +7,14 @@
     },
     "CharacterPortrait": {
       "Labels": {
+        "Attributes": "Atributos",
         "Name": "Nombre:",
         "Level": "Nivel:",
-        "Range": "Rango:"
+        "Range": "Rango:",
+        "Life": "Vida:",
+        "Mana": "Maná:",
+        "Armor": "Armadura:",
+        "Attack": "Ataque:"
       },
       "Range": ["Iniciado", "Aventurero", "Experto"]
     },
