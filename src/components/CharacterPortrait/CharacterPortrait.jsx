@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // @emotion/css
 import { css } from "@emotion/css";
@@ -7,14 +7,14 @@ import { css } from "@emotion/css";
 import { AttributeIcons, ClassIcons } from "../../assets/icons/icons";
 
 // contexts
-import { ContextProvider, useContext } from "../../context/ContextProvider";
+import { useContext } from "../../context/ContextProvider";
 import { useLanguage } from "../../context/Language";
 
 // images
 import femaleHighElf from "../../img/portrait/femalehighelf.webp";
 
 // icons
-import { MdAddCircle, MdCancel } from "react-icons/md";
+import { MdAddCircle, MdSettings } from "react-icons/md";
 
 // own components
 import Container from "../Container/Container";
@@ -25,10 +25,12 @@ import "./style.css";
 const CharacterPortrait = (props) => {
   const { languageState } = useLanguage();
 
-  const { id, name, style } = props;
+  const { id, name, style, edit } = props;
   const { contextState } = useContext();
 
   const [seeMore, setSeeMore] = useState(false);
+  const [characterName, setCharacterName] = useState("");
+  const [nameFocus, setNameFocus] = useState(false);
 
   const characterPortrait = {
     padding: "10px",
@@ -94,13 +96,37 @@ const CharacterPortrait = (props) => {
     padding: "10px",
     borderRadius: "1rem 1rem 1rem 1rem",
     background: "#222222eb",
-    width: seeMore ? "400px" : 0,
+    transform: !seeMore ? "translateX(-400px)" : "translateX(0)",
     height: "300px",
-    transition: "all 400ms ease",
+    transition: "all 1000ms ease",
     marginLeft: "-20px",
     paddingLeft: "20px",
+    overflow: "auto",
     color: "#797e81",
   };
+
+  const input = css({
+    background: "#333333",
+    borderRadius: "10px",
+    border: "none",
+    padding: "5px",
+    resize: "none",
+    color: "#5e6264",
+    width: "100px",
+    transition: "all 400ms ease",
+  });
+
+  const description = css({
+    background: "#222222",
+    borderRadius: "15px",
+    border: "none",
+    padding: "20px",
+    minHeight: "150px",
+    resize: "none",
+    lineHeight: "20px",
+    color: "#5e6264",
+    marginBottom: "1em",
+  });
 
   return (
     <>
@@ -139,12 +165,28 @@ const CharacterPortrait = (props) => {
             alt="character-portrait"
           />
         </div>
-        <Container sx={{ zIndex: 1 }} flexDirection="column">
+        <Container sx={{ zIndex: 1, width: "185px" }} flexDirection="column">
           <Container sx={portraitRow} id="name-row">
             <span className={label}>
               {languageState.texts.CharacterPortrait.Labels.Name}{" "}
             </span>
-            <span>{contextState.name}</span>
+            {edit ? (
+              <input
+                onFocus={() => setNameFocus(true)}
+                onBlur={
+                  characterName.length === 0 ? () => setNameFocus(false) : null
+                }
+                style={{
+                  height: !nameFocus ? 0 : "15px",
+                  marginTop: nameFocus ? 0 : "4px",
+                }}
+                className={input}
+                value={characterName}
+                onChange={(e) => setCharacterName(e.target.value)}
+              />
+            ) : (
+              <span>{contextState.name}</span>
+            )}
           </Container>
           <Container sx={portraitRow} id="level-row">
             <span className={label}>
@@ -165,7 +207,13 @@ const CharacterPortrait = (props) => {
       <Container sx={attributes}>
         <Container
           flexDirection="column"
-          sx={{ padding: "0 20px", width: "100%" }}
+          sx={{
+            overflow: "auto",
+            padding: "0 20px",
+            width: "100%",
+            opacity: seeMore ? 1 : 0,
+            transition: seeMore ? "all 1000ms ease" : "none",
+          }}
         >
           <h3>{languageState.texts.CharacterPortrait.Labels.Attributes}</h3>
           <Container>
@@ -173,6 +221,10 @@ const CharacterPortrait = (props) => {
               <Container
                 sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                 id="attack-row"
+                extraProps={{
+                  "data-tip":
+                    languageState.texts.CharacterPortrait.Tooltips.Attack,
+                }}
               >
                 <span style={{ marginRight: "20px" }} className={label}>
                   {AttributeIcons.attack}
@@ -187,6 +239,10 @@ const CharacterPortrait = (props) => {
               <Container
                 sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                 id="armor-row"
+                extraProps={{
+                  "data-tip":
+                    languageState.texts.CharacterPortrait.Tooltips.Armor,
+                }}
               >
                 <span className={label}>{AttributeIcons.armor}</span>
                 <Container sx={{ marginBottom: "2px" }}>
@@ -196,14 +252,38 @@ const CharacterPortrait = (props) => {
                   <span>{contextState.armor}</span>
                 </Container>
               </Container>
+              <Container
+                sx={{ ...portraitRow, ...bigFont }}
+                id="luck-row"
+                extraProps={{
+                  "data-tip":
+                    languageState.texts.CharacterPortrait.Tooltips.Luck,
+                }}
+              >
+                <span style={{ marginRight: "20px" }}>
+                  {AttributeIcons.luck}
+                </span>
+                <Container sx={{ marginBottom: "2px" }}>
+                  <span className={label}>
+                    {languageState.texts.CharacterPortrait.Labels.Luck}{" "}
+                  </span>
+                  <span>{contextState.luck}</span>
+                </Container>
+              </Container>
             </Container>
 
             <Container flexDirection="column" sx={{ marginLeft: "20px" }}>
               <Container
                 sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                 id="life-row"
+                extraProps={{
+                  "data-tip":
+                    languageState.texts.CharacterPortrait.Tooltips.Life,
+                }}
               >
-                <span className={label}>{AttributeIcons.life}</span>
+                <span style={{ marginRight: "20px" }}>
+                  {AttributeIcons.life}
+                </span>
                 <Container sx={{ marginBottom: "2px" }}>
                   <span className={label}>
                     {languageState.texts.CharacterPortrait.Labels.Life}{" "}
@@ -216,6 +296,10 @@ const CharacterPortrait = (props) => {
               <Container
                 sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                 id="mana-row"
+                extraProps={{
+                  "data-tip":
+                    languageState.texts.CharacterPortrait.Tooltips.Mana,
+                }}
               >
                 <span className={label}>{AttributeIcons.mana}</span>
                 <Container sx={{ marginBottom: "2px" }}>
@@ -229,6 +313,14 @@ const CharacterPortrait = (props) => {
               </Container>
             </Container>
           </Container>
+          <h3>{languageState.texts.CharacterPortrait.Labels.Description}</h3>
+
+          <textarea
+            className={description}
+            placeholder={
+              languageState.texts.CharacterPortrait.Placeholders.Description
+            }
+          />
         </Container>
       </Container>
     </>
@@ -242,6 +334,7 @@ CharacterPortrait.defaultProps = {
   id: "",
   name: "",
   style: {},
+  edit: true,
 };
 
 /*CharacterPortrait.propTypes = {

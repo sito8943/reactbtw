@@ -2,6 +2,9 @@ import { StrictMode } from "react";
 import * as ReactDOMClient from "react-dom/client";
 //import App from "./App";
 
+// react-tooltip
+import ReactTooltip from "react-tooltip";
+
 // context
 import { ContextProvider } from "./context/ContextProvider";
 import { GraphicConfigProvider } from "./context/GraphicConfig";
@@ -24,6 +27,7 @@ const root = ReactDOMClient.createRoot(container);
 
 root.render(
   <StrictMode>
+    <ReactTooltip place="right" />
     <LanguageProvider>
       <ContextProvider>
         <GraphicConfigProvider>

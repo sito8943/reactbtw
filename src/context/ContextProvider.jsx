@@ -78,6 +78,7 @@ const ContextProvider = ({ children }) => {
     mana: { current: 15, max: 15 },
     armor: 1,
     attack: 10,
+    luck: 1,
     showingNotification: false,
   });
 

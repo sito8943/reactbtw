@@ -6,6 +6,9 @@
       }
     },
     "CharacterPortrait": {
+      "Placeholders": {
+        "Description": "Introduce una descripción..."
+      },
       "Labels": {
         "Attributes": "Atributos",
         "Name": "Nombre:",
@@ -14,7 +17,16 @@
         "Life": "Vida:",
         "Mana": "Maná:",
         "Armor": "Armadura:",
-        "Attack": "Ataque:"
+        "Attack": "Ataque:",
+        "Luck": "Suerte:",
+        "Description": "Descripción"
+      },
+      "Tooltips": {
+        "Life": "Vida:",
+        "Mana": "Maná:",
+        "Armor": "Armadura:",
+        "Attack": "Ataque:",
+        "Luck": "Suerte:"
       },
       "Range": ["Iniciado", "Aventurero", "Experto"]
     },
