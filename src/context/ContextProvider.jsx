@@ -69,7 +69,7 @@ const ContextProvider = ({ children }) => {
     name: "Sito",
     class: ClassEnumType.Mage,
     photo: undefined,
-    level: 0,
+    level: 1,
     action: 0,
     lang: "ES",
     netStatus: "",
