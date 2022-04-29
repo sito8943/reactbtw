@@ -2,9 +2,6 @@ import { StrictMode } from "react";
 import * as ReactDOMClient from "react-dom/client";
 //import App from "./App";
 
-// react-tooltip
-import ReactTooltip from "react-tooltip";
-
 // context
 import { ContextProvider } from "./context/ContextProvider";
 import { GraphicConfigProvider } from "./context/GraphicConfig";
@@ -27,7 +24,6 @@ const root = ReactDOMClient.createRoot(container);
 
 root.render(
   <StrictMode>
-    <ReactTooltip place="right" />
     <LanguageProvider>
       <ContextProvider>
         <GraphicConfigProvider>
@@ -35,7 +31,15 @@ root.render(
             <OffCanvasProvider>
               <AudioControllerProvider>
                 {/*<App />*/}
-                <Container>
+                <Container
+                  justifyContent="center"
+                  alignItems="center"
+                  sx={{
+                    width: "100vw",
+                    height: "100vh",
+                    background: "#383838",
+                  }}
+                >
                   <CharacterPortrait />
                 </Container>
               </AudioControllerProvider>

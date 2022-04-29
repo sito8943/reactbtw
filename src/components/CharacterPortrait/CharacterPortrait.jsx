@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 
+// react-tooltip
+import ReactTooltip from "react-tooltip";
+
 // @emotion/css
 import { css } from "@emotion/css";
 
@@ -119,7 +122,7 @@ const CharacterPortrait = (props) => {
   });
 
   const description = css({
-    background: "#222222",
+    background: "#292929",
     borderRadius: "15px",
     border: "none",
     padding: "20px",
@@ -136,6 +139,7 @@ const CharacterPortrait = (props) => {
 
   return (
     <>
+      <ReactTooltip />
       <Container
         className="scale-div"
         flexDirection="column"
@@ -251,8 +255,9 @@ const CharacterPortrait = (props) => {
                     sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                     id="attack-row"
                     extraProps={{
-                      "data-tip":
-                        languageState.texts.CharacterPortrait.Tooltips.Attack,
+                      "data-tip": seeMore
+                        ? languageState.texts.CharacterPortrait.Tooltips.Attack
+                        : "",
                     }}
                   >
                     <span style={{ marginRight: "20px" }} className={label}>
@@ -269,8 +274,9 @@ const CharacterPortrait = (props) => {
                     sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                     id="armor-row"
                     extraProps={{
-                      "data-tip":
-                        languageState.texts.CharacterPortrait.Tooltips.Armor,
+                      "data-tip": seeMore
+                        ? languageState.texts.CharacterPortrait.Tooltips.Armor
+                        : "",
                     }}
                   >
                     <span className={label}>{AttributeIcons.armor}</span>
@@ -285,8 +291,9 @@ const CharacterPortrait = (props) => {
                     sx={{ ...portraitRow, ...bigFont }}
                     id="luck-row"
                     extraProps={{
-                      "data-tip":
-                        languageState.texts.CharacterPortrait.Tooltips.Luck,
+                      "data-tip": seeMore
+                        ? languageState.texts.CharacterPortrait.Tooltips.Luck
+                        : "",
                     }}
                   >
                     <span style={{ marginRight: "20px" }}>
@@ -306,8 +313,9 @@ const CharacterPortrait = (props) => {
                     sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                     id="life-row"
                     extraProps={{
-                      "data-tip":
-                        languageState.texts.CharacterPortrait.Tooltips.Life,
+                      "data-tip": seeMore
+                        ? languageState.texts.CharacterPortrait.Tooltips.Life
+                        : "",
                     }}
                   >
                     <span style={{ marginRight: "20px" }}>
@@ -326,8 +334,9 @@ const CharacterPortrait = (props) => {
                     sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                     id="mana-row"
                     extraProps={{
-                      "data-tip":
-                        languageState.texts.CharacterPortrait.Tooltips.Mana,
+                      "data-tip": seeMore
+                        ? languageState.texts.CharacterPortrait.Tooltips.Mana
+                        : "",
                     }}
                   >
                     <span className={label}>{AttributeIcons.mana}</span>
