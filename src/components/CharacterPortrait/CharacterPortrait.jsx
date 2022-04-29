@@ -39,8 +39,9 @@ const CharacterPortrait = (props) => {
 
   const characterPortrait = {
     padding: "10px",
-    borderRight: seeMore ? "1px solid gray" : "none",
+
     background: "#222222",
+    border: "1px solid #383838",
     borderRadius: !seeMore ? "1rem" : "1rem 0 0 1rem",
     width: "200px",
     height: "300px",
@@ -99,7 +100,8 @@ const CharacterPortrait = (props) => {
   const attributes = {
     opacity: seeMore ? 1 : 0,
     padding: "10px",
-    borderRadius: "1rem 1rem 1rem 1rem",
+    border: "1px solid #383838",
+    borderRadius: "0 1rem 1rem 0",
     background: "#222222eb",
     transform: !seeMore ? "translateX(-200px)" : "translateX(0)",
     height: "300px",

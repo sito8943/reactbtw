@@ -4,3 +4,4 @@ export const ClassEnumType = {
   Mage: 2,
   Defender: 3,
 };
+
