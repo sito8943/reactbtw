@@ -13,7 +13,7 @@
         "Finish": "Terminar"
       },
       "Tooltips": {
-        "NotYet": "Debes introducir un nombre"
+        "NotYet": "Debes introducir un nombre válido"
       }
     },
     "CharacterPortrait": {

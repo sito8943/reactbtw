@@ -19,16 +19,12 @@ import { useAudioController } from "../../context/AudioController";
 import { useAudioConfig } from "../../context/AudioConfig";
 
 const CreateCharacter = () => {
-  const [name, setName] = useState("");
-
   const { languageState } = useLanguage();
-  const { contextState } = useContext();
+  const { contextState, setContextState } = useContext();
   const { audioConfigState } = useAudioConfig();
   const { setAudioControllerState } = useAudioController();
   const { creationAnimationState, setCreationAnimationState } =
     useCreationAnimation();
-
-  const handleName = (newName) => setName(name);
 
   const playSound = (sound) => {
     if (audioConfigState.sfx) setAudioControllerState({ type: sound });
@@ -59,13 +55,14 @@ const CreateCharacter = () => {
     "&:hover": {
       background: "#383838",
     },
-    "&:disabled": {
-      cursor: "initial",
-      background: "#111111 !important",
-    },
     color: "aliceblue",
     padding: "5px 20px",
     width: "150px",
+  });
+
+  const disabled = css({
+    cursor: "initial",
+    background: "#111111 !important",
   });
 
   const activeCss = css({
@@ -81,16 +78,18 @@ const CreateCharacter = () => {
         height: "100vh",
       }}
     >
-      <CharacterPortrait edit changeName={handleName} />
+      <CharacterPortrait edit />
       <Container
         sx={{
           position: "absolute",
           bottom: "0",
           left: "0",
           transition: "all 400ms ease",
-          transform: creationAnimationState.appearDone
-            ? "translateY(0)"
-            : "translateY(60px)",
+          transform:
+            creationAnimationState.appearDone &&
+            creationAnimationState.active !== 3
+              ? "translateY(0)"
+              : "translateY(60px)",
         }}
       >
         <button
@@ -126,27 +125,37 @@ const CreateCharacter = () => {
         >
           <span>{languageState.texts.Creation.Buttons.Class}</span>
         </button>
-        <Tippy
-          content={
-            contextState.character.Name === "" ||
-            contextState.character.Name.length < 4
-              ? languageState.texts.Creation.Tooltips.NotYet
-              : ""
-          }
-        >
+        {contextState.character.Name === "" ||
+        contextState.character.Name.length < 4 ? (
+          <Tippy content={languageState.texts.Creation.Tooltips.NotYet}>
+            <button
+              onClick={
+                contextState.character.Name === "" ||
+                contextState.character.Name.length
+                  ? null
+                  : () => {
+                      playSound("normal-click");
+                      setCreationAnimationState({ type: "active", active: 3 });
+                    }
+              }
+              className={`${skewButton} ${disabled}`}
+              style={{ borderRadius: "0 5px 0 0" }}
+            >
+              <span>{languageState.texts.Creation.Buttons.Finish}</span>
+            </button>
+          </Tippy>
+        ) : (
           <button
             onClick={() => {
               playSound("normal-click");
               setCreationAnimationState({ type: "active", active: 3 });
             }}
-            className={`${skewButton} ${
-              creationAnimationState.active === 3 ? activeCss : ""
-            }`}
+            className={skewButton}
             style={{ borderRadius: "0 5px 0 0" }}
           >
             <span>{languageState.texts.Creation.Buttons.Finish}</span>
           </button>
-        </Tippy>
+        )}
       </Container>
     </Container>
   );

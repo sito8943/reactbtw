@@ -31,7 +31,7 @@ import Container from "../Container/Container";
 import "./style.css";
 
 const CharacterPortrait = (props) => {
-  const { id, name, style, edit, changeName } = props;
+  const { id, name, style, edit } = props;
 
   const { languageState } = useLanguage();
   const { contextState, setContextState } = useContext();
@@ -48,30 +48,73 @@ const CharacterPortrait = (props) => {
   const [attributesAnimation, setAttributesAnimation] = useState(false);
 
   // normal stats states for animation
+  const [moveImg, setMoveImg] = useState(false);
   const [changeAttributes, setChangeAttributes] = useState(false);
   const [localActive, setLocalActive] = useState(0);
 
   useEffect(() => {
-    if (creationAnimationState.active !== localActive)
+    if (
+      creationAnimationState.active !== localActive &&
+      creationAnimationState.active !== 3
+    )
       if (!seeMore) toggleSeeMore();
     setChangeAttributes(true);
-    setTimeout(() => {
-      setLocalActive(creationAnimationState.active);
+    if (creationAnimationState.active === 3) {
+      if (seeMore) toggleSeeMore();
       setTimeout(() => {
-        setChangeAttributes(false);
+        setMoveImg(true);
+      }, 500);
+    } else {
+      setTimeout(() => {
+        setLocalActive(creationAnimationState.active);
+        setTimeout(() => {
+          setChangeAttributes(false);
+        }, 400);
       }, 400);
-    }, 400);
-    if (creationAnimationState.active === 1) {
+      if (creationAnimationState.active === 1) {
+      }
     }
   }, [creationAnimationState.active]);
 
-  const [characterName, setCharacterName] = useState("");
+  const [nameFocus, setNameFocus] = useState(false);
 
   useEffect(() => {
-    changeName(characterName);
-  }, [characterName]);
+    if (creationAnimationState.appearDone && edit) {
+      document.getElementById("click").click();
+      document.getElementById("name").focus();
+      setTimeout(() => {
+        toggleSeeMore();
+      }, 1000);
+    }
+  }, [creationAnimationState.appearDone]);
 
-  const [nameFocus, setNameFocus] = useState(false);
+  const playSound = (sound) => {
+    if (audioConfigState.sfx) setAudioControllerState({ type: sound });
+  };
+
+  const toggleSeeMore = async () => {
+    if (seeMore) {
+      setAttributesAnimation(false);
+      setTimeout(() => {
+        setPortraitAnimation(false);
+        setSeeMoreAnimation(!seeMoreAnimation);
+        setTimeout(() => {
+          setSeeMore(!seeMore);
+        }, 1000);
+      }, 400);
+    } else {
+      setSeeMore(true);
+      setTimeout(() => {
+        setPortraitAnimation(true);
+        setTimeout(() => {
+          setSeeMoreAnimation(!seeMoreAnimation);
+          setTimeout(() => {
+            setAttributesAnimation(true);
+          }, 200);
+        }, 1000);
+      }, 5);
+    }
+  };
 
   const characterPortrait = {
     padding: "10px",
@@ -111,10 +154,10 @@ const CharacterPortrait = (props) => {
   const imageContainer = css({
     borderRadius: "100%",
     backgroundColor: "#22244e",
-    img: {
-      width: "130px",
-    },
+    width: "130px",
     zIndex: 1,
+    cursor: "pointer",
+    transition: "all 1000ms ease",
   });
 
   const characterClass = css({
@@ -190,44 +233,6 @@ const CharacterPortrait = (props) => {
     marginBottom: "1em",
   });
 
-  useEffect(() => {
-    if (creationAnimationState.appearDone && edit) {
-      document.getElementById("click").click();
-      setTimeout(() => {
-        toggleSeeMore();
-      }, 1000);
-    }
-  }, [creationAnimationState.appearDone]);
-
-  const playSound = (sound) => {
-    if (audioConfigState.sfx) setAudioControllerState({ type: sound });
-  };
-
-  const toggleSeeMore = async () => {
-    if (seeMore) {
-      setAttributesAnimation(false);
-      setTimeout(() => {
-        setPortraitAnimation(false);
-        setSeeMoreAnimation(!seeMoreAnimation);
-        setTimeout(() => {
-          setSeeMore(!seeMore);
-        }, 1000);
-      }, 400);
-    } else {
-      setSeeMore(true);
-      setTimeout(() => {
-        playSound("pop-up");
-        setPortraitAnimation(true);
-        setTimeout(() => {
-          setSeeMoreAnimation(!seeMoreAnimation);
-          setTimeout(() => {
-            setAttributesAnimation(true);
-          }, 200);
-        }, 1000);
-      }, 5);
-    }
-  };
-
   return (
     <>
       <Container
@@ -263,7 +268,11 @@ const CharacterPortrait = (props) => {
               >
                 <MdAddCircle
                   style={{
-                    opacity: creationAnimationState.appearDone ? 1 : 0,
+                    opacity:
+                      creationAnimationState.appearDone &&
+                      creationAnimationState.active !== 3
+                        ? 1
+                        : 0,
                     transition: "all 400ms ease",
                     transform: seeMore ? "rotateZ(45deg)" : "rotateX(0deg)",
                   }}
@@ -278,14 +287,15 @@ const CharacterPortrait = (props) => {
                 onClick: () =>
                   setCreationAnimationState({ type: "active", active: 1 }),
               }}
-              sx={{ cursor: "pointer", transition: "all 400ms ease" }}
-              className={imageContainer}
             >
               <img
                 src={
                   contextState.photo ? contextState.user.photo : femaleHighElf
                 }
-                style={{ transition: "all 400ms ease" }}
+                style={{
+                  marginTop: !moveImg ? 0 : "70px",
+                }}
+                className={imageContainer}
                 alt="character-portrait"
               />
             </Container>
@@ -305,9 +315,10 @@ const CharacterPortrait = (props) => {
                 </span>
                 {edit ? (
                   <input
+                    id="name"
                     onFocus={() => setNameFocus(true)}
                     onBlur={
-                      characterName.length === 0
+                      contextState.character.Name.length === 0
                         ? () => setNameFocus(false)
                         : null
                     }
@@ -316,8 +327,14 @@ const CharacterPortrait = (props) => {
                       marginTop: nameFocus ? 0 : "4px",
                     }}
                     className={input}
-                    value={characterName}
-                    onChange={(e) => setCharacterName(e.target.value)}
+                    value={contextState.character.Name}
+                    onChange={(e) =>
+                      setContextState({
+                        type: "set",
+                        which: "name",
+                        to: e.target.value,
+                      })
+                    }
                   />
                 ) : (
                   <span>{contextState.character.Name}</span>
