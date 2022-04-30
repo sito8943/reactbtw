@@ -12,6 +12,8 @@ import {
   GiAbdominalArmor, // defense
   GiHeartShield, // protected
   GiCrossedSwords, // attack
+  // specials
+  GiPerspectiveDiceSixFacesRandom, // random
   // skills
   // spells
 } from "react-icons/gi";

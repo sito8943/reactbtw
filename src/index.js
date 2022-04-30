@@ -17,6 +17,7 @@ import "./components/Kenburns/kenburns.css";
 import Container from "./components/Container/Container";
 import CharacterPortrait from "./components/CharacterPortrait/CharacterPortrait";
 import CreateCharacter from "./views/CreateCharacter/CreateCharacter";
+import { CreationAnimationProvider } from "./context/CreationAnimation";
 
 const container = document.getElementById("root");
 
@@ -32,7 +33,9 @@ root.render(
             <OffCanvasProvider>
               <AudioControllerProvider>
                 {/*<App />*/}
-                <CreateCharacter />
+                <CreationAnimationProvider>
+                  <CreateCharacter />
+                </CreationAnimationProvider>
               </AudioControllerProvider>
             </OffCanvasProvider>
           </AudioConfigProvider>

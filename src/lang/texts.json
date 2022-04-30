@@ -5,6 +5,13 @@
         "Settings": "Ajustes"
       }
     },
+    "Creation": {
+      "Buttons": {
+        "General": "General",
+        "Appearance": "Apariencia",
+        "Class": "Clase"
+      }
+    },
     "CharacterPortrait": {
       "Placeholders": {
         "Description": "Introduce una descripción..."

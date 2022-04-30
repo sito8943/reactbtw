@@ -10,9 +10,10 @@ import { css } from "@emotion/css";
 import { AttributeIcons, ClassIcons } from "../../assets/icons/icons";
 
 // contexts
+import { useReward } from "react-rewards";
 import { useContext } from "../../context/ContextProvider";
 import { useLanguage } from "../../context/Language";
-import { useReward } from "react-rewards";
+import { useCreationAnimation } from "../../context/CreationAnimation";
 
 // images
 import femaleHighElf from "../../img/portrait/femalehighelf.webp";
@@ -31,6 +32,8 @@ const CharacterPortrait = (props) => {
 
   const { languageState } = useLanguage();
   const { contextState } = useContext();
+  const { creationAnimationState, setCreationAnimationState } =
+    useCreationAnimation();
   const { reward, isAnimating } = useReward("rewardId", "confetti");
 
   // see more states for animation
@@ -39,7 +42,6 @@ const CharacterPortrait = (props) => {
   const [seeMoreAnimation, setSeeMoreAnimation] = useState(false);
   const [attributesAnimation, setAttributesAnimation] = useState(false);
 
-  const [appearDone, setAppearDone] = useState(false);
   const [characterName, setCharacterName] = useState("");
 
   useEffect(() => {
@@ -147,21 +149,13 @@ const CharacterPortrait = (props) => {
   });
 
   useEffect(() => {
-    const time = setTimeout(() => {
-      setAppearDone(true);
-    }, 5000);
-    document.body.onkeydown = () => {
-      clearTimeout(time);
-      setAppearDone(true);
-    };
-    return () => {
-      document.body.onkeydown = null;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (appearDone) document.getElementById("click").click();
-  }, [appearDone]);
+    if (creationAnimationState.appearDone && edit) {
+      document.getElementById("click").click();
+      setTimeout(() => {
+        toggleSeeMore();
+      }, 1000);
+    }
+  }, [creationAnimationState.appearDone]);
 
   const toggleSeeMore = () => {
     if (seeMore) {
@@ -205,7 +199,7 @@ const CharacterPortrait = (props) => {
             id={id}
             name={name}
             style={style}
-            className={appearDone ? "" : "rotate-card"}
+            className={creationAnimationState.appearDone ? "" : "rotate-card"}
           >
             <Container
               sx={{
@@ -219,11 +213,11 @@ const CharacterPortrait = (props) => {
               <button
                 className={moreButton}
                 onClick={toggleSeeMore}
-                disabled={appearDone ? false : true}
+                disabled={creationAnimationState.appearDone ? false : true}
               >
                 <MdAddCircle
                   style={{
-                    opacity: appearDone ? 1 : 0,
+                    opacity: creationAnimationState.appearDone ? 1 : 0,
                     transition: "all 400ms ease",
                     transform: seeMore ? "rotateZ(45deg)" : "rotateX(0deg)",
                   }}
@@ -233,7 +227,12 @@ const CharacterPortrait = (props) => {
             <span className={characterClass}>
               {ClassIcons[contextState.class]}
             </span>
-            <div className={imageContainer}>
+            <div
+              onClick={() =>
+                setCreationAnimationState({ type: "active", active: 1 })
+              }
+              className={imageContainer}
+            >
               <img
                 src={
                   contextState.photo ? contextState.user.photo : femaleHighElf
