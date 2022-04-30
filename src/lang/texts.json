@@ -9,7 +9,11 @@
       "Buttons": {
         "General": "General",
         "Appearance": "Apariencia",
-        "Class": "Clase"
+        "Class": "Clase",
+        "Finish": "Terminar"
+      },
+      "Tooltips": {
+        "NotYet": "Debes introducir un nombre"
       }
     },
     "CharacterPortrait": {

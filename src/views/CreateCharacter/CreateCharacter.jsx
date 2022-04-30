@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 
+// tippy
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css"; // optional
+
 // @emotion/css
 import { css } from "@emotion/css";
 
@@ -54,6 +58,10 @@ const CreateCharacter = () => {
     transition: "all 400ms ease",
     "&:hover": {
       background: "#383838",
+    },
+    "&:disabled": {
+      cursor: "initial",
+      background: "#111111 !important",
     },
     color: "aliceblue",
     padding: "5px 20px",
@@ -115,10 +123,30 @@ const CreateCharacter = () => {
           className={`${skewButton} ${
             creationAnimationState.active === 2 ? activeCss : ""
           }`}
-          style={{ borderRadius: "0 5px 0 0" }}
         >
           <span>{languageState.texts.Creation.Buttons.Class}</span>
         </button>
+        <Tippy
+          content={
+            contextState.character.Name === "" ||
+            contextState.character.Name.length < 4
+              ? languageState.texts.Creation.Tooltips.NotYet
+              : ""
+          }
+        >
+          <button
+            onClick={() => {
+              playSound("normal-click");
+              setCreationAnimationState({ type: "active", active: 3 });
+            }}
+            className={`${skewButton} ${
+              creationAnimationState.active === 3 ? activeCss : ""
+            }`}
+            style={{ borderRadius: "0 5px 0 0" }}
+          >
+            <span>{languageState.texts.Creation.Buttons.Finish}</span>
+          </button>
+        </Tippy>
       </Container>
     </Container>
   );
