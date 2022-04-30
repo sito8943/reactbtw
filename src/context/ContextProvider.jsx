@@ -1,14 +1,14 @@
 import * as React from "react";
-import { ClassEnumType, CreationClass } from "../models/Classes";
+import Character from "../models/Character";
 
 const Context = React.createContext();
 
 const contextReducer = (contextState, action) => {
   switch (action.type) {
     case "set": {
-      const newContext = contextState;
-      newContext[action.who] = action.to;
-      return { ...newContext };
+      const newContextState = contextState;
+      newContextState.character.SetAttribute(action.which, action.to);
+      return { ...newContextState };
     }
 
     case "change-user-action": {
@@ -74,7 +74,7 @@ const ContextProvider = ({ children }) => {
     id: 1,
     name: "Sito",
     photo: undefined,
-    level: 1,
+    character: new Character(),
     action: 0,
     lang: "ES",
     netStatus: "",

@@ -169,6 +169,10 @@ const CharacterPortrait = (props) => {
     },
   });
 
+  const active = css({
+    background: "#383838 !important",
+  });
+
   const description = css({
     background: "#292929",
     borderRadius: "15px",
@@ -189,6 +193,10 @@ const CharacterPortrait = (props) => {
       }, 1000);
     }
   }, [creationAnimationState.appearDone]);
+
+  useEffect(() => {
+    console.log(contextState.character.Attack);
+  }, [contextState]);
 
   const toggleSeeMore = async () => {
     if (seeMore) {
@@ -258,7 +266,7 @@ const CharacterPortrait = (props) => {
               </button>
             </Container>
             <span className={characterClass}>
-              {ClassIcons[contextState.class]}
+              {ClassIcons[contextState.character.Class]}
             </span>
             <Container
               extraProps={{
@@ -307,7 +315,7 @@ const CharacterPortrait = (props) => {
                     onChange={(e) => setCharacterName(e.target.value)}
                   />
                 ) : (
-                  <span>{contextState.name}</span>
+                  <span>{contextState.character.Name}</span>
                 )}
               </Container>
               <Container
@@ -324,12 +332,15 @@ const CharacterPortrait = (props) => {
                 <Container sx={{ marginTop: "5px" }} alignItems="center">
                   {ClassIcons.map((item, i) => (
                     <button
-                      className={classButton}
+                      key={i}
+                      className={`${classButton} ${
+                        contextState.character.class === i ? active : ""
+                      }`}
                       data-tip={
                         languageState.texts.CharacterPortrait.Classes[i]
                       }
                       onClick={() =>
-                        setContextState({ type: "set", who: "class", to: i })
+                        setContextState({ type: "set", which: "class", to: i })
                       }
                     >
                       {item}
@@ -347,7 +358,7 @@ const CharacterPortrait = (props) => {
                 <span className={label}>
                   {languageState.texts.CharacterPortrait.Labels.Level}{" "}
                 </span>
-                <span>{contextState.level}</span>
+                <span>{contextState.character.Level}</span>
               </Container>
               <Container
                 sx={{
@@ -363,7 +374,7 @@ const CharacterPortrait = (props) => {
                 <span>
                   {
                     languageState.texts.CharacterPortrait.Range[
-                      contextState.level
+                      contextState.character.Level
                     ]
                   }
                 </span>
@@ -410,7 +421,7 @@ const CharacterPortrait = (props) => {
                                 .Attack
                             }{" "}
                           </span>
-                          <span>{contextState.attack}</span>
+                          <span>{contextState.character.Attack.max}</span>
                         </Container>
                       </Container>
                       <Container
@@ -428,7 +439,7 @@ const CharacterPortrait = (props) => {
                           <span className={label}>
                             {languageState.texts.CharacterPortrait.Labels.Armor}{" "}
                           </span>
-                          <span>{contextState.armor}</span>
+                          <span>{contextState.character.Armor.max}</span>
                         </Container>
                       </Container>
                       <Container
@@ -448,7 +459,7 @@ const CharacterPortrait = (props) => {
                           <span className={label}>
                             {languageState.texts.CharacterPortrait.Labels.Luck}{" "}
                           </span>
-                          <span>{contextState.luck}</span>
+                          <span>{contextState.character.Luck.max}</span>
                         </Container>
                       </Container>
                     </Container>
@@ -475,8 +486,8 @@ const CharacterPortrait = (props) => {
                             {languageState.texts.CharacterPortrait.Labels.Life}{" "}
                           </span>
                           <span>
-                            {contextState.life.current} /{" "}
-                            {contextState.life.max}
+                            {contextState.character.Life.current} /{" "}
+                            {contextState.character.Life.max}
                           </span>
                         </Container>
                       </Container>
@@ -496,8 +507,8 @@ const CharacterPortrait = (props) => {
                             {languageState.texts.CharacterPortrait.Labels.Mana}{" "}
                           </span>
                           <span>
-                            {contextState.mana.current} /{" "}
-                            {contextState.mana.max}
+                            {contextState.character.Mana.current} /{" "}
+                            {contextState.character.Mana.max}
                           </span>
                         </Container>
                       </Container>
