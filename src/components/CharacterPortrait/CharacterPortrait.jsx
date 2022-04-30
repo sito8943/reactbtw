@@ -156,7 +156,6 @@ const CharacterPortrait = (props) => {
     backgroundColor: "#22244e",
     width: "130px",
     zIndex: 1,
-    cursor: "pointer",
     transition: "all 1000ms ease",
   });
 
@@ -284,8 +283,10 @@ const CharacterPortrait = (props) => {
             </span>
             <Container
               extraProps={{
-                onClick: () =>
-                  setCreationAnimationState({ type: "active", active: 1 }),
+                onClick: !moveImg
+                  ? () =>
+                      setCreationAnimationState({ type: "active", active: 1 })
+                  : null,
               }}
             >
               <img
@@ -293,6 +294,7 @@ const CharacterPortrait = (props) => {
                   contextState.photo ? contextState.user.photo : femaleHighElf
                 }
                 style={{
+                  cursor: !moveImg ? "pointer" : "initial",
                   marginTop: !moveImg ? 0 : "70px",
                 }}
                 className={imageContainer}

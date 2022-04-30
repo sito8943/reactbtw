@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 // tippy
 import Tippy from "@tippyjs/react";
@@ -20,7 +20,7 @@ import { useAudioConfig } from "../../context/AudioConfig";
 
 const CreateCharacter = () => {
   const { languageState } = useLanguage();
-  const { contextState, setContextState } = useContext();
+  const { contextState } = useContext();
   const { audioConfigState } = useAudioConfig();
   const { setAudioControllerState } = useAudioController();
   const { creationAnimationState, setCreationAnimationState } =
