@@ -11,16 +11,28 @@ import CharacterPortrait from "../../components/CharacterPortrait/CharacterPortr
 import { useLanguage } from "../../context/Language";
 import { useContext } from "../../context/ContextProvider";
 import { useCreationAnimation } from "../../context/CreationAnimation";
+import { useAudioController } from "../../context/AudioController";
+import { useAudioConfig } from "../../context/AudioConfig";
 
 const CreateCharacter = () => {
   const [name, setName] = useState("");
 
   const { languageState } = useLanguage();
   const { contextState } = useContext();
+  const { audioConfigState } = useAudioConfig();
+  const { setAudioControllerState } = useAudioController();
   const { creationAnimationState, setCreationAnimationState } =
     useCreationAnimation();
 
   const handleName = (newName) => setName(name);
+
+  const playSound = (sound) => {
+    if (audioConfigState.sfx) setAudioControllerState({ type: sound });
+  };
+
+  const playMusic = (sound) => {
+    if (audioConfigState.bfx) setAudioControllerState({ type: sound });
+  };
 
   useEffect(() => {
     const time = setTimeout(() => {
@@ -30,6 +42,7 @@ const CreateCharacter = () => {
       clearTimeout(time);
       setCreationAnimationState({ type: "set", to: true });
     };
+    playMusic("creation");
     return () => {
       document.body.onkeydown = null;
     };
@@ -73,9 +86,10 @@ const CreateCharacter = () => {
         }}
       >
         <button
-          onClick={() =>
-            setCreationAnimationState({ type: "active", active: 0 })
-          }
+          onClick={() => {
+            playSound("normal-click");
+            setCreationAnimationState({ type: "active", active: 0 });
+          }}
           className={`${skewButton} ${
             creationAnimationState.active === 0 ? activeCss : ""
           }`}
@@ -83,9 +97,10 @@ const CreateCharacter = () => {
           <span>{languageState.texts.Creation.Buttons.General}</span>
         </button>
         <button
-          onClick={() =>
-            setCreationAnimationState({ type: "active", active: 1 })
-          }
+          onClick={() => {
+            playSound("normal-click");
+            setCreationAnimationState({ type: "active", active: 1 });
+          }}
           className={`${skewButton} ${
             creationAnimationState.active === 1 ? activeCss : ""
           }`}
@@ -93,9 +108,10 @@ const CreateCharacter = () => {
           <span>{languageState.texts.Creation.Buttons.Appearance}</span>
         </button>
         <button
-          onClick={() =>
-            setCreationAnimationState({ type: "active", active: 2 })
-          }
+          onClick={() => {
+            playSound("normal-click");
+            setCreationAnimationState({ type: "active", active: 2 });
+          }}
           className={`${skewButton} ${
             creationAnimationState.active === 2 ? activeCss : ""
           }`}

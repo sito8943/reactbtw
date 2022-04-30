@@ -14,10 +14,7 @@ import { LanguageProvider } from "./context/Language";
 import "./index.css";
 import "./components/Kenburns/kenburns.css";
 
-import Container from "./components/Container/Container";
-import CharacterPortrait from "./components/CharacterPortrait/CharacterPortrait";
-import CreateCharacter from "./views/CreateCharacter/CreateCharacter";
-import { CreationAnimationProvider } from "./context/CreationAnimation";
+import Test from "./test";
 
 const container = document.getElementById("root");
 
@@ -33,9 +30,7 @@ root.render(
             <OffCanvasProvider>
               <AudioControllerProvider>
                 {/*<App />*/}
-                <CreationAnimationProvider>
-                  <CreateCharacter />
-                </CreationAnimationProvider>
+                <Test />
               </AudioControllerProvider>
             </OffCanvasProvider>
           </AudioConfigProvider>

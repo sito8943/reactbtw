@@ -15,6 +15,8 @@ import { useReward } from "react-rewards";
 import { useContext } from "../../context/ContextProvider";
 import { useLanguage } from "../../context/Language";
 import { useCreationAnimation } from "../../context/CreationAnimation";
+import { useAudioController } from "../../context/AudioController";
+import { useAudioConfig } from "../../context/AudioConfig";
 
 // images
 import femaleHighElf from "../../img/portrait/femalehighelf.webp";
@@ -33,6 +35,8 @@ const CharacterPortrait = (props) => {
 
   const { languageState } = useLanguage();
   const { contextState, setContextState } = useContext();
+  const { audioConfigState } = useAudioConfig();
+  const { setAudioControllerState } = useAudioController();
   const { creationAnimationState, setCreationAnimationState } =
     useCreationAnimation();
   const { reward, isAnimating } = useReward("rewardId", "confetti");
@@ -195,9 +199,9 @@ const CharacterPortrait = (props) => {
     }
   }, [creationAnimationState.appearDone]);
 
-  useEffect(() => {
-    console.log(contextState.character.Attack);
-  }, [contextState]);
+  const playSound = (sound) => {
+    if (audioConfigState.sfx) setAudioControllerState({ type: sound });
+  };
 
   const toggleSeeMore = async () => {
     if (seeMore) {
@@ -212,6 +216,7 @@ const CharacterPortrait = (props) => {
     } else {
       setSeeMore(true);
       setTimeout(() => {
+        playSound("pop-up");
         setPortraitAnimation(true);
         setTimeout(() => {
           setSeeMoreAnimation(!seeMoreAnimation);
@@ -339,13 +344,14 @@ const CharacterPortrait = (props) => {
                         className={`${classButton} ${
                           contextState.character.class === i ? active : ""
                         }`}
-                        onClick={() =>
+                        onClick={() => {
+                          playSound("normal-click");
                           setContextState({
                             type: "set",
                             which: "class",
                             to: i,
-                          })
-                        }
+                          });
+                        }}
                       >
                         {item}
                       </button>

@@ -3,44 +3,45 @@ import * as React from "react";
 const AudioController = React.createContext();
 
 const audioControllerReducer = (audioControllerState, action) => {
-  console.log("context");
   switch (action.type) {
-    case "play-space":
+    case "creation": {
+      let newCreation = 1;
+      if (audioControllerState.creation === 1) newCreation = 2;
       return {
-        space: true,
-        popUp: audioControllerState.popUp,
-        bigClick: audioControllerState.bigClick,
-      }
-    case "play-big-click":
+        ...audioControllerState,
+        creation: newCreation,
+      };
+    }
+    case "space": {
+      let newSpace = 1;
+      if (audioControllerState.space === 1) newSpace = 2;
       return {
-        space: audioControllerState.space,
-        popUp: audioControllerState.popUp,
-        bigClick: true,
-      }
-    case "play-pop-up":
+        ...audioControllerState,
+        space: newSpace,
+      };
+    }
+    case "big-click":
+      let newBigClick = 1;
+      if (audioControllerState.bigClick === 1) newBigClick = 2;
       return {
-        space: audioControllerState.space,
-        popUp: true,
-        bigClick: audioControllerState.bigClick,
-      }
-    case "stop-space":
+        ...audioControllerState,
+        bigClick: newBigClick,
+      };
+    case "normal-click":
+      let newNormalClick = 1;
+      if (audioControllerState.normalClick === 1) newNormalClick = 2;
       return {
-        space: false,
-        popUp: audioControllerState.popUp,
-        bigClick: audioControllerState.bigClick,
-      }
-    case "stop-big-click":
+        ...audioControllerState,
+        normalClick: newNormalClick,
+      };
+    case "pop-up": {
+      let newPopUp = 1;
+      if (audioControllerState.popUp === 1) newPopUp = 2;
       return {
-        space: audioControllerState.space,
-        popUp: audioControllerState.popUp,
-        bigClick: false,
-      }
-    case "stop-pop-up":
-      return {
-        space: audioControllerState.space,
-        popUp: false,
-        bigClick: audioControllerState.bigClick,
-      }
+        ...audioControllerState,
+        popUp: newPopUp,
+      };
+    }
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -50,15 +51,19 @@ const AudioControllerProvider = ({ children }) => {
   const [audioControllerState, setAudioControllerState] = React.useReducer(
     audioControllerReducer,
     {
-      space: false,
-      popUp: false,
-      bigClick: false,
+      space: 0,
+      popUp: 0,
+      bigClick: 0,
+      normalClick: 0,
+      creation: 0,
     }
   );
 
   const value = { audioControllerState, setAudioControllerState };
   return (
-    <AudioController.Provider value={value}>{children}</AudioController.Provider>
+    <AudioController.Provider value={value}>
+      {children}
+    </AudioController.Provider>
   );
 };
 
