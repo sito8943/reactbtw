@@ -42,6 +42,24 @@ const CharacterPortrait = (props) => {
   const [seeMoreAnimation, setSeeMoreAnimation] = useState(false);
   const [attributesAnimation, setAttributesAnimation] = useState(false);
 
+  // normal stats states for animation
+  const [changeAttributes, setChangeAttributes] = useState(false);
+  const [localActive, setLocalActive] = useState(0);
+
+  useEffect(() => {
+    if (creationAnimationState.active !== localActive)
+      if (!seeMore) toggleSeeMore();
+    setChangeAttributes(true);
+    setTimeout(() => {
+      setLocalActive(creationAnimationState.active);
+      setTimeout(() => {
+        setChangeAttributes(false);
+      }, 400);
+    }, 400);
+    if (creationAnimationState.active === 1) {
+    }
+  }, [creationAnimationState.active]);
+
   const [characterName, setCharacterName] = useState("");
 
   useEffect(() => {
@@ -69,6 +87,7 @@ const CharacterPortrait = (props) => {
   const portraitRow = {
     marginTop: "10px",
     alignItems: "center",
+    transition: "all 400ms ease",
   };
 
   const spaceAround = {
@@ -157,7 +176,7 @@ const CharacterPortrait = (props) => {
     }
   }, [creationAnimationState.appearDone]);
 
-  const toggleSeeMore = () => {
+  const toggleSeeMore = async () => {
     if (seeMore) {
       setAttributesAnimation(false);
       setTimeout(() => {
@@ -227,10 +246,12 @@ const CharacterPortrait = (props) => {
             <span className={characterClass}>
               {ClassIcons[contextState.class]}
             </span>
-            <div
-              onClick={() =>
-                setCreationAnimationState({ type: "active", active: 1 })
-              }
+            <Container
+              extraProps={{
+                onClick: () =>
+                  setCreationAnimationState({ type: "active", active: 1 }),
+              }}
+              sx={{ cursor: "pointer" }}
               className={imageContainer}
             >
               <img
@@ -239,12 +260,18 @@ const CharacterPortrait = (props) => {
                 }
                 alt="character-portrait"
               />
-            </div>
+            </Container>
             <Container
               sx={{ zIndex: 1, width: "185px" }}
               flexDirection="column"
             >
-              <Container sx={portraitRow} id="name-row">
+              <Container
+                sx={{
+                  ...portraitRow,
+                  opacity: localActive !== 2 && !changeAttributes ? 1 : 0,
+                }}
+                id="name-row"
+              >
                 <span className={label}>
                   {languageState.texts.CharacterPortrait.Labels.Name}{" "}
                 </span>
@@ -268,13 +295,38 @@ const CharacterPortrait = (props) => {
                   <span>{contextState.name}</span>
                 )}
               </Container>
-              <Container sx={portraitRow} id="level-row">
+              <Container
+                sx={{
+                  ...portraitRow,
+                  display: localActive === 2 ? "flex" : "none",
+                  opacity: !changeAttributes ? 1 : 0,
+                }}
+                id="class-row"
+              >
+                <span className={label}>
+                  {languageState.texts.CharacterPortrait.Labels.Class}{" "}
+                </span>
+              </Container>
+              <Container
+                sx={{
+                  ...portraitRow,
+                  opacity: localActive !== 2 && !changeAttributes ? 1 : 0,
+                }}
+                id="level-row"
+              >
                 <span className={label}>
                   {languageState.texts.CharacterPortrait.Labels.Level}{" "}
                 </span>
                 <span>{contextState.level}</span>
               </Container>
-              <Container sx={portraitRow} id="range-row">
+              <Container
+                sx={{
+                  ...portraitRow,
+                  display: localActive !== 2 ? "flex" : "none",
+                  opacity: !changeAttributes ? 1 : 0,
+                }}
+                id="range-row"
+              >
                 <span className={label}>
                   {languageState.texts.CharacterPortrait.Labels.Range}{" "}
                 </span>
@@ -302,123 +354,136 @@ const CharacterPortrait = (props) => {
                   transition: "all 400ms ease",
                 }}
               >
-                <h3>
-                  {languageState.texts.CharacterPortrait.Labels.Attributes}
-                </h3>
-                <Container>
-                  <Container flexDirection="column">
-                    <Container
-                      sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
-                      id="attack-row"
-                      extraProps={{
-                        "data-tip": seeMoreAnimation
-                          ? languageState.texts.CharacterPortrait.Tooltips
-                              .Attack
-                          : "",
-                      }}
-                    >
-                      <span style={{ marginRight: "20px" }} className={label}>
-                        {AttributeIcons.attack}
-                      </span>
-                      <Container sx={{ marginBottom: "2px" }}>
-                        <span className={label}>
-                          {languageState.texts.CharacterPortrait.Labels.Attack}{" "}
+                <>
+                  <h3>
+                    {languageState.texts.CharacterPortrait.Labels.Attributes}
+                  </h3>
+                  <Container>
+                    <Container flexDirection="column">
+                      <Container
+                        sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
+                        id="attack-row"
+                        extraProps={{
+                          "data-tip": seeMoreAnimation
+                            ? languageState.texts.CharacterPortrait.Tooltips
+                                .Attack
+                            : "",
+                        }}
+                      >
+                        <span style={{ marginRight: "20px" }} className={label}>
+                          {AttributeIcons.attack}
                         </span>
-                        <span>{contextState.attack}</span>
+                        <Container sx={{ marginBottom: "2px" }}>
+                          <span className={label}>
+                            {
+                              languageState.texts.CharacterPortrait.Labels
+                                .Attack
+                            }{" "}
+                          </span>
+                          <span>{contextState.attack}</span>
+                        </Container>
+                      </Container>
+                      <Container
+                        sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
+                        id="armor-row"
+                        extraProps={{
+                          "data-tip": seeMoreAnimation
+                            ? languageState.texts.CharacterPortrait.Tooltips
+                                .Armor
+                            : "",
+                        }}
+                      >
+                        <span className={label}>{AttributeIcons.armor}</span>
+                        <Container sx={{ marginBottom: "2px" }}>
+                          <span className={label}>
+                            {languageState.texts.CharacterPortrait.Labels.Armor}{" "}
+                          </span>
+                          <span>{contextState.armor}</span>
+                        </Container>
+                      </Container>
+                      <Container
+                        sx={{ ...portraitRow, ...bigFont }}
+                        id="luck-row"
+                        extraProps={{
+                          "data-tip": seeMoreAnimation
+                            ? languageState.texts.CharacterPortrait.Tooltips
+                                .Luck
+                            : "",
+                        }}
+                      >
+                        <span style={{ marginRight: "20px" }}>
+                          {AttributeIcons.luck}
+                        </span>
+                        <Container sx={{ marginBottom: "2px" }}>
+                          <span className={label}>
+                            {languageState.texts.CharacterPortrait.Labels.Luck}{" "}
+                          </span>
+                          <span>{contextState.luck}</span>
+                        </Container>
                       </Container>
                     </Container>
+
                     <Container
-                      sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
-                      id="armor-row"
-                      extraProps={{
-                        "data-tip": seeMoreAnimation
-                          ? languageState.texts.CharacterPortrait.Tooltips.Armor
-                          : "",
-                      }}
+                      flexDirection="column"
+                      sx={{ marginLeft: "20px" }}
                     >
-                      <span className={label}>{AttributeIcons.armor}</span>
-                      <Container sx={{ marginBottom: "2px" }}>
-                        <span className={label}>
-                          {languageState.texts.CharacterPortrait.Labels.Armor}{" "}
+                      <Container
+                        sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
+                        id="life-row"
+                        extraProps={{
+                          "data-tip": seeMoreAnimation
+                            ? languageState.texts.CharacterPortrait.Tooltips
+                                .Life
+                            : "",
+                        }}
+                      >
+                        <span style={{ marginRight: "20px" }}>
+                          {AttributeIcons.life}
                         </span>
-                        <span>{contextState.armor}</span>
+                        <Container sx={{ marginBottom: "2px" }}>
+                          <span className={label}>
+                            {languageState.texts.CharacterPortrait.Labels.Life}{" "}
+                          </span>
+                          <span>
+                            {contextState.life.current} /{" "}
+                            {contextState.life.max}
+                          </span>
+                        </Container>
                       </Container>
-                    </Container>
-                    <Container
-                      sx={{ ...portraitRow, ...bigFont }}
-                      id="luck-row"
-                      extraProps={{
-                        "data-tip": seeMoreAnimation
-                          ? languageState.texts.CharacterPortrait.Tooltips.Luck
-                          : "",
-                      }}
-                    >
-                      <span style={{ marginRight: "20px" }}>
-                        {AttributeIcons.luck}
-                      </span>
-                      <Container sx={{ marginBottom: "2px" }}>
-                        <span className={label}>
-                          {languageState.texts.CharacterPortrait.Labels.Luck}{" "}
-                        </span>
-                        <span>{contextState.luck}</span>
+                      <Container
+                        sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
+                        id="mana-row"
+                        extraProps={{
+                          "data-tip": seeMoreAnimation
+                            ? languageState.texts.CharacterPortrait.Tooltips
+                                .Mana
+                            : "",
+                        }}
+                      >
+                        <span className={label}>{AttributeIcons.mana}</span>
+                        <Container sx={{ marginBottom: "2px" }}>
+                          <span className={label}>
+                            {languageState.texts.CharacterPortrait.Labels.Mana}{" "}
+                          </span>
+                          <span>
+                            {contextState.mana.current} /{" "}
+                            {contextState.mana.max}
+                          </span>
+                        </Container>
                       </Container>
                     </Container>
                   </Container>
-
-                  <Container flexDirection="column" sx={{ marginLeft: "20px" }}>
-                    <Container
-                      sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
-                      id="life-row"
-                      extraProps={{
-                        "data-tip": seeMoreAnimation
-                          ? languageState.texts.CharacterPortrait.Tooltips.Life
-                          : "",
-                      }}
-                    >
-                      <span style={{ marginRight: "20px" }}>
-                        {AttributeIcons.life}
-                      </span>
-                      <Container sx={{ marginBottom: "2px" }}>
-                        <span className={label}>
-                          {languageState.texts.CharacterPortrait.Labels.Life}{" "}
-                        </span>
-                        <span>
-                          {contextState.life.current} / {contextState.life.max}
-                        </span>
-                      </Container>
-                    </Container>
-                    <Container
-                      sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
-                      id="mana-row"
-                      extraProps={{
-                        "data-tip": seeMoreAnimation
-                          ? languageState.texts.CharacterPortrait.Tooltips.Mana
-                          : "",
-                      }}
-                    >
-                      <span className={label}>{AttributeIcons.mana}</span>
-                      <Container sx={{ marginBottom: "2px" }}>
-                        <span className={label}>
-                          {languageState.texts.CharacterPortrait.Labels.Mana}{" "}
-                        </span>
-                        <span>
-                          {contextState.mana.current} / {contextState.mana.max}
-                        </span>
-                      </Container>
-                    </Container>
-                  </Container>
-                </Container>
-                <h3>
-                  {languageState.texts.CharacterPortrait.Labels.Description}
-                </h3>
-
-                <textarea
-                  className={description}
-                  placeholder={
-                    languageState.texts.CharacterPortrait.Placeholders
-                      .Description
-                  }
-                />
+                  <h3>
+                    {languageState.texts.CharacterPortrait.Labels.Description}
+                  </h3>
+                  <textarea
+                    className={description}
+                    placeholder={
+                      languageState.texts.CharacterPortrait.Placeholders
+                        .Description
+                    }
+                  />
+                </>
               </Container>
             </Container>
           )}

@@ -26,7 +26,8 @@
         "Armor": "Armadura:",
         "Attack": "Ataque:",
         "Luck": "Suerte:",
-        "Description": "Descripción"
+        "Description": "Descripción",
+        "Class": "Clase"
       },
       "Tooltips": {
         "Life": "Vida:",
