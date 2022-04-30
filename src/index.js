@@ -16,6 +16,7 @@ import "./components/Kenburns/kenburns.css";
 
 import Container from "./components/Container/Container";
 import CharacterPortrait from "./components/CharacterPortrait/CharacterPortrait";
+import CreateCharacter from "./views/CreateCharacter/CreateCharacter";
 
 const container = document.getElementById("root");
 
@@ -31,16 +32,7 @@ root.render(
             <OffCanvasProvider>
               <AudioControllerProvider>
                 {/*<App />*/}
-                <Container
-                  justifyContent="center"
-                  alignItems="center"
-                  sx={{
-                    width: "100vw",
-                    height: "100vh",
-                  }}
-                >
-                  <CharacterPortrait />
-                </Container>
+                <CreateCharacter />
               </AudioControllerProvider>
             </OffCanvasProvider>
           </AudioConfigProvider>

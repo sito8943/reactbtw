@@ -27,7 +27,7 @@ import Container from "../Container/Container";
 import "./style.css";
 
 const CharacterPortrait = (props) => {
-  const { id, name, style, edit } = props;
+  const { id, name, style, edit, changeName } = props;
 
   const { languageState } = useLanguage();
   const { contextState } = useContext();
@@ -41,11 +41,15 @@ const CharacterPortrait = (props) => {
 
   const [appearDone, setAppearDone] = useState(false);
   const [characterName, setCharacterName] = useState("");
+
+  useEffect(() => {
+    changeName(characterName);
+  }, [characterName]);
+
   const [nameFocus, setNameFocus] = useState(false);
 
   const characterPortrait = {
     padding: "10px",
-
     background: "#222222",
     border: "1px solid #383838",
     borderRadius: !portraitAnimation ? "1rem" : "1rem 0 0 1rem",
@@ -289,6 +293,7 @@ const CharacterPortrait = (props) => {
             <Container sx={attributes}>
               <Container
                 flexDirection="column"
+                className="scroll"
                 sx={{
                   overflow: "auto",
                   padding: "0 20px",
@@ -420,20 +425,25 @@ const CharacterPortrait = (props) => {
           )}
         </Container>
 
-        <button
-          style={{
-            visibility: "hidden",
-          }}
-          id="click"
-          disabled={isAnimating}
-          onClick={reward}
-        >
-          Test
-        </button>
-        <div
-          style={{ zIndex: 99, width: "40px", marginLeft: "80px" }}
-          id="rewardId"
-        ></div>
+        {edit && (
+          <>
+            {" "}
+            <button
+              style={{
+                visibility: "hidden",
+              }}
+              id="click"
+              disabled={isAnimating}
+              onClick={reward}
+            >
+              Test
+            </button>
+            <div
+              style={{ zIndex: 99, width: "40px", marginLeft: "80px" }}
+              id="rewardId"
+            ></div>
+          </>
+        )}
       </Container>
     </>
   );
@@ -446,7 +456,8 @@ CharacterPortrait.defaultProps = {
   id: "",
   name: "",
   style: {},
-  edit: true,
+  edit: false,
+  changeName: null,
 };
 
 /*CharacterPortrait.propTypes = {

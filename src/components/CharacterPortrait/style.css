@@ -1,3 +1,36 @@
+.scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+.scroll::-webkit-scrollbar-thumb {
+  background: rgb(65, 65, 65);
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: rgb(69, 69, 69);
+  box-shadow: 0 0 2px 1px rgba(102, 100, 100, 0);
+}
+
+/* Cambiamos el fondo cuando esté en active */
+.scroll::-webkit-scrollbar-thumb:active {
+  background-color: rgb(100, 99, 99);
+}
+
+/* Ponemos un color de fondo y redondeamos las esquinas del track */
+.scroll::-webkit-scrollbar-track {
+  background: #44444400;
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo cuando esté en active o hover */
+.scroll::-webkit-scrollbar-track:hover,
+.scroll::-webkit-scrollbar-track:active {
+  background: rgba(65, 65, 65, 0);
+}
+
 .rotate-card {
   animation: rotate 5s cubic-bezier(0.54, 0.13, 0.3, 0.87);
 }
