@@ -13,6 +13,7 @@
       }
     },
     "CharacterPortrait": {
+      "Classes": ["Guerrero", "Cazador", "Mago", "Defensor"],
       "Placeholders": {
         "Description": "Introduce una descripción..."
       },

@@ -1,10 +1,16 @@
 import * as React from "react";
-import { ClassEnumType } from "../models/Classes";
+import { ClassEnumType, CreationClass } from "../models/Classes";
 
 const Context = React.createContext();
 
 const contextReducer = (contextState, action) => {
   switch (action.type) {
+    case "set": {
+      const newContext = contextState;
+      newContext[action.who] = action.to;
+      return { ...newContext };
+    }
+
     case "change-user-action": {
       return {
         ...contextState,
@@ -67,18 +73,12 @@ const ContextProvider = ({ children }) => {
   const [contextState, setContextState] = React.useReducer(contextReducer, {
     id: 1,
     name: "Sito",
-    class: ClassEnumType.Fighter,
     photo: undefined,
     level: 1,
     action: 0,
     lang: "ES",
     netStatus: "",
     mode: "dark",
-    life: { current: 15, max: 15 },
-    mana: { current: 15, max: 15 },
-    armor: 1,
-    attack: 10,
-    luck: 1,
     showingNotification: false,
   });
 

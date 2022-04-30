@@ -31,7 +31,7 @@ const CharacterPortrait = (props) => {
   const { id, name, style, edit, changeName } = props;
 
   const { languageState } = useLanguage();
-  const { contextState } = useContext();
+  const { contextState, setContextState } = useContext();
   const { creationAnimationState, setCreationAnimationState } =
     useCreationAnimation();
   const { reward, isAnimating } = useReward("rewardId", "confetti");
@@ -155,6 +155,20 @@ const CharacterPortrait = (props) => {
     transition: "all 400ms ease",
   });
 
+  const classButton = css({
+    border: "1px solid #383838",
+    background: "#222222eb",
+    color: "#5e6264",
+    transition: "all 400ms ease",
+    padding: "5px 5px 5px 5px",
+    borderRadius: "5px",
+    height: "25px",
+    margin: "5px",
+    "&:hover": {
+      background: "#383838",
+    },
+  });
+
   const description = css({
     background: "#292929",
     borderRadius: "15px",
@@ -251,13 +265,14 @@ const CharacterPortrait = (props) => {
                 onClick: () =>
                   setCreationAnimationState({ type: "active", active: 1 }),
               }}
-              sx={{ cursor: "pointer" }}
+              sx={{ cursor: "pointer", transition: "all 400ms ease" }}
               className={imageContainer}
             >
               <img
                 src={
                   contextState.photo ? contextState.user.photo : femaleHighElf
                 }
+                style={{ transition: "all 400ms ease" }}
                 alt="character-portrait"
               />
             </Container>
@@ -306,6 +321,21 @@ const CharacterPortrait = (props) => {
                 <span className={label}>
                   {languageState.texts.CharacterPortrait.Labels.Class}{" "}
                 </span>
+                <Container sx={{ marginTop: "5px" }} alignItems="center">
+                  {ClassIcons.map((item, i) => (
+                    <button
+                      className={classButton}
+                      data-tip={
+                        languageState.texts.CharacterPortrait.Classes[i]
+                      }
+                      onClick={() =>
+                        setContextState({ type: "set", who: "class", to: i })
+                      }
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </Container>
               </Container>
               <Container
                 sx={{
