@@ -2,7 +2,13 @@ body {
   overflow: hidden;
   margin: 0;
   background-color: #222222;
-  background-image: linear-gradient(160deg, #222222 0%, #222333 100%);
+  background-image: linear-gradient(
+    0deg,
+    #222222 0%,
+    #222333 33%,
+    #222333 66%,
+    #222222 100%
+  );
 }
 
 * {
