@@ -31,11 +31,11 @@
         "Class": "Clase"
       },
       "Tooltips": {
-        "Life": "Vida:",
-        "Mana": "Maná:",
-        "Armor": "Armadura:",
-        "Attack": "Ataque:",
-        "Luck": "Suerte:"
+        "Life": "Energía vital del personaje",
+        "Mana": "Energía mágica del personaje",
+        "Armor": "Defensa proporcionada por modificadores y armadura",
+        "Attack": "Daño base más el de las arma y modificadores",
+        "Luck": "Potenciador de golpes críticos"
       },
       "Range": ["Iniciado", "Aventurero", "Experto"]
     },

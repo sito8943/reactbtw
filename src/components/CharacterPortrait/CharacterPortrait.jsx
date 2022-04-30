@@ -409,61 +409,78 @@ const CharacterPortrait = (props) => {
                       <Container
                         sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                         id="attack-row"
-                        extraProps={{
-                          "data-tip": seeMoreAnimation
-                            ? languageState.texts.CharacterPortrait.Tooltips
-                                .Attack
-                            : "",
-                        }}
                       >
                         <span style={{ marginRight: "20px" }} className={label}>
                           {AttributeIcons.attack}
                         </span>
                         <Container sx={{ marginBottom: "2px" }}>
-                          <span className={label}>
-                            {
-                              languageState.texts.CharacterPortrait.Labels
-                                .Attack
-                            }{" "}
-                          </span>
+                          <Tippy
+                            content={
+                              seeMoreAnimation
+                                ? languageState.texts.CharacterPortrait.Tooltips
+                                    .Attack
+                                : ""
+                            }
+                          >
+                            <span className={label}>
+                              {
+                                languageState.texts.CharacterPortrait.Labels
+                                  .Attack
+                              }{" "}
+                            </span>
+                          </Tippy>
                           <span>{contextState.character.Attack.max}</span>
                         </Container>
                       </Container>
                       <Container
                         sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                         id="armor-row"
-                        extraProps={{
-                          "data-tip": seeMoreAnimation
-                            ? languageState.texts.CharacterPortrait.Tooltips
-                                .Armor
-                            : "",
-                        }}
                       >
                         <span className={label}>{AttributeIcons.armor}</span>
                         <Container sx={{ marginBottom: "2px" }}>
-                          <span className={label}>
-                            {languageState.texts.CharacterPortrait.Labels.Armor}{" "}
-                          </span>
+                          <Tippy
+                            content={
+                              seeMoreAnimation
+                                ? languageState.texts.CharacterPortrait.Tooltips
+                                    .Armor
+                                : ""
+                            }
+                          >
+                            <span className={label}>
+                              {
+                                languageState.texts.CharacterPortrait.Labels
+                                  .Armor
+                              }{" "}
+                            </span>
+                          </Tippy>
+
                           <span>{contextState.character.Armor.max}</span>
                         </Container>
                       </Container>
                       <Container
                         sx={{ ...portraitRow, ...bigFont }}
                         id="luck-row"
-                        extraProps={{
-                          "data-tip": seeMoreAnimation
-                            ? languageState.texts.CharacterPortrait.Tooltips
-                                .Luck
-                            : "",
-                        }}
                       >
                         <span style={{ marginRight: "20px" }}>
                           {AttributeIcons.luck}
                         </span>
                         <Container sx={{ marginBottom: "2px" }}>
-                          <span className={label}>
-                            {languageState.texts.CharacterPortrait.Labels.Luck}{" "}
-                          </span>
+                          <Tippy
+                            content={
+                              seeMoreAnimation
+                                ? languageState.texts.CharacterPortrait.Tooltips
+                                    .Luck
+                                : ""
+                            }
+                          >
+                            <span className={label}>
+                              {
+                                languageState.texts.CharacterPortrait.Labels
+                                  .Luck
+                              }{" "}
+                            </span>
+                          </Tippy>
+
                           <span>{contextState.character.Luck.max}</span>
                         </Container>
                       </Container>
@@ -476,20 +493,27 @@ const CharacterPortrait = (props) => {
                       <Container
                         sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                         id="life-row"
-                        extraProps={{
-                          "data-tip": seeMoreAnimation
-                            ? languageState.texts.CharacterPortrait.Tooltips
-                                .Life
-                            : "",
-                        }}
                       >
                         <span style={{ marginRight: "20px" }}>
                           {AttributeIcons.life}
                         </span>
                         <Container sx={{ marginBottom: "2px" }}>
-                          <span className={label}>
-                            {languageState.texts.CharacterPortrait.Labels.Life}{" "}
-                          </span>
+                          <Tippy
+                            content={
+                              seeMoreAnimation
+                                ? languageState.texts.CharacterPortrait.Tooltips
+                                    .Life
+                                : ""
+                            }
+                          >
+                            <span className={label}>
+                              {
+                                languageState.texts.CharacterPortrait.Labels
+                                  .Life
+                              }{" "}
+                            </span>
+                          </Tippy>
+
                           <span>
                             {contextState.character.Life.current} /{" "}
                             {contextState.character.Life.max}
@@ -499,18 +523,25 @@ const CharacterPortrait = (props) => {
                       <Container
                         sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                         id="mana-row"
-                        extraProps={{
-                          "data-tip": seeMoreAnimation
-                            ? languageState.texts.CharacterPortrait.Tooltips
-                                .Mana
-                            : "",
-                        }}
                       >
                         <span className={label}>{AttributeIcons.mana}</span>
                         <Container sx={{ marginBottom: "2px" }}>
-                          <span className={label}>
-                            {languageState.texts.CharacterPortrait.Labels.Mana}{" "}
-                          </span>
+                          <Tippy
+                            content={
+                              seeMoreAnimation
+                                ? languageState.texts.CharacterPortrait.Tooltips
+                                    .Mana
+                                : ""
+                            }
+                          >
+                            <span className={label}>
+                              {
+                                languageState.texts.CharacterPortrait.Labels
+                                  .Mana
+                              }{" "}
+                            </span>
+                          </Tippy>
+
                           <span>
                             {contextState.character.Mana.current} /{" "}
                             {contextState.character.Mana.max}
