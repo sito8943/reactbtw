@@ -78,7 +78,7 @@ export default class Character {
 
     switch (which) {
       case "class":
-        this.CreateClass(to);
+        this.CreateClass(CreationClass[to]);
         break;
       default:
         this[which] = to;

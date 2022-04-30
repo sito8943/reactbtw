@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
-// react-tooltip
-import ReactTooltip from "react-tooltip";
+// tippy
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css"; // optional
 
 // @emotion/css
 import { css } from "@emotion/css";
@@ -224,7 +225,6 @@ const CharacterPortrait = (props) => {
 
   return (
     <>
-      <ReactTooltip />
       <Container
         className="scale-div"
         flexDirection="column"
@@ -331,20 +331,25 @@ const CharacterPortrait = (props) => {
                 </span>
                 <Container sx={{ marginTop: "5px" }} alignItems="center">
                   {ClassIcons.map((item, i) => (
-                    <button
+                    <Tippy
                       key={i}
-                      className={`${classButton} ${
-                        contextState.character.class === i ? active : ""
-                      }`}
-                      data-tip={
-                        languageState.texts.CharacterPortrait.Classes[i]
-                      }
-                      onClick={() =>
-                        setContextState({ type: "set", which: "class", to: i })
-                      }
+                      content={languageState.texts.CharacterPortrait.Classes[i]}
                     >
-                      {item}
-                    </button>
+                      <button
+                        className={`${classButton} ${
+                          contextState.character.class === i ? active : ""
+                        }`}
+                        onClick={() =>
+                          setContextState({
+                            type: "set",
+                            which: "class",
+                            to: i,
+                          })
+                        }
+                      >
+                        {item}
+                      </button>
+                    </Tippy>
                   ))}
                 </Container>
               </Container>
