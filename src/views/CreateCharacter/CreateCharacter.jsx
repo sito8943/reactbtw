@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // tippy
 import Tippy from "@tippyjs/react";
@@ -26,6 +26,8 @@ const CreateCharacter = () => {
   const { creationAnimationState, setCreationAnimationState } =
     useCreationAnimation();
 
+  const [started, setStarted] = useState(false);
+
   const playSound = (sound) => {
     if (audioConfigState.sfx) setAudioControllerState({ type: sound });
   };
@@ -47,6 +49,10 @@ const CreateCharacter = () => {
       document.body.onkeydown = null;
     };
   }, []);
+
+  const start = () => {
+    setStarted(true);
+  };
 
   const skewButton = css({
     background: "#222222",
@@ -71,6 +77,7 @@ const CreateCharacter = () => {
 
   return (
     <Container
+      flexDirection={creationAnimationState.active === 3 ? "column" : "row"}
       justifyContent="center"
       alignItems="center"
       sx={{
@@ -78,6 +85,17 @@ const CreateCharacter = () => {
         height: "100vh",
       }}
     >
+      <Container
+        sx={{
+          width: "100%",
+          height: "100%",
+          background: "#000",
+          opacity: started ? 1 : 0,
+          zIndex: started ? 99 : -1,
+          transition: "all 1000ms ease",
+          position: "absolute",
+        }}
+      ></Container>
       <CharacterPortrait edit />
       <Container
         sx={{
@@ -157,6 +175,17 @@ const CreateCharacter = () => {
           </button>
         )}
       </Container>
+      {creationAnimationState.active === 3 && (
+        <Container>
+          <button
+            className={skewButton}
+            style={{ borderRadius: "5px" }}
+            onClick={start}
+          >
+            {languageState.texts.Creation.Buttons.Start}
+          </button>
+        </Container>
+      )}
     </Container>
   );
 };

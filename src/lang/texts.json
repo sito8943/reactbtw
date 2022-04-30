@@ -10,7 +10,8 @@
         "General": "General",
         "Appearance": "Apariencia",
         "Class": "Clase",
-        "Finish": "Terminar"
+        "Finish": "Terminar",
+        "Start": "Comenzar"
       },
       "Tooltips": {
         "NotYet": "Debes introducir un nombre válido"
