@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 // own components
 import Container from "../Container/Container";
 
+// animations
+import "../../assets/animations/Hit/shake.css";
 import Slash from "../../assets/animations/Attack/Slash";
 
 const Animation = (props) => {
   const { target, which } = props;
   return (
-    <Container>
+    <Container sx={{ zIndex: 99 }}>
       <Slash x={target.x} y={target.y} />
     </Container>
   );

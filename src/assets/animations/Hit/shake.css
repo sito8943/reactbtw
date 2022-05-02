@@ -1,0 +1,22 @@
+.shake {
+  animation: shake 1 0.5s linear;
+}
+
+.red {
+  background-color: rgba(255, 0, 0, 0.274) !important;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(-5deg);
+  }
+  20% {
+    transform: rotate(5deg);
+  }
+  30% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+}

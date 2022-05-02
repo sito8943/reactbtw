@@ -20,7 +20,7 @@ import femaleHighElf from "../../../img/portrait/femalehighelf.webp";
 
 const CombatPortrait = (props) => {
   const { languageState } = useLanguage();
-  const { character, id } = props;
+  const { character, id, className } = props;
 
   const combatPortrait = {
     padding: "10px",
@@ -34,7 +34,7 @@ const CombatPortrait = (props) => {
       color: "#aeb4b9",
     },
     color: "#5e6264",
-    transition: "all 400ms ease",
+    transition: "all 200ms ease",
   };
 
   const portraitRow = {
@@ -69,6 +69,7 @@ const CombatPortrait = (props) => {
       justifyContent="center"
       sx={combatPortrait}
       id={id}
+      className={className}
     >
       <span className={characterClass}>{ClassIcons[character.Class]}</span>
       <Container>
@@ -96,10 +97,14 @@ const CombatPortrait = (props) => {
 
 CombatPortrait.defaultProps = {
   character: {},
+  id: "",
+  className: "",
 };
 
 CombatPortrait.propTypes = {
   character: PropTypes.object,
+  id: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default CombatPortrait;

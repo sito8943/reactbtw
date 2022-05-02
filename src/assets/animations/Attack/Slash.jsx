@@ -2,6 +2,7 @@ import slash from "./slash1.gif";
 
 const Slash = (props) => {
   const { x, y } = props;
+  console.log(x, y);
   return (
     <div>
       <img
