@@ -9,6 +9,9 @@ import { css } from "@emotion/css";
 // own components
 import Container from "../../Container/Container";
 
+// context
+import { useLanguage } from "../../../context/Language";
+
 // icons
 import { ClassIcons } from "../../../assets/icons/icons";
 
@@ -16,15 +19,16 @@ import { ClassIcons } from "../../../assets/icons/icons";
 import femaleHighElf from "../../../img/portrait/femalehighelf.webp";
 
 const CombatPortrait = (props) => {
-  const { character } = props;
+  const { languageState } = useLanguage();
+  const { character, id } = props;
 
-  const characterPortrait = {
+  const combatPortrait = {
     padding: "10px",
     background: "#222222",
     border: "1px solid #383838",
     borderRadius: "1rem",
     width: "200px",
-    height: "300px",
+    height: "250px",
     zIndex: 1,
     h3: {
       color: "#aeb4b9",
@@ -37,14 +41,6 @@ const CombatPortrait = (props) => {
     marginTop: "10px",
     alignItems: "center",
     transition: "all 400ms ease",
-  };
-
-  const spaceAround = {
-    justifyContent: "space-around",
-  };
-
-  const bigFont = {
-    fontSize: "20px",
   };
 
   const label = css({
@@ -70,16 +66,29 @@ const CombatPortrait = (props) => {
     <Container
       flexDirection="column"
       alignItems="center"
-      justifyContent="space-around"
-      sx={characterPortrait}
+      justifyContent="center"
+      sx={combatPortrait}
+      id={id}
     >
       <span className={characterClass}>{ClassIcons[character.Class]}</span>
       <Container>
         <img
-          src={character ? character.Photo : femaleHighElf}
+          src={character.Photo ? character.Photo : femaleHighElf}
           className={imageContainer}
           alt="character-portrait"
         />
+      </Container>
+      <Container sx={portraitRow} id="name-row">
+        <span className={label}>
+          {languageState.texts.CharacterPortrait.Labels.Name}{" "}
+        </span>
+        <span>{character.Name}</span>
+      </Container>
+      <Container sx={portraitRow} id="level-row">
+        <span className={label}>
+          {languageState.texts.CharacterPortrait.Labels.Level}{" "}
+        </span>
+        <span>{character.Level}</span>
       </Container>
     </Container>
   );

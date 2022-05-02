@@ -391,7 +391,9 @@ const CharacterPortrait = (props) => {
                 <span className={label}>
                   {languageState.texts.CharacterPortrait.Labels.Level}{" "}
                 </span>
-                <span>{contextState.character.Level}</span>
+                <span>
+                  {character ? character.Level : contextState.character.Level}
+                </span>
               </Container>
               <Container
                 sx={{
@@ -407,7 +409,7 @@ const CharacterPortrait = (props) => {
                 <span>
                   {
                     languageState.texts.CharacterPortrait.Range[
-                      contextState.character.Level
+                      character ? character.Level : contextState.character.Level
                     ]
                   }
                 </span>
