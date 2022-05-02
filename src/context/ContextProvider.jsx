@@ -8,7 +8,6 @@ const contextReducer = (contextState, action) => {
     case "set": {
       const newContextState = contextState;
       newContextState.character.SetAttribute(action.which, action.to);
-      console.log(newContextState);
       return { ...newContextState };
     }
 

@@ -51,6 +51,11 @@ const CreateCharacter = () => {
   }, []);
 
   const start = () => {
+    localStorage.setItem("btw-user-data", {
+      name: contextState.character.Name,
+      level: contextState.character.Level,
+      class: contextState.character.Class,
+    });
     setStarted(true);
   };
 
@@ -95,7 +100,9 @@ const CreateCharacter = () => {
           transition: "all 1000ms ease",
           position: "absolute",
         }}
-      ></Container>
+      >
+        <div></div>
+      </Container>
       <CharacterPortrait edit />
       <Container
         sx={{
