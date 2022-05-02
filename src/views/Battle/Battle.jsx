@@ -18,9 +18,8 @@ const Battle = () => {
   useEffect(() => {
     const dataUser = localStorage.getItem("btw-user-data");
     const player = new Character(JSON.parse(dataUser));
-    const enemy = new Character(JSON.parse(dataUser));
-    setPlayers([player, player, player, player]);
-    setEnemies([enemy, enemy, enemy, enemy]);
+    setPlayers([player]);
+    setEnemies([new Character({ name: "Enemigo", level: 2, class: 0 })]);
   }, []);
 
   const doAttack = () => {
@@ -30,6 +29,7 @@ const Battle = () => {
       x: currentTarget.offsetLeft + 70, // + currentTarget.offsetWidth / 2,
       y: currentTarget.offsetTop + 85, // + currentTarget.offsetHeight / 2,
       class: "",
+      player: 0,
       index: 0,
     });
     setTimeout(() => {
@@ -39,6 +39,7 @@ const Battle = () => {
         y: currentTarget.offsetTop + 85, // + currentTarget.offsetHeight / 2,
         subclass: "shake",
         class: "red",
+        player: 0,
         index: 0,
       });
       setTimeout(() => {
@@ -61,12 +62,18 @@ const Battle = () => {
       <Container justifyContent="right">
         {enemies.map((item, i) => {
           return (
-            <Container className={target.index === i ? target.subclass : ""}>
+            <Container
+              key={`enemy${item.Name}${i}`}
+              className={
+                target.player === 0 && target.index === i ? target.subclass : ""
+              }
+            >
               <CombatPortrait
                 id="Hola"
-                key={`enemy${item.Name}${i}`}
                 character={item}
-                className={target.index === i ? target.class : ""}
+                className={
+                  target.player === 0 && target.index === i ? target.class : ""
+                }
               />
             </Container>
           );
@@ -87,11 +94,20 @@ const Battle = () => {
       <Container justifyContent="left">
         {players.map((item, i) => {
           return (
-            <CombatPortrait
-              id="item.Name"
+            <Container
               key={`${item.Name}${i}`}
-              character={item}
-            />
+              className={
+                target.player === 1 && target.index === i ? target.subclass : ""
+              }
+            >
+              <CombatPortrait
+                id="item.Name"
+                character={item}
+                className={
+                  target.player === 1 && target.index === i ? target.class : ""
+                }
+              />
+            </Container>
           );
         })}
       </Container>
