@@ -51,11 +51,14 @@ const CreateCharacter = () => {
   }, []);
 
   const start = () => {
-    localStorage.setItem("btw-user-data", {
-      name: contextState.character.Name,
-      level: contextState.character.Level,
-      class: contextState.character.Class,
-    });
+    localStorage.setItem(
+      "btw-user-data",
+      JSON.stringify({
+        name: contextState.character.Name,
+        level: contextState.character.Level,
+        class: contextState.character.Class,
+      })
+    );
     setStarted(true);
   };
 

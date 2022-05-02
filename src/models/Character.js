@@ -1,10 +1,10 @@
 import { CreationClass } from "./Classes";
+import Destructible from "./Destructible";
 
-export default class Character {
-  constructor(params) {
-    this.name = "";
-    this.level = 1;
-    this.CreateClass(CreationClass[0]);
+export default class Character extends Destructible {
+  constructor(options = { name: "", level: 1, class: 0 }) {
+    super({ name: options.name, level: options.level });
+    this.CreateClass(CreationClass[options.class]);
   }
 
   CreateClass = (newClass) => {

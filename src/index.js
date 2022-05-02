@@ -15,6 +15,8 @@ import "./index.css";
 import "./components/Kenburns/kenburns.css";
 
 import Test from "./test";
+import Battle from "./views/Battle/Battle";
+import { CreationAnimationProvider } from "./context/CreationAnimation";
 
 const container = document.getElementById("root");
 
@@ -29,8 +31,10 @@ root.render(
           <AudioConfigProvider>
             <OffCanvasProvider>
               <AudioControllerProvider>
-                {/*<App />*/}
-                <Test />
+                <CreationAnimationProvider>
+                  {/*<App />*/}
+                  <Battle />
+                </CreationAnimationProvider>
               </AudioControllerProvider>
             </OffCanvasProvider>
           </AudioConfigProvider>

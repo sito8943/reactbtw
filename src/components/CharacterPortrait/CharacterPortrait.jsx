@@ -31,7 +31,7 @@ import Container from "../Container/Container";
 import "./style.css";
 
 const CharacterPortrait = (props) => {
-  const { id, name, style, edit } = props;
+  const { id, character, style, edit } = props;
 
   const { languageState } = useLanguage();
   const { contextState, setContextState } = useContext();
@@ -247,7 +247,6 @@ const CharacterPortrait = (props) => {
             justifyContent="space-around"
             sx={characterPortrait}
             id={id}
-            name={name}
             style={style}
             className={creationAnimationState.appearDone ? "" : "rotate-card"}
           >
@@ -279,7 +278,11 @@ const CharacterPortrait = (props) => {
               </button>
             </Container>
             <span className={characterClass}>
-              {ClassIcons[contextState.character.Class]}
+              {
+                ClassIcons[
+                  character ? character.Class : contextState.character.Class
+                ]
+              }
             </span>
             <Container
               extraProps={{
@@ -339,7 +342,7 @@ const CharacterPortrait = (props) => {
                     }
                   />
                 ) : (
-                  <span>{contextState.character.Name}</span>
+                  <span>{character.Name}</span>
                 )}
               </Container>
               <Container
