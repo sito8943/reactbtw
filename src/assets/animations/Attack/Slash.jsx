@@ -1,4 +1,4 @@
-import slash from "./slash1.gif";
+import slash from "./slash.gif";
 
 const Slash = (props) => {
   const { x, y } = props;
