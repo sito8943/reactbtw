@@ -9,16 +9,27 @@ import Text from "../Text/Text";
 
 // images
 import character1 from "../../assets/images/characters/character1.jpeg";
+import { css } from "@emotion/css";
 
 const SpeakDialog = (props) => {
   const { portrait, name, text, visible, time } = props;
 
   const [show, setShow] = useState(false);
 
+  const portraitCss = css({
+    width: "120px",
+    height: "120px",
+    borderRadius: "15px",
+    marginRight: "10px",
+  });
+
   useEffect(() => {
     if (visible) {
       setShow(true);
-      if (time) 
+      if (time)
+        setTimeout(() => {
+          setShow(false);
+        }, time);
     }
   }, [visible]);
 
@@ -26,17 +37,32 @@ const SpeakDialog = (props) => {
     <Container
       sx={{
         transition: "all 400ms ease",
-        transform: show ? "scale(1)" : "scale(0)",
+        width: "60%",
+        height: "120px",
+        borderRadius: "15px",
+        position: "fixed",
+        bottom: "10px",
+        zIndex: 99,
+        background: "#383838",
+        padding: "10px",
+        opacity: show ? 1 : 0,
       }}
+      justifyContent="left"
     >
-      <Container sx={{ transition: "all 400ms ease", opacity: show ? 1 : 0 }}>
-        <Container>
-          <img src={portrait || character1} alt="unit-portrait" />
-        </Container>
-        <Container>
-          <Text>{name}</Text>
-          <Text>{text}</Text>
-        </Container>
+      <Container>
+        <img
+          className={portraitCss}
+          src={portrait || character1}
+          alt="unit-portrait"
+        />
+      </Container>
+      <Container flexDirection="column" alignItems="left">
+        <Text sx={{ color: "aliceblue" }} variant="h5">
+          {name}
+        </Text>
+        <Text sx={{ color: "aliceblue" }} variant="body">
+          {text}
+        </Text>
       </Container>
     </Container>
   );
@@ -53,7 +79,7 @@ SpeakDialog.propTypes = {
   name: PropTypes.string,
   text: PropTypes.string,
   visible: PropTypes.bool.isRequired,
-  time: PropTypes.number
+  time: PropTypes.number,
 };
 
 export default SpeakDialog;

@@ -7,6 +7,7 @@ import Character from "../../models/Character";
 import Animation from "../../components/Animation/Animation";
 import CombatPortrait from "../../components/CharacterPortrait/CombatPortrait/CombatPortrait";
 import Container from "../../components/Container/Container";
+import SpeakDialog from "../../components/SpeakDialog/SpeakDialog";
 
 const Battle = () => {
   const [enemies, setEnemies] = useState([]);
@@ -59,6 +60,7 @@ const Battle = () => {
       flexDirection="column"
       sx={{ padding: "18px 20px 10px 20px", height: "95vh" }}
     >
+      <SpeakDialog visible={true} />
       <Container justifyContent="right">
         {enemies.map((item, i) => {
           return (
