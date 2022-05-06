@@ -8,6 +8,7 @@ import { css } from "@emotion/css";
 
 // react-icons
 import { EventIcons } from "../../../assets/icons/icons";
+import { MdInfo } from "react-icons/md";
 
 // own component
 import Container from "../../../components/Container/Container";
@@ -17,13 +18,16 @@ import Icon from "../../../components/Icon/Icon";
 // contexts
 import { useBattle } from "../../../context/BattleProvider";
 import { useLanguage } from "../../../context/Language";
-import { MdInfo } from "react-icons/md";
+import useOnclickOutside from "react-cool-onclickoutside";
 
 const EventList = (props) => {
   const { visible } = props;
 
   const { battleState } = useBattle();
   const { languageState } = useLanguage();
+  const ref = useOnclickOutside(() => {
+    onClose();
+  });
 
   const [show, setShow] = useState(false);
 
@@ -35,7 +39,7 @@ const EventList = (props) => {
       };
   }, [visible]);
 
-  const onClose = (e) => {
+  const onClose = () => {
     const newNotifications = battleState.notifications;
     for (let i = 0; i < newNotifications.length; i += 1)
       newNotifications[i].read = true;
@@ -61,6 +65,7 @@ const EventList = (props) => {
       }}
     >
       <Container
+        ref={ref}
         sx={{
           opacity: show ? 1 : 0,
           transition: "all 400ms ease",
