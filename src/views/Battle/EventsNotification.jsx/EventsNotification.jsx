@@ -1,11 +1,21 @@
+// @emotion/css
+import { css } from "@emotion/css";
+
 // own components
 import Container from "../../../components/Container/Container";
+import Badge from "./Badge/Badge";
 
 // react-icons
 import { MdInfo } from "react-icons/md";
-import { css } from "@emotion/css";
+
+// contexts
+import { useLanguage } from "../../../context/Language";
+import { useBattle } from "../../../context/BattleProvider";
+import { useEffect } from "react";
 
 const EventsNotification = () => {
+  const { battleState } = useBattle();
+
   const eventButtonCss = css({
     border: "none",
     background: "aliceblue",
@@ -22,11 +32,16 @@ const EventsNotification = () => {
     fontSize: 38,
   });
 
+  useEffect(() => {
+    setBattleState({ type: "init", field: Field() });
+  }, []);
+
   return (
     <Container
       className="shake"
       sx={{ position: "fixed", top: "10px", left: "10px" }}
     >
+      <Badge count={0} />
       <button className={eventButtonCss}>
         <MdInfo className={eventIconCss} />
       </button>

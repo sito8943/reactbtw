@@ -64,8 +64,8 @@ const Battle = () => {
     >
       <EventsNotification />
       <ActionMenu />
-      <SpeakDialog visible={true} />
-      <Container justifyContent="right">
+      {/*<SpeakDialog visible={true} />*/}
+      {/* <Container justifyContent="right">
         {enemies.map((item, i) => {
           return (
             <Container
@@ -116,7 +116,7 @@ const Battle = () => {
             </Container>
           );
         })}
-      </Container>
+      </Container> */}
     </Container>
   );
 };

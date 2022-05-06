@@ -9,6 +9,8 @@ import { AudioConfigProvider } from "./context/AudioConfig";
 import { OffCanvasProvider } from "./context/OffCanvas";
 import { AudioControllerProvider } from "./context/AudioController";
 import { LanguageProvider } from "./context/Language";
+import { CreationAnimationProvider } from "./context/CreationAnimation";
+import { BattleProvider } from "./context/BattleProvider";
 
 // styles
 import "./index.css";
@@ -17,8 +19,9 @@ import "./components/Kenburns/kenburns.css";
 import Test from "./test";
 import Battle from "./views/Battle/Battle";
 import Home from "./home";
-import { CreationAnimationProvider } from "./context/CreationAnimation";
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CreateCharacter from "./views/CreateCharacter/CreateCharacter";
 
 const container = document.getElementById("root");
 
@@ -38,7 +41,15 @@ root.render(
                   {/**/}
                   <BrowserRouter>
                     <Routes>
-                      <Route path="/" element={<Battle />} />
+                      <Route path="/creation" element={<CreateCharacter />} />
+                      <Route
+                        path="/"
+                        element={
+                          <BattleProvider>
+                            <Battle />
+                          </BattleProvider>
+                        }
+                      />
                     </Routes>
                   </BrowserRouter>
                 </CreationAnimationProvider>
