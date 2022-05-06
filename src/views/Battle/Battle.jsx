@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // models
-import Character from "../../models/Character";
+import Character, { NPCEnum } from "../../models/Character";
 import Field from "../../models/Field";
 
 // own components
@@ -11,10 +11,10 @@ import Container from "../../components/Container/Container";
 import SpeakDialog from "../../components/SpeakDialog/SpeakDialog";
 import ActionMenu from "./ActionMenu/ActionMenu";
 import EventsNotification from "./EventsNotification.jsx/EventsNotification";
+import EventList from "./EventList/EventList";
 
 // contexts
 import { useBattle } from "../../context/BattleProvider";
-import EventList from "./EventList/EventList";
 
 const Battle = () => {
   const { battleState, setBattleState } = useBattle();
@@ -28,9 +28,12 @@ const Battle = () => {
 
   useEffect(() => {
     const dataUser = localStorage.getItem("btw-user-data");
-    const player = new Character(JSON.parse(dataUser));
+    const player = new Character({
+      ...JSON.parse(dataUser),
+      ...NPCEnum.character,
+    });
     setPlayers([player]);
-    setEnemies([new Character({ name: "Enemigo", level: 2, class: 0 })]);
+    setEnemies([new Character(NPCEnum.dummy)]);
   }, []);
 
   const doAttack = () => {

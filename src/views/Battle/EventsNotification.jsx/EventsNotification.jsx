@@ -56,7 +56,6 @@ const EventsNotification = (props) => {
   };
 
   useEffect(() => {
-    console.log(notification, hide);
     if (notification > 0) {
       setHide(false);
       setTimeout(() => {
@@ -66,7 +65,6 @@ const EventsNotification = (props) => {
   }, [notification]);
 
   const openNotification = () => {
-    setNotification(0);
     action();
   };
 

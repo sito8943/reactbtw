@@ -8,6 +8,7 @@ import { css } from "@emotion/css";
 
 // own components
 import Container from "../../Container/Container";
+import Text from "../../Text/Text";
 
 // context
 import { useLanguage } from "../../../context/Language";
@@ -43,10 +44,10 @@ const CombatPortrait = (props) => {
     transition: "all 400ms ease",
   };
 
-  const label = css({
+  const label = {
     marginRight: "10px",
     fontWeight: "500",
-  });
+  };
 
   const imageContainer = css({
     borderRadius: "100%",
@@ -56,11 +57,11 @@ const CombatPortrait = (props) => {
     transition: "all 1000ms ease",
   });
 
-  const characterClass = css({
+  const characterClass = {
     fontSize: "12rem",
     position: "absolute",
     opacity: 0.1,
-  });
+  };
 
   return (
     <Container
@@ -71,25 +72,31 @@ const CombatPortrait = (props) => {
       id={id}
       className={className}
     >
-      <span className={characterClass}>{ClassIcons[character.Class]}</span>
+      <Text variant="span" className="no-selection" sx={characterClass}>
+        {ClassIcons[character.Class]}
+      </Text>
       <Container>
         <img
           src={character.Photo ? character.Photo : femaleHighElf}
-          className={imageContainer}
+          className={`${imageContainer} no-selection`}
           alt="character-portrait"
         />
       </Container>
       <Container sx={portraitRow} id="name-row">
-        <span className={label}>
+        <Text variant="span" sx={label} className="no-selection">
           {languageState.texts.CharacterPortrait.Labels.Name}{" "}
-        </span>
-        <span>{character.Name}</span>
+        </Text>
+        <Text variant="span" className="no-selection">
+          {character.Name}
+        </Text>
       </Container>
       <Container sx={portraitRow} id="level-row">
-        <span className={label}>
+        <Text variant="span" sx={label} className="no-selection">
           {languageState.texts.CharacterPortrait.Labels.Level}{" "}
-        </span>
-        <span>{character.Level}</span>
+        </Text>
+        <Text variant="span" className="no-selection">
+          {character.Level}
+        </Text>
       </Container>
     </Container>
   );

@@ -29,9 +29,16 @@ const EventList = (props) => {
 
   useEffect(() => {
     setShow(visible);
+    if (visible)
+      document.body.onkeydown = (e) => {
+        if (e.key === "Escape") onClose();
+      };
   }, [visible]);
 
   const onClose = (e) => {
+    const newNotifications = battleState.notifications;
+    for (let i = 0; i < newNotifications.length; i += 1)
+      newNotifications[i].read = true;
     setShow(false);
   };
 
@@ -67,7 +74,7 @@ const EventList = (props) => {
         }}
         flexDirection="column"
       >
-        <Text variant="h5" sx={{ color: "aliceblue" }}>
+        <Text className="no-selection" variant="h5" sx={{ color: "aliceblue" }}>
           {languageState.texts.Battle.Events.Title}
         </Text>
         <Container sx={{ overflow: "auto" }}>
@@ -83,7 +90,11 @@ const EventList = (props) => {
                   component={EventIcons[item.type]}
                 />
 
-                <Text variant="body" sx={{ color: "#bdbbbb" }}>
+                <Text
+                  className="no-selection"
+                  variant="body"
+                  sx={{ color: "#bdbbbb" }}
+                >
                   {languageState.texts.Battle.Events.Type[item.label]}
                 </Text>
                 {!item.read && <MdInfo className={`${warningBeep} beep`} />}

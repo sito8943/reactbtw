@@ -1,10 +1,39 @@
 import { CreationClass } from "./Classes";
+
+// models
 import Destructible from "./Destructible";
 
+export const NPCEnum = {
+  character: {
+    actions: {
+      basics: {
+        attack: "attack",
+        run: "run",
+      },
+      skills: {},
+      spells: {},
+    },
+  },
+  dummy: {
+    name: "Dummy",
+    level: 1,
+    class: 0,
+    actions: {
+      basics: {
+        attack: null,
+        run: null,
+      },
+      skills: {},
+      spells: {},
+    },
+  },
+};
+
 export default class Character extends Destructible {
-  constructor(options = { name: "", level: 1, class: 0 }) {
+  constructor(options = { name: "", level: 1, class: 0, actions: {} }) {
     super({ name: options.name, level: options.level });
     this.CreateClass(CreationClass[options.class]);
+    this.actions = options.actions;
   }
 
   CreateClass = (newClass) => {
@@ -34,6 +63,20 @@ export default class Character extends Destructible {
   }
 
   // getter
+
+  // actions
+
+  get Basics() {
+    return this.actions.basics;
+  }
+
+  get Skills() {
+    return this.actions.skills;
+  }
+
+  get Spells() {
+    return this.actions.spells;
+  }
 
   get Name() {
     return this.name;
@@ -73,9 +116,11 @@ export default class Character extends Destructible {
 
   // setter
 
-  SetAttribute = (which, to) => {
-    console.log(which, to);
+  SetAction = (type, which, to) => {
+    this.actions[type][which] = to;
+  };
 
+  SetAttribute = (which, to) => {
     switch (which) {
       case "class":
         this.CreateClass(CreationClass[to]);
