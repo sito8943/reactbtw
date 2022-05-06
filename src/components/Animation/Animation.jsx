@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 import Container from "../Container/Container";
 
 // animations
-import "../../assets/animations/Hit/shake.css";
+import "../../assets/animations/Shake/shake.css";
+import "../../assets/animations/Hit/hit.css";
 import Slash from "../../assets/animations/Attack/Slash";
 
 const Animation = (props) => {

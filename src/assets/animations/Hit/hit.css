@@ -1,12 +1,12 @@
-.shake {
-  animation: shake 1 0.5s linear;
+.hit {
+  animation: hit 1 0.5s linear;
 }
 
 .red {
   background-color: rgba(255, 0, 0, 0.274) !important;
 }
 
-@keyframes shake {
+@keyframes hit {
   0% {
     transform: rotate(-5deg);
   }

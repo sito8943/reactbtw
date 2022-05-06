@@ -8,6 +8,8 @@ import Animation from "../../components/Animation/Animation";
 import CombatPortrait from "../../components/CharacterPortrait/CombatPortrait/CombatPortrait";
 import Container from "../../components/Container/Container";
 import SpeakDialog from "../../components/SpeakDialog/SpeakDialog";
+import ActionMenu from "./ActionMenu/ActionMenu";
+import EventsNotification from "./EventsNotification.jsx/EventsNotification";
 
 const Battle = () => {
   const [enemies, setEnemies] = useState([]);
@@ -38,7 +40,7 @@ const Battle = () => {
       setTarget({
         x: currentTarget.offsetLeft + 70, // + currentTarget.offsetWidth / 2,
         y: currentTarget.offsetTop + 85, // + currentTarget.offsetHeight / 2,
-        subclass: "shake",
+        subclass: "hit",
         class: "red",
         player: 0,
         index: 0,
@@ -60,6 +62,8 @@ const Battle = () => {
       flexDirection="column"
       sx={{ padding: "18px 20px 10px 20px", height: "95vh" }}
     >
+      <EventsNotification />
+      <ActionMenu />
       <SpeakDialog visible={true} />
       <Container justifyContent="right">
         {enemies.map((item, i) => {
