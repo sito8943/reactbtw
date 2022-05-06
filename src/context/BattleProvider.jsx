@@ -9,8 +9,23 @@ const BattleContext = React.createContext();
 
 const battleReducer = (battleState, action) => {
   switch (action.type) {
-    case "set":
-      return {};
+    case "check":
+      return {
+        ...battleState,
+        checking: battleState.checking,
+      };
+    case "read":
+      return {
+        ...battleState,
+        notifications: action.read,
+      };
+    case "init":
+      return {
+        field: action.field,
+        goodTeam: action.goodTeam,
+        evilTeam: action.evilTeam,
+        notifications: [{ label: action.type, type: EventsTypeEnum.World }],
+      };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

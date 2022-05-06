@@ -5,6 +5,14 @@
         "Settings": "Ajustes"
       }
     },
+    "Battle": {
+      "Events": {
+        "Tooltip": "Tienes notificaciones sin leer",
+        "Type": {
+          "init": "Ha comenzado la batalla"
+        }
+      }
+    },
     "Creation": {
       "Buttons": {
         "General": "General",

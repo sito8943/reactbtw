@@ -2,6 +2,10 @@ export const FieldType = {
   plains: 0,
 };
 
+export const EvensTypeEnum = {
+  World: 0,
+};
+
 export const CreationField = {
   plains: {
     effects: [],

@@ -1,13 +1,15 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/prop-types */
+import { forwardRef } from "react";
+
 // @emotion/css
 import { css } from "@emotion/css";
 
 // prop-types
 import PropTypes from "prop-types";
 
-const Container = (props) => {
+const Container = forwardRef((props, ref) => {
   const {
     extraProps,
     component,
@@ -33,6 +35,7 @@ const Container = (props) => {
 
   return (
     <div
+      ref={ref}
       component={component}
       style={style}
       id={id}
@@ -43,7 +46,7 @@ const Container = (props) => {
       {children}
     </div>
   );
-};
+});
 
 Container.defaultProps = {
   component: "div",

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 // models
 import Character from "../../models/Character";
+import Field from "../../models/Field";
 
 // own components
 import Animation from "../../components/Animation/Animation";
@@ -11,11 +12,18 @@ import SpeakDialog from "../../components/SpeakDialog/SpeakDialog";
 import ActionMenu from "./ActionMenu/ActionMenu";
 import EventsNotification from "./EventsNotification.jsx/EventsNotification";
 
+// contexts
+import { useBattle } from "../../context/BattleProvider";
+import EventList from "./EventList/EventList";
+
 const Battle = () => {
+  const { battleState, setBattleState } = useBattle();
+
   const [enemies, setEnemies] = useState([]);
   const [players, setPlayers] = useState([]);
 
   const [showAnimation, setShowAnimation] = useState(false);
+  const [showEventList, setShowEventList] = useState(false);
   const [target, setTarget] = useState({ offsetLeft: 0, offsetTop: 0 });
 
   useEffect(() => {
@@ -56,16 +64,26 @@ const Battle = () => {
     }, 500);
   };
 
+  useEffect(() => {
+    setBattleState({
+      type: "init",
+      field: new Field(),
+      goodTeam: players,
+      evilTeam: enemies,
+    });
+  }, []);
+
   return (
     <Container
       justifyContent="space-between"
       flexDirection="column"
       sx={{ padding: "18px 20px 10px 20px", height: "95vh" }}
     >
-      <EventsNotification />
+      <EventsNotification action={() => setShowEventList(true)} />
       <ActionMenu />
-      {/*<SpeakDialog visible={true} />*/}
-      {/* <Container justifyContent="right">
+      <EventList visible={showEventList} />
+      <SpeakDialog visible={true} />
+      <Container justifyContent="right">
         {enemies.map((item, i) => {
           return (
             <Container
@@ -116,7 +134,7 @@ const Battle = () => {
             </Container>
           );
         })}
-      </Container> */}
+      </Container>
     </Container>
   );
 };
