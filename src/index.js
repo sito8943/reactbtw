@@ -16,7 +16,9 @@ import "./components/Kenburns/kenburns.css";
 
 import Test from "./test";
 import Battle from "./views/Battle/Battle";
+import Home from "./home";
 import { CreationAnimationProvider } from "./context/CreationAnimation";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const container = document.getElementById("root");
 
@@ -33,7 +35,12 @@ root.render(
               <AudioControllerProvider>
                 <CreationAnimationProvider>
                   {/*<App />*/}
-                  <Battle />
+                  {/**/}
+                  <BrowserRouter>
+                    <Routes>
+                      <Route path="/" element={<Battle />} />
+                    </Routes>
+                  </BrowserRouter>
                 </CreationAnimationProvider>
               </AudioControllerProvider>
             </OffCanvasProvider>

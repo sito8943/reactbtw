@@ -1,0 +1,65 @@
+.navbar-row {
+  display: flex;
+  width: 100vw;
+  justify-content: space-between;
+  background-color: #383838;
+}
+
+.logo {
+  padding: 10px;
+  margin: 10px;
+}
+
+.links {
+  display: flex;
+  flex: 1;
+  justify-content: right;
+}
+
+.links a {
+  color: aliceblue;
+  padding: 10px;
+  margin: 10px;
+}
+
+.filter {
+  padding: 10px;
+  margin: 10px;
+}
+
+.card-container {
+  width: 100wv;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-row {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  width: 60%;
+  background-color: #282828;
+  margin: 20px;
+}
+
+.card-image {
+  width: 120px;
+  height: 120px;
+  background-color: #383838;
+}
+
+.card-texts {
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-texts h5 {
+  color: aliceblue;
+}
+
+.card-texts p {
+  color: #bdb;
+}

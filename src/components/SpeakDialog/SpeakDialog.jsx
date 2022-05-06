@@ -37,7 +37,8 @@ const SpeakDialog = (props) => {
     <Container
       sx={{
         transition: "all 400ms ease",
-        width: "60%",
+        left: "calc(100vw - 80vw)",
+        width: "55%",
         height: "120px",
         borderRadius: "15px",
         position: "fixed",
@@ -60,7 +61,7 @@ const SpeakDialog = (props) => {
         <Text sx={{ color: "aliceblue" }} variant="h5">
           {name}
         </Text>
-        <Text sx={{ color: "aliceblue" }} variant="body">
+        <Text sx={{ color: "aliceblue", overflow: "auto" }} variant="body">
           {text}
         </Text>
       </Container>
@@ -71,7 +72,7 @@ const SpeakDialog = (props) => {
 SpeakDialog.defaultProps = {
   portrait: "",
   name: "Lorem ipsum",
-  text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea, iusto aspernatur. Pariatur quae quia necessitatibus aperiam, quisquam esse nisi. Impedit magnam dicta odio iste aut! Totam rerum incidunt excepturi distinctio?",
+  text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea, iusto aspernatur. Pariatur quae quia necessitatibus aperiam, quisquam esse nisi. Impedit magnam dicta odio iste aut! Totam rerum incidunt excepturi distinctio? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea, iusto aspernatur. Pariatur quae quia necessitatibus aperiam, quisquam esse nisi. Impedit magnam dicta odio iste aut! Totam rerum incidunt excepturi distinctio?, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea, iusto aspernatur. Pariatur quae quia necessitatibus aperiam, quisquam esse nisi. Impedit magnam dicta odio iste aut! Totam rerum incidunt excepturi distinctio?",
 };
 
 SpeakDialog.propTypes = {
