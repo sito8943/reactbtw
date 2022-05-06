@@ -16,6 +16,10 @@ import {
   GiPerspectiveDiceSixFacesRandom, // random
   // skills
   // spells
+  // events
+  GiCircleForest,
+  GiClockwork,
+  GiCompass, // world
 } from "react-icons/gi";
 
 export const ClassIcons = [
@@ -31,4 +35,8 @@ export const AttributeIcons = {
   luck: <GiClover />,
   armor: <GiAbdominalArmor />,
   attack: <GiCrossedSwords />,
+};
+
+export const EventIcons = {
+  world: <GiCompass />,
 };

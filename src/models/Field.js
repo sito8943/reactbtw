@@ -2,8 +2,8 @@ export const FieldType = {
   plains: 0,
 };
 
-export const EvensTypeEnum = {
-  World: 0,
+export const EventsTypeEnum = {
+  World: "world",
 };
 
 export const CreationField = {
