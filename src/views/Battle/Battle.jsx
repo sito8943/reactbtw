@@ -44,7 +44,6 @@ const Battle = () => {
   const order = (localUnits = undefined) => {
     let newOrder = allUnits;
     if (localUnits) newOrder = localUnits;
-    console.log(newOrder);
   };
 
   const doAttack = () => {

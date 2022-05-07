@@ -12,6 +12,12 @@ const BattleContext = React.createContext();
 
 const battleReducer = (battleState, action) => {
   switch (action.type) {
+    case "selecting-action":
+      return {
+        ...battleState,
+        action: "selecting",
+        actionType: action.type,
+      };
     case "check":
       return {
         ...battleState,

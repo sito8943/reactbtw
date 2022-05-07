@@ -7,6 +7,10 @@
     },
     "Battle": {
       "Actions": {
+        "Doing": {
+          "SimpleTarget": "Selecciona un objetivo",
+          "MultiTarget": "Selecciona objetivos"
+        },
         "Title": "¿Qué debería hacer",
         "Basics": {
           "Attack": "Atacar",
