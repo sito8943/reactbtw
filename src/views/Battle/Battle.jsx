@@ -21,9 +21,11 @@ const Battle = () => {
 
   const [enemies, setEnemies] = useState([]);
   const [players, setPlayers] = useState([]);
+  const [allUnits, setAllUnits] = useState([]);
 
   const [showAnimation, setShowAnimation] = useState(false);
   const [showEventList, setShowEventList] = useState(false);
+  const [showCharacterAction, setShowCharacterAction] = useState(true);
   const [target, setTarget] = useState({ offsetLeft: 0, offsetTop: 0 });
 
   useEffect(() => {
@@ -32,9 +34,18 @@ const Battle = () => {
       ...JSON.parse(dataUser),
       ...NPCEnum.character,
     });
+    const enemy = new Character(NPCEnum.dummy);
     setPlayers([player]);
-    setEnemies([new Character(NPCEnum.dummy)]);
+    setEnemies([enemy]);
+    setAllUnits([player, enemy]);
+    order([player, enemy]);
   }, []);
+
+  const order = (localUnits = undefined) => {
+    let newOrder = allUnits;
+    if (localUnits) newOrder = localUnits;
+    console.log(newOrder);
+  };
 
   const doAttack = () => {
     setShowAnimation(true);
@@ -83,7 +94,10 @@ const Battle = () => {
       sx={{ padding: "18px 20px 10px 20px", height: "95vh" }}
     >
       <EventsNotification action={() => setShowEventList(true)} />
-      <ActionMenu />
+      {players.length > 0 && (
+        <ActionMenu playing={players[0]} visible={showCharacterAction} />
+      )}
+
       <EventList visible={showEventList} />
       <SpeakDialog visible={true} />
       <Container justifyContent="right">

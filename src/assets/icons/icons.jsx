@@ -14,6 +14,9 @@ import {
   GiCrossedSwords, // attack
   // specials
   GiPerspectiveDiceSixFacesRandom, // random
+  // basics
+  GiNightSleep, // wait
+  GiRun, // run
   // skills
   // spells
   // events
@@ -21,6 +24,11 @@ import {
   GiClockwork,
   GiCompass, // world
 } from "react-icons/gi";
+
+export const BasicIcons = {
+  wait: <GiNightSleep />,
+  run: <GiRun />,
+};
 
 export const ClassIcons = [
   <GiBroadsword />,

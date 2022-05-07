@@ -9,6 +9,7 @@ export const NPCEnum = {
       basics: {
         attack: "attack",
         run: "run",
+        wait: "wait",
       },
       skills: {},
       spells: {},
@@ -20,8 +21,9 @@ export const NPCEnum = {
     class: 0,
     actions: {
       basics: {
-        attack: null,
-        run: null,
+        attack: undefined,
+        run: undefined,
+        wait: "wait",
       },
       skills: {},
       spells: {},
@@ -43,6 +45,7 @@ export default class Character extends Destructible {
     this.life = { current: newClass.Life, max: newClass.Life };
     this.mana = { current: newClass.Mana, max: newClass.Mana };
     this.luck = { current: newClass.Luck, max: newClass.Luck };
+    this.speed = { current: newClass.Speed, max: newClass.Speed };
   };
 
   // life modifiers
@@ -98,6 +101,10 @@ export default class Character extends Destructible {
     return this.armor;
   }
 
+  get Speed() {
+    return this.speed;
+  }
+
   get ArmorReduction() {
     return this.armor.current * this.level + this.life.current / 10;
   }
@@ -141,6 +148,10 @@ export default class Character extends Destructible {
 
   set Attack(attackModifier) {
     this.attack.current = attackModifier;
+  }
+
+  set Speed(speedModifier) {
+    this.speed.current = speedModifier;
   }
 
   set Armor(armorModifier) {

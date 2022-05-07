@@ -26,7 +26,7 @@ const EventList = (props) => {
   const { battleState } = useBattle();
   const { languageState } = useLanguage();
   const ref = useOnclickOutside(() => {
-    onClose();
+    if (show) onClose();
   });
 
   const [show, setShow] = useState(false);
@@ -67,7 +67,7 @@ const EventList = (props) => {
       <Container
         ref={ref}
         sx={{
-          opacity: show ? 1 : 0,
+          transform: show ? "scale(1)" : "scale(0)",
           transition: "all 400ms ease",
           padding: 10,
           background: "#222333",

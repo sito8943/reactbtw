@@ -6,6 +6,14 @@
       }
     },
     "Battle": {
+      "Actions": {
+        "Title": "¿Qué debería hacer",
+        "Basics": {
+          "Attack": "Atacar",
+          "Wait": "Esperar",
+          "Run": "Huir"
+        }
+      },
       "Events": {
         "Title": "Eventos",
         "Tooltip": "Tienes notificaciones sin leer",

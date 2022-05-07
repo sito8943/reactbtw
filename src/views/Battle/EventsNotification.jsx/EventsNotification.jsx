@@ -104,7 +104,7 @@ const EventsNotification = (props) => {
       <Container
         sx={{
           transition: "all 400ms ease",
-          transform: hide ? "translateX(-45px)" : "translateX(0px)",
+          transform: hide ? "scale(0)" : "scale(1)",
         }}
       >
         <Badge count={notification} />
