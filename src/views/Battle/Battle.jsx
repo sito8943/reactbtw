@@ -87,6 +87,13 @@ const Battle = () => {
     });
   }, []);
 
+  const action = (e) => {
+    let node = e.target;
+    if (node.nodeName === "path") node = node.parentNode;
+    if (node.nodeName === "svg") node = node.parentNode;
+    console.log(node);
+  };
+
   return (
     <Container
       justifyContent="space-between"
@@ -95,7 +102,11 @@ const Battle = () => {
     >
       <EventsNotification action={() => setShowEventList(true)} />
       {players.length > 0 && (
-        <ActionMenu playing={players[0]} visible={showCharacterAction} />
+        <ActionMenu
+          action={action}
+          playing={players[0]}
+          visible={showCharacterAction}
+        />
       )}
 
       <EventList visible={showEventList} />

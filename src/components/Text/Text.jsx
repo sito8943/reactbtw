@@ -5,7 +5,7 @@ import { css } from "@emotion/css";
 import PropTypes from "prop-types";
 
 const Text = (props) => {
-  const { variant, children, sx, className } = props;
+  const { variant, children, sx, className, id } = props;
 
   const variants = {
     h1: {
@@ -63,15 +63,21 @@ const Text = (props) => {
     ...sx,
   });
 
-  return <div className={`${emotionClass} ${className}`}>{children}</div>;
+  return (
+    <div id={id} className={`${emotionClass} ${className}`}>
+      {children}
+    </div>
+  );
 };
 
 Text.defaultProps = {
   variant: "h1",
   className: "",
+  id: "",
 };
 
 Text.propTypes = {
+  id: PropTypes.string,
   variant: PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.node.isRequired,

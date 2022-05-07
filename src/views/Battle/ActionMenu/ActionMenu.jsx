@@ -20,7 +20,7 @@ import { useLanguage } from "../../../context/Language";
 import useOnclickOutside from "react-cool-onclickoutside";
 
 const ActionMenu = (props) => {
-  const { visible, playing } = props;
+  const { visible, playing, action } = props;
 
   const { battleState } = useBattle();
   const { languageState } = useLanguage();
@@ -50,6 +50,11 @@ const ActionMenu = (props) => {
     border: "none",
     background: "no-repeat",
     transition: "all 400ms ease",
+    padding: "10px 15px 5px 15px",
+    borderRadius: "15px",
+    "&:hover": {
+      background: "#222",
+    },
   });
 
   return (
@@ -70,7 +75,7 @@ const ActionMenu = (props) => {
           transition: "all 400ms ease",
           padding: 10,
           background: "#222333",
-          width: 350,
+          width: 300,
           height: 400,
           alignItems: "start",
           border: "1px solid gray",
@@ -86,16 +91,18 @@ const ActionMenu = (props) => {
           sx={{ width: "100%", overflow: "auto" }}
         >
           {playing.Basics.attack && (
-            <button className={actionButtonCss}>
+            <button onClick={action} id="ba" className={actionButtonCss}>
               <Icon
                 sx={{
                   color: "#bdbbbb",
                   fontSize: "25px",
                   marginRight: "10px",
                 }}
+                id="ia"
                 component={AttributeIcons.attack}
               />
               <Text
+                id="ta"
                 className="no-selection"
                 variant="body"
                 sx={{ color: "#bdbbbb" }}
@@ -105,16 +112,18 @@ const ActionMenu = (props) => {
             </button>
           )}
           {playing.Basics.wait && (
-            <button className={actionButtonCss}>
+            <button onClick={action} id="bw" className={actionButtonCss}>
               <Icon
                 sx={{
                   color: "#bdbbbb",
                   fontSize: "25px",
                   marginRight: "10px",
                 }}
+                id="iw"
                 component={BasicIcons.wait}
               />
               <Text
+                id="tw"
                 className="no-selection"
                 variant="body"
                 sx={{ color: "#bdbbbb" }}
@@ -124,16 +133,18 @@ const ActionMenu = (props) => {
             </button>
           )}
           {playing.Basics.run && (
-            <button className={actionButtonCss}>
+            <button onClick={action} id="br" className={actionButtonCss}>
               <Icon
                 sx={{
                   color: "#bdbbbb",
                   fontSize: "25px",
                   marginRight: "10px",
                 }}
+                id="ir"
                 component={BasicIcons.run}
               />
               <Text
+                id="tr"
                 className="no-selection"
                 variant="body"
                 sx={{ color: "#bdbbbb" }}
@@ -151,6 +162,7 @@ const ActionMenu = (props) => {
 ActionMenu.propTypes = {
   visible: PropTypes.bool.isRequired,
   playing: PropTypes.object,
+  action: PropTypes.func.isRequired,
 };
 
 export default ActionMenu;
