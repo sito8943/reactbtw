@@ -9,7 +9,8 @@
       "Actions": {
         "Doing": {
           "SimpleTarget": "Selecciona un objetivo",
-          "MultiTarget": "Selecciona objetivos"
+          "MultiTarget": "Selecciona objetivos",
+          "NoTarget": "Sin objetivos"
         },
         "Title": "¿Qué debería hacer",
         "Basics": {

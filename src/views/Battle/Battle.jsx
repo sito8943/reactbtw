@@ -15,6 +15,8 @@ import EventList from "./EventList/EventList";
 
 // contexts
 import { useBattle } from "../../context/BattleProvider";
+import ActionBeep from "./ActionBeep/ActionBeep";
+import { GetActionTargetType } from "../../models/Action";
 
 const Battle = () => {
   const { battleState, setBattleState } = useBattle();
@@ -23,9 +25,10 @@ const Battle = () => {
   const [players, setPlayers] = useState([]);
   const [allUnits, setAllUnits] = useState([]);
 
+  const [showActionBeep, setShowActionBeep] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
   const [showEventList, setShowEventList] = useState(false);
-  const [showCharacterAction, setShowCharacterAction] = useState(true);
+  const [showCharacterAction, setShowCharacterAction] = useState(false);
   const [target, setTarget] = useState({ offsetLeft: 0, offsetTop: 0 });
 
   useEffect(() => {
@@ -39,6 +42,23 @@ const Battle = () => {
     setEnemies([enemy]);
     setAllUnits([player, enemy]);
     order([player, enemy]);
+    setBattleState({
+      type: "init",
+      field: new Field(),
+      goodTeam: [player],
+      evilTeam: [enemy],
+    });
+
+    document.body.onkeydown = (e) => {
+      if (e.key === "Escape") {
+        console.log(showActionBeep, showCharacterAction);
+        if (showCharacterAction) setShowCharacterAction(false);
+        else if (showActionBeep) {
+          setShowActionBeep(false);
+          setShowCharacterAction(true);
+        }
+      }
+    };
   }, []);
 
   const order = (localUnits = undefined) => {
@@ -78,19 +98,18 @@ const Battle = () => {
   };
 
   useEffect(() => {
-    setBattleState({
-      type: "init",
-      field: new Field(),
-      goodTeam: players,
-      evilTeam: enemies,
-    });
-  }, []);
+    if (battleState.action) {
+      setShowCharacterAction(false);
+      setShowActionBeep(true);
+    } else setShowActionBeep(false);
+  }, [battleState.action]);
 
   const action = (e) => {
     let node = e.target;
     if (node.nodeName === "path") node = node.parentNode;
     if (node.nodeName === "svg") node = node.parentNode;
-    console.log(node);
+    const actionType = GetActionTargetType(node.id.substring(1));
+    setBattleState({ type: "selecting-action", actionType });
   };
 
   return (
@@ -107,9 +126,9 @@ const Battle = () => {
           visible={showCharacterAction}
         />
       )}
-
+      <ActionBeep visible={showActionBeep} />
       <EventList visible={showEventList} />
-      <SpeakDialog visible={true} />
+      {/* <SpeakDialog visible={true} /> */}
       <Container justifyContent="right">
         {enemies.map((item, i) => {
           return (

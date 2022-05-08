@@ -16,7 +16,7 @@ const battleReducer = (battleState, action) => {
       return {
         ...battleState,
         action: "selecting",
-        actionType: action.type,
+        actionType: action.actionType,
       };
     case "check":
       return {
