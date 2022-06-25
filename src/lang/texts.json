@@ -14,9 +14,9 @@
         },
         "Title": "Acciones de ",
         "Basics": {
-          "Attack": "Atacar",
-          "Wait": "Esperar",
-          "Run": "Huir"
+          "attack": "Atacar",
+          "wait": "Esperar",
+          "run": "Huir"
         }
       },
       "Events": {

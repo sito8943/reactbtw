@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 
+// tippy
+import Tippy from "@tippyjs/react";
+
 // framer-motion
 import { motion } from "framer-motion";
 
@@ -16,6 +19,9 @@ import ActionMenu from "./ActionMenu/ActionMenu";
 import EventsNotification from "./EventsNotification.jsx/EventsNotification";
 import EventList from "./EventList/EventList";
 import ActionBeep from "./ActionBeep/ActionBeep";
+
+// icons
+import { BasicIcons } from "../../assets/icons/icons";
 
 // modals
 import ActionModal from "../../components/Modal/ActionModal/ActionModal";
@@ -189,11 +195,36 @@ const Battle = () => {
               viewport={{ once: true }}
               style={{ padding: 0 }}
             >
-              {/* playerUnit.basics. */}
-              <motion.div
-                variants={ulItem}
-                viewport={{ once: true }}
-              ></motion.div>
+              <SitoContainer>
+                {Object.keys(playingUnit.Basics).map((item) => (
+                  <motion.div
+                    key={item}
+                    variants={ulItem}
+                    viewport={{ once: true }}
+                  >
+                    <Tippy
+                      content={languageState.texts.Battle.Actions.Basics[item]}
+                    >
+                      <SitoContainer
+                        sx={{
+                          cursor: "pointer",
+                          padding: "5px",
+                          borderRadius: "1rem",
+                          transition: "all 500ms ease",
+                          color: "aliceblue",
+                          fontSize: "25px",
+                          "&:hover": {
+                            transform: "translateY(-10px)",
+                            backgroundColor: "#333",
+                          },
+                        }}
+                      >
+                        {BasicIcons[item]}
+                      </SitoContainer>
+                    </Tippy>
+                  </motion.div>
+                ))}
+              </SitoContainer>
             </motion.ul>
           </>
         )}

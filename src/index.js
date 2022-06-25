@@ -20,6 +20,8 @@ import Test from "./test";
 import Battle from "./views/Battle/Battle";
 import Home from "./home";
 
+import "tippy.js/dist/tippy.css"; // optional
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CreateCharacter from "./views/CreateCharacter/CreateCharacter";
 

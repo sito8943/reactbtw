@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 // tippy
 import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css"; // optional
 
 // @emotion/css
 import { css } from "@emotion/css";
