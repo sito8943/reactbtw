@@ -16,6 +16,8 @@ import {
   // specials
   GiPerspectiveDiceSixFacesRandom, // random
   // basics
+  GiHand, // icon
+  GiFist, // attack
   GiNightSleep, // wait
   GiRun, // run
   // skills
@@ -27,6 +29,8 @@ import {
 } from "react-icons/gi";
 
 export const BasicIcons = {
+  icon: <GiHand />,
+  attack: <GiFist />,
   wait: <GiNightSleep />,
   run: <GiRun />,
 };

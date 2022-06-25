@@ -189,9 +189,11 @@ const Battle = () => {
               viewport={{ once: true }}
               style={{ padding: 0 }}
             >
-              <motion.div variants={ulItem} viewport={{ once: true }}>
-                HOla
-              </motion.div>
+              {/* playerUnit.basics. */}
+              <motion.div
+                variants={ulItem}
+                viewport={{ once: true }}
+              ></motion.div>
             </motion.ul>
           </>
         )}
