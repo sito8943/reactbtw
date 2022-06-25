@@ -25,6 +25,7 @@ const CombatPortrait = (props) => {
 
   const combatPortrait = {
     padding: "10px",
+    marginRight: "15px",
     background: "#222222",
     border: "1px solid #383838",
     borderRadius: "1rem",
@@ -36,7 +37,6 @@ const CombatPortrait = (props) => {
     },
     color: "#5e6264",
     transition: "all 200ms ease",
-    cursor: "pointer",
   };
 
   const portraitRow = {

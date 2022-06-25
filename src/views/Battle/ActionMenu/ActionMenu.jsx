@@ -1,151 +1,189 @@
-import { useEffect, useState } from "react";
-
-// @emotion/css
-import { css } from "@emotion/css";
-
 // prop types
 import PropTypes from "prop-types";
 
+// @emotion
+import { css } from "@emotion/css";
+
+// tippy
+import Tippy from "@tippyjs/react";
+
+// framer-motion
+import { motion } from "framer-motion";
+
 // icons
-import { BasicIcons, AttributeIcons } from "../../../assets/icons/icons";
+import {
+  BasicIcons,
+  SkillIcons,
+  SpellIcons,
+} from "../../../assets/icons/icons";
+
+// sito-component
+import SitoContainer from "sito-container";
 
 // own components
-import SitoContainer from "sito-container";
-import Text from "../../../components/Text/Text";
-import Icon from "../../../components/Icon/Icon";
+import ActionModal from "../../../components/Modal/ActionModal/ActionModal";
 
 // contexts
-import { useBattle } from "../../../context/BattleProvider";
+
 import { useLanguage } from "../../../context/Language";
-import useOnclickOutside from "react-cool-onclickoutside";
 
 const ActionMenu = (props) => {
-  const { visible, playing, action } = props;
+  const { visible, playing, onClose } = props;
 
-  const { battleState } = useBattle();
   const { languageState } = useLanguage();
 
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    console.log(visible);
-    setShow(visible);
-  }, [visible]);
-
-  const onClose = () => {
-    setShow(false);
-  };
-
-  const ref = useOnclickOutside(() => {
-    if (show) onClose();
+  // styles
+  const actionTitle = css({
+    margin: 0,
   });
 
-  const actionButtonCss = css({
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
+  const actions = css({
     border: "none",
-    background: "no-repeat",
-    transition: "all 400ms ease",
-    padding: "10px 15px 5px 15px",
-    borderRadius: "15px",
+    cursor: "pointer",
+    background: "none",
+    padding: "5px",
+    paddingBottom: 0,
+    borderRadius: "1rem",
+    transition: "all 500ms ease",
+    color: "aliceblue",
+    fontSize: "25px",
+    marginRight: "10px",
     "&:hover": {
-      background: "#222",
+      transform: "translateY(-10px)",
+      backgroundColor: "#333",
     },
   });
 
-  const actionIconCss = {
-    color: "#bdbbbb",
+  const disabledActions = css({
+    border: "none",
+    padding: "5px",
+    paddingBottom: 0,
+    borderRadius: "1rem",
+    transition: "all 500ms ease",
+    color: "aliceblue",
     fontSize: "25px",
+    backgroundColor: "#222",
     marginRight: "10px",
+  });
+
+  // animations
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const ulItem = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
   };
 
   return (
-    <SitoContainer
-      alignItems="center"
-      justifyContent="center"
-      sx={{
-        position: "fixed",
-        zIndex: !show ? -1 : 10,
-        width: "100vw",
-        height: "100vh",
-      }}
-    >
-      <SitoContainer
-        ref={ref}
-        sx={{
-          transform: show ? "scale(1)" : "scale(0)",
-          transition: "all 400ms ease",
-          padding: 10,
-          background: "#222333",
-          width: 300,
-          height: 400,
-          alignItems: "start",
-          border: "1px solid gray",
-          borderRadius: "15px",
-        }}
-        flexDirection="column"
-      >
-        <Text className="no-selection" variant="h5" sx={{ color: "aliceblue" }}>
-          {languageState.texts.Battle.Actions.Title} {playing.Name}?
-        </Text>
-        <SitoContainer
-          flexDirection="column"
-          sx={{ width: "100%", overflow: "auto" }}
-        >
-          {playing.Basics.attack && (
-            <button onClick={action} id="battack" className={actionButtonCss}>
-              <Icon
-                sx={actionIconCss}
-                id="iattack"
-                component={AttributeIcons.attack}
-              />
-              <Text
-                id="tattack"
-                className="no-selection"
-                variant="body"
-                sx={{ color: "#bdbbbb" }}
-              >
-                {languageState.texts.Battle.Actions.Basics.Attack}
-              </Text>
-            </button>
-          )}
-          {playing.Basics.wait && (
-            <button onClick={action} id="bwait" className={actionButtonCss}>
-              <Icon sx={actionIconCss} id="iwait" component={BasicIcons.wait} />
-              <Text
-                id="twait"
-                className="no-selection"
-                variant="body"
-                sx={{ color: "#bdbbbb" }}
-              >
-                {languageState.texts.Battle.Actions.Basics.Wait}
-              </Text>
-            </button>
-          )}
-          {playing.Basics.run && (
-            <button onClick={action} id="brun" className={actionButtonCss}>
-              <Icon sx={actionIconCss} id="irun" component={BasicIcons.run} />
-              <Text
-                id="trun"
-                className="no-selection"
-                variant="body"
-                sx={{ color: "#bdbbbb" }}
-              >
-                {languageState.texts.Battle.Actions.Basics.Run}
-              </Text>
-            </button>
-          )}
-        </SitoContainer>
-      </SitoContainer>
-    </SitoContainer>
+    <ActionModal visible={visible} onClose={onClose}>
+      {playing && playing.Name && (
+        <>
+          <h3
+            className={actionTitle}
+          >{`${languageState.texts.Battle.Actions.Title} ${playing.Name}`}</h3>
+          <motion.ul
+            variants={container}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            style={{ padding: 0 }}
+          >
+            <SitoContainer>
+              {/* basics */}
+              {Object.keys(playing.Basics).map((item) => (
+                <motion.div
+                  key={item}
+                  variants={ulItem}
+                  viewport={{ once: true }}
+                >
+                  <Tippy
+                    content={languageState.texts.Battle.Actions.Basics[item]}
+                  >
+                    <button className={actions}>{BasicIcons[item]}</button>
+                  </Tippy>
+                </motion.div>
+              ))}
+              {/* skills */}
+              {Object.keys(playing.Skills).length ? (
+                <>
+                  {Object.keys(playing.Skills).map((item) => (
+                    <motion.div
+                      key={item}
+                      variants={ulItem}
+                      viewport={{ once: true }}
+                    >
+                      <Tippy
+                        content={
+                          languageState.texts.Battle.Actions.Basics[item]
+                        }
+                      >
+                        <button className={actions}>{BasicIcons[item]}</button>
+                      </Tippy>
+                    </motion.div>
+                  ))}{" "}
+                </>
+              ) : (
+                <motion.div variants={ulItem} viewport={{ once: true }}>
+                  <Tippy content={languageState.texts.Battle.Actions.NoSkills}>
+                    <button className={disabledActions}>
+                      {SkillIcons.icon}
+                    </button>
+                  </Tippy>
+                </motion.div>
+              )}
+              {/* spells */}
+              {Object.keys(playing.Spells).length ? (
+                <>
+                  {Object.keys(playing.Spells).map((item) => (
+                    <motion.div
+                      key={item}
+                      variants={ulItem}
+                      viewport={{ once: true }}
+                    >
+                      <Tippy
+                        content={
+                          languageState.texts.Battle.Actions.Basics[item]
+                        }
+                      >
+                        <button className={actions}>{BasicIcons[item]}</button>
+                      </Tippy>
+                    </motion.div>
+                  ))}{" "}
+                </>
+              ) : (
+                <motion.div variants={ulItem} viewport={{ once: true }}>
+                  <Tippy content={languageState.texts.Battle.Actions.NoSpells}>
+                    <button className={disabledActions}>
+                      {SpellIcons.icon}
+                    </button>
+                  </Tippy>
+                </motion.div>
+              )}
+            </SitoContainer>
+          </motion.ul>
+        </>
+      )}
+    </ActionModal>
   );
 };
 
 ActionMenu.propTypes = {
   visible: PropTypes.bool.isRequired,
   playing: PropTypes.object,
-  action: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default ActionMenu;

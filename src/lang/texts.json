@@ -7,6 +7,8 @@
     },
     "Battle": {
       "Actions": {
+        "NoSkills": "No hay habilidades",
+        "NoSpells": "No hay hechizos",
         "Doing": {
           "SimpleTarget": "Selecciona un objetivo",
           "MultiTarget": "Selecciona objetivos",

@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
 
-// tippy
-import Tippy from "@tippyjs/react";
-
-// framer-motion
-import { motion } from "framer-motion";
-
 // models
 import Character, { NPCEnum } from "../../models/Character";
 import Field from "../../models/Field";
@@ -20,17 +14,10 @@ import EventsNotification from "./EventsNotification.jsx/EventsNotification";
 import EventList from "./EventList/EventList";
 import ActionBeep from "./ActionBeep/ActionBeep";
 
-// icons
-import { BasicIcons } from "../../assets/icons/icons";
-
-// modals
-import ActionModal from "../../components/Modal/ActionModal/ActionModal";
-
 // contexts
 import { useLanguage } from "../../context/Language";
 import { useBattle } from "../../context/BattleProvider";
 import { GetActionTargetType } from "../../models/Action";
-import { css } from "@emotion/css";
 
 const Battle = () => {
   const { battleState, setBattleState } = useBattle();
@@ -60,14 +47,19 @@ const Battle = () => {
       ...JSON.parse(dataUser),
       ...NPCEnum.character,
     });
+    const player1 = new Character({
+      ...JSON.parse(dataUser),
+      ...NPCEnum.character,
+    });
     player.SetAttribute("team", 1);
+    player1.SetAttribute("team", 1);
     const enemy = new Character(NPCEnum.dummy);
     enemy.SetAttribute("team", 2);
     setPlayingUnit(player);
     setShowAction(true);
-    setPlayers([player]);
+    setPlayers([player, player1]);
     setEnemies([enemy]);
-    setAllUnits([player, enemy]);
+    setAllUnits([player, player1, enemy]);
     order([player, enemy]);
     setBattleState({
       type: "init",
@@ -142,93 +134,17 @@ const Battle = () => {
     setBattleState({ type: "selecting-action", actionType });
   };
 
-  // styles
-  const actionTitle = css({
-    margin: 0,
-  });
-
-  // animations
-  const container = {
-    hidden: { opacity: 1, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const ulItem = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-    },
-  };
-
-  const apparition = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-    },
-  };
-
   return (
     <SitoContainer
       justifyContent="space-between"
       flexDirection="column"
       sx={{ padding: "18px 20px 10px 20px", height: "95vh" }}
     >
-      <ActionModal visible={showAction} onClose={onCloseAction}>
-        {playingUnit && playingUnit.Name && (
-          <>
-            <h3
-              className={actionTitle}
-            >{`${languageState.texts.Battle.Actions.Title} ${playingUnit.Name}`}</h3>
-            <motion.ul
-              variants={container}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              style={{ padding: 0 }}
-            >
-              <SitoContainer>
-                {Object.keys(playingUnit.Basics).map((item) => (
-                  <motion.div
-                    key={item}
-                    variants={ulItem}
-                    viewport={{ once: true }}
-                  >
-                    <Tippy
-                      content={languageState.texts.Battle.Actions.Basics[item]}
-                    >
-                      <SitoContainer
-                        sx={{
-                          cursor: "pointer",
-                          padding: "5px",
-                          borderRadius: "1rem",
-                          transition: "all 500ms ease",
-                          color: "aliceblue",
-                          fontSize: "25px",
-                          "&:hover": {
-                            transform: "translateY(-10px)",
-                            backgroundColor: "#333",
-                          },
-                        }}
-                      >
-                        {BasicIcons[item]}
-                      </SitoContainer>
-                    </Tippy>
-                  </motion.div>
-                ))}
-              </SitoContainer>
-            </motion.ul>
-          </>
-        )}
-      </ActionModal>
+      <ActionMenu
+        visible={showAction}
+        onClose={onCloseAction}
+        playing={playingUnit}
+      />
       <EventsNotification action={() => setShowEventList(true)} />
       {players.length > 0 && (
         <ActionMenu
@@ -280,9 +196,14 @@ const Battle = () => {
               className={
                 target.player === 1 && target.index === i ? target.subclass : ""
               }
+              extraProps={{
+                onClick: (e) => {
+                  console.log("hola");
+                },
+              }}
             >
               <CombatPortrait
-                id="item.Name"
+                id={item.Name}
                 character={item}
                 className={`${
                   target.player === 1 && target.index === i ? target.class : ""
