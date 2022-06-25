@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 
+// framer-motion
+import { motion } from "framer-motion";
+
 // models
 import Character, { NPCEnum } from "../../models/Character";
 import Field from "../../models/Field";
@@ -84,6 +87,7 @@ const Battle = () => {
   const order = (localUnits = undefined) => {
     let newOrder = allUnits;
     if (localUnits) newOrder = localUnits;
+    console.log(newOrder);
   };
 
   const doAttack = () => {
@@ -137,6 +141,35 @@ const Battle = () => {
     margin: 0,
   });
 
+  // animations
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const ulItem = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
+
+  const apparition = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
+
   return (
     <SitoContainer
       justifyContent="space-between"
@@ -145,9 +178,22 @@ const Battle = () => {
     >
       <ActionModal visible={showAction} onClose={onCloseAction}>
         {playingUnit && playingUnit.Name && (
-          <h3
-            className={actionTitle}
-          >{`${languageState.texts.Battle.Actions.Title} ${playingUnit.Name}`}</h3>
+          <>
+            <h3
+              className={actionTitle}
+            >{`${languageState.texts.Battle.Actions.Title} ${playingUnit.Name}`}</h3>
+            <motion.ul
+              variants={container}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              style={{ padding: 0 }}
+            >
+              <motion.div variants={ulItem} viewport={{ once: true }}>
+                HOla
+              </motion.div>
+            </motion.ul>
+          </>
         )}
       </ActionModal>
       <EventsNotification action={() => setShowEventList(true)} />
