@@ -21,6 +21,7 @@ import ActionModal from "../../components/Modal/ActionModal/ActionModal";
 import { useLanguage } from "../../context/Language";
 import { useBattle } from "../../context/BattleProvider";
 import { GetActionTargetType } from "../../models/Action";
+import { css } from "@emotion/css";
 
 const Battle = () => {
   const { battleState, setBattleState } = useBattle();
@@ -33,7 +34,7 @@ const Battle = () => {
   };
 
   // units
-  const [playingUnits, setPlayingUnits] = useState();
+  const [playingUnit, setPlayingUnit] = useState();
   const [enemies, setEnemies] = useState([]);
   const [players, setPlayers] = useState([]);
   const [allUnits, setAllUnits] = useState([]);
@@ -50,7 +51,11 @@ const Battle = () => {
       ...JSON.parse(dataUser),
       ...NPCEnum.character,
     });
+    player.SetAttribute("team", 1);
     const enemy = new Character(NPCEnum.dummy);
+    enemy.SetAttribute("team", 2);
+    setPlayingUnit(player);
+    setShowAction(true);
     setPlayers([player]);
     setEnemies([enemy]);
     setAllUnits([player, enemy]);
@@ -79,7 +84,6 @@ const Battle = () => {
   const order = (localUnits = undefined) => {
     let newOrder = allUnits;
     if (localUnits) newOrder = localUnits;
-    console.log(newOrder[0]);
   };
 
   const doAttack = () => {
@@ -128,6 +132,11 @@ const Battle = () => {
     setBattleState({ type: "selecting-action", actionType });
   };
 
+  // styles
+  const actionTitle = css({
+    margin: 0,
+  });
+
   return (
     <SitoContainer
       justifyContent="space-between"
@@ -135,8 +144,10 @@ const Battle = () => {
       sx={{ padding: "18px 20px 10px 20px", height: "95vh" }}
     >
       <ActionModal visible={showAction} onClose={onCloseAction}>
-        {playingUnits && playingUnits.Name && (
-          <h6>{`${languageState.texts.Battle.Title} ${playingUnits.Name}`}</h6>
+        {playingUnit && playingUnit.Name && (
+          <h3
+            className={actionTitle}
+          >{`${languageState.texts.Battle.Actions.Title} ${playingUnit.Name}`}</h3>
         )}
       </ActionModal>
       <EventsNotification action={() => setShowEventList(true)} />
