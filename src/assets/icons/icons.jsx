@@ -6,6 +6,7 @@ import {
   GiBurningMeteor, // mage
   GiCrenulatedShield, // defender
   // attributes
+  GiSprint, // speed
   GiClover, // luck
   GiHearts, // life
   GiSpikesInit, // mana
@@ -43,6 +44,7 @@ export const AttributeIcons = {
   luck: <GiClover />,
   armor: <GiAbdominalArmor />,
   attack: <GiCrossedSwords />,
+  speed: <GiSprint />,
 };
 
 export const EventIcons = {

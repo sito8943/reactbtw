@@ -12,15 +12,28 @@ import SpeakDialog from "../../components/SpeakDialog/SpeakDialog";
 import ActionMenu from "./ActionMenu/ActionMenu";
 import EventsNotification from "./EventsNotification.jsx/EventsNotification";
 import EventList from "./EventList/EventList";
+import ActionBeep from "./ActionBeep/ActionBeep";
+
+// modals
+import ActionModal from "../../components/Modal/ActionModal/ActionModal";
 
 // contexts
+import { useLanguage } from "../../context/Language";
 import { useBattle } from "../../context/BattleProvider";
-import ActionBeep from "./ActionBeep/ActionBeep";
 import { GetActionTargetType } from "../../models/Action";
 
 const Battle = () => {
   const { battleState, setBattleState } = useBattle();
+  const { languageState } = useLanguage();
 
+  // modals
+  const [showAction, setShowAction] = useState(false);
+  const onCloseAction = () => {
+    setShowAction(false);
+  };
+
+  // units
+  const [playingUnits, setPlayingUnits] = useState();
   const [enemies, setEnemies] = useState([]);
   const [players, setPlayers] = useState([]);
   const [allUnits, setAllUnits] = useState([]);
@@ -61,9 +74,12 @@ const Battle = () => {
     };
   }, []);
 
+  useEffect(() => {}, []);
+
   const order = (localUnits = undefined) => {
     let newOrder = allUnits;
     if (localUnits) newOrder = localUnits;
+    console.log(newOrder[0]);
   };
 
   const doAttack = () => {
@@ -118,6 +134,11 @@ const Battle = () => {
       flexDirection="column"
       sx={{ padding: "18px 20px 10px 20px", height: "95vh" }}
     >
+      <ActionModal visible={showAction} onClose={onCloseAction}>
+        {playingUnits && playingUnits.Name && (
+          <h6>{`${languageState.texts.Battle.Title} ${playingUnits.Name}`}</h6>
+        )}
+      </ActionModal>
       <EventsNotification action={() => setShowEventList(true)} />
       {players.length > 0 && (
         <ActionMenu

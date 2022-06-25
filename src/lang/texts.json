@@ -12,7 +12,7 @@
           "MultiTarget": "Selecciona objetivos",
           "NoTarget": "Sin objetivos"
         },
-        "Title": "¿Qué debería hacer",
+        "Title": "Acciones de ",
         "Basics": {
           "Attack": "Atacar",
           "Wait": "Esperar",
@@ -54,6 +54,7 @@
         "Armor": "Armadura:",
         "Attack": "Ataque:",
         "Luck": "Suerte:",
+        "Speed": "Velocidad:",
         "Description": "Descripción",
         "Class": "Clase"
       },
@@ -62,7 +63,8 @@
         "Mana": "Energía mágica del personaje",
         "Armor": "Defensa proporcionada por modificadores y armadura",
         "Attack": "Daño base más el de las arma y modificadores",
-        "Luck": "Potenciador de golpes críticos"
+        "Luck": "Probabilidad de golpes críticos",
+        "Speed": "Velocidad de ataque"
       },
       "Range": ["Iniciado", "Aventurero", "Experto"]
     },

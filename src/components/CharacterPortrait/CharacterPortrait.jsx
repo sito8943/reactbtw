@@ -138,8 +138,8 @@ const CharacterPortrait = (props) => {
     transition: "all 400ms ease",
   };
 
-  const spaceAround = {
-    justifyContent: "space-around",
+  const left = {
+    justifyContent: "left",
   };
 
   const bigFont = {
@@ -147,7 +147,12 @@ const CharacterPortrait = (props) => {
   };
 
   const label = css({
-    marginRight: "10px",
+    marginBottom: "5px",
+    marginRight: "5px",
+  });
+
+  const icon = css({
+    marginRight: "20px",
     fontWeight: "500",
   });
 
@@ -315,7 +320,7 @@ const CharacterPortrait = (props) => {
                 }}
                 id="name-row"
               >
-                <span className={label}>
+                <span>
                   {languageState.texts.CharacterPortrait.Labels.Name}{" "}
                 </span>
                 {edit ? (
@@ -353,7 +358,7 @@ const CharacterPortrait = (props) => {
                 }}
                 id="class-row"
               >
-                <span className={label}>
+                <span>
                   {languageState.texts.CharacterPortrait.Labels.Class}{" "}
                 </span>
                 <SitoContainer sx={{ marginTop: "5px" }} alignItems="center">
@@ -388,7 +393,7 @@ const CharacterPortrait = (props) => {
                 }}
                 id="level-row"
               >
-                <span className={label}>
+                <span>
                   {languageState.texts.CharacterPortrait.Labels.Level}{" "}
                 </span>
                 <span>
@@ -403,7 +408,7 @@ const CharacterPortrait = (props) => {
                 }}
                 id="range-row"
               >
-                <span className={label}>
+                <span>
                   {languageState.texts.CharacterPortrait.Labels.Range}{" "}
                 </span>
                 <span>
@@ -437,12 +442,10 @@ const CharacterPortrait = (props) => {
                   <SitoContainer>
                     <SitoContainer flexDirection="column">
                       <SitoContainer
-                        sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
+                        sx={{ ...portraitRow, ...bigFont, ...left }}
                         id="attack-row"
                       >
-                        <span style={{ marginRight: "20px" }} className={label}>
-                          {AttributeIcons.attack}
-                        </span>
+                        <span className={icon}>{AttributeIcons.attack}</span>
                         <SitoContainer sx={{ marginBottom: "2px" }}>
                           <Tippy
                             content={
@@ -456,17 +459,17 @@ const CharacterPortrait = (props) => {
                               {
                                 languageState.texts.CharacterPortrait.Labels
                                   .Attack
-                              }{" "}
+                              }
                             </span>
                           </Tippy>
                           <span>{contextState.character.Attack.max}</span>
                         </SitoContainer>
                       </SitoContainer>
                       <SitoContainer
-                        sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
+                        sx={{ ...portraitRow, ...bigFont, ...left }}
                         id="armor-row"
                       >
-                        <span className={label}>{AttributeIcons.armor}</span>
+                        <span className={icon}>{AttributeIcons.armor}</span>
                         <SitoContainer sx={{ marginBottom: "2px" }}>
                           <Tippy
                             content={
@@ -480,7 +483,7 @@ const CharacterPortrait = (props) => {
                               {
                                 languageState.texts.CharacterPortrait.Labels
                                   .Armor
-                              }{" "}
+                              }
                             </span>
                           </Tippy>
 
@@ -491,9 +494,7 @@ const CharacterPortrait = (props) => {
                         sx={{ ...portraitRow, ...bigFont }}
                         id="luck-row"
                       >
-                        <span style={{ marginRight: "20px" }}>
-                          {AttributeIcons.luck}
-                        </span>
+                        <span className={icon}>{AttributeIcons.luck}</span>
                         <SitoContainer sx={{ marginBottom: "2px" }}>
                           <Tippy
                             content={
@@ -507,7 +508,7 @@ const CharacterPortrait = (props) => {
                               {
                                 languageState.texts.CharacterPortrait.Labels
                                   .Luck
-                              }{" "}
+                              }
                             </span>
                           </Tippy>
 
@@ -521,12 +522,10 @@ const CharacterPortrait = (props) => {
                       sx={{ marginLeft: "20px" }}
                     >
                       <SitoContainer
-                        sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
+                        sx={{ ...portraitRow, ...bigFont, ...left }}
                         id="life-row"
                       >
-                        <span style={{ marginRight: "20px" }}>
-                          {AttributeIcons.life}
-                        </span>
+                        <span className={icon}>{AttributeIcons.life}</span>
                         <SitoContainer sx={{ marginBottom: "2px" }}>
                           <Tippy
                             content={
@@ -540,7 +539,7 @@ const CharacterPortrait = (props) => {
                               {
                                 languageState.texts.CharacterPortrait.Labels
                                   .Life
-                              }{" "}
+                              }
                             </span>
                           </Tippy>
 
@@ -551,10 +550,10 @@ const CharacterPortrait = (props) => {
                         </SitoContainer>
                       </SitoContainer>
                       <SitoContainer
-                        sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
+                        sx={{ ...portraitRow, ...bigFont, ...left }}
                         id="mana-row"
                       >
-                        <span className={label}>{AttributeIcons.mana}</span>
+                        <span className={icon}>{AttributeIcons.mana}</span>
                         <SitoContainer sx={{ marginBottom: "2px" }}>
                           <Tippy
                             content={
@@ -568,7 +567,7 @@ const CharacterPortrait = (props) => {
                               {
                                 languageState.texts.CharacterPortrait.Labels
                                   .Mana
-                              }{" "}
+                              }
                             </span>
                           </Tippy>
 
@@ -576,6 +575,31 @@ const CharacterPortrait = (props) => {
                             {contextState.character.Mana.current} /{" "}
                             {contextState.character.Mana.max}
                           </span>
+                        </SitoContainer>
+                      </SitoContainer>
+                      <SitoContainer
+                        sx={{ ...portraitRow, ...bigFont, ...left }}
+                        id="mana-row"
+                      >
+                        <span className={icon}>{AttributeIcons.speed}</span>
+                        <SitoContainer sx={{ marginBottom: "2px" }}>
+                          <Tippy
+                            content={
+                              seeMoreAnimation
+                                ? languageState.texts.CharacterPortrait.Tooltips
+                                    .Speed
+                                : ""
+                            }
+                          >
+                            <span className={label}>
+                              {
+                                languageState.texts.CharacterPortrait.Labels
+                                  .Speed
+                              }
+                            </span>
+                          </Tippy>
+
+                          <span>{contextState.character.Speed.current}</span>
                         </SitoContainer>
                       </SitoContainer>
                     </SitoContainer>
