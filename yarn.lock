@@ -7956,6 +7956,19 @@ sito-image@^0.2.12:
     react-dom "^18.2.0"
     react-scripts "5.0.1"
 
+sito-modal@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/sito-modal/-/sito-modal-0.1.8.tgz#26dd104d442438e47f23b163ff81f601c8a39d6c"
+  integrity sha512-QsdkAGNzKdjf06rHaCLrbx0iVGiCa1o8iiRLwdTBYA1QhO9Uuq+BV+G+iIhI+wI8FlA2D0w5HmjKiXi6lYdoKg==
+  dependencies:
+    "@emotion/css" "^11.9.0"
+    "@emotion/react" "^11.9.3"
+    "@emotion/styled" "^11.9.3"
+    react "^18.2.0"
+    react-dom "^18.2.0"
+    react-scripts "5.0.1"
+    sito-container "^0.2.14"
+
 slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"

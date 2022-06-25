@@ -53,6 +53,7 @@
     "react-scripts": "^5.0.1",
     "react-toggle-button": "^2.2.0",
     "sito-container": "^0.2.14",
-    "sito-image": "^0.2.12"
+    "sito-image": "^0.2.12",
+    "sito-modal": "^0.1.8"
   }
 }
