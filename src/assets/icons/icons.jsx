@@ -21,7 +21,9 @@ import {
   GiNightSleep, // wait
   GiRun, // run
   // skills
+  GiBattleGear, // icon
   // spells
+  GiSpellBook, // icon
   // events
   GiCircleForest,
   GiClockwork,
@@ -33,6 +35,14 @@ export const BasicIcons = {
   attack: <GiFist />,
   wait: <GiNightSleep />,
   run: <GiRun />,
+};
+
+export const SkillIcons = {
+  icon: <GiBattleGear />,
+};
+
+export const SpellIcons = {
+  icon: <GiSpellBook />,
 };
 
 export const ClassIcons = [
