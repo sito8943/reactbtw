@@ -7,7 +7,7 @@ import { css } from "@emotion/css";
 import { Link } from "react-router-dom";
 
 // own components
-import Container from "../Container/Container";
+import SitoContainer from "sito-container";
 
 // contexts
 import { useLanguage } from "../../context/Language";
@@ -32,7 +32,7 @@ const Footer = () => {
   });
 
   return (
-    <Container
+    <SitoContainer
       alignItems="center"
       justifyContent="center"
       className={`${footer}`}
@@ -46,7 +46,7 @@ const Footer = () => {
       <Link className={footerLink} to="https://btw/support.com">
         {languageState.texts.Footer.Support}
       </Link>
-    </Container>
+    </SitoContainer>
   );
 };
 

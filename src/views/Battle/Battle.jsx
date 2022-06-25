@@ -7,7 +7,7 @@ import Field from "../../models/Field";
 // own components
 import Animation from "../../components/Animation/Animation";
 import CombatPortrait from "../../components/CharacterPortrait/CombatPortrait/CombatPortrait";
-import Container from "../../components/Container/Container";
+import SitoContainer from "sito-container";
 import SpeakDialog from "../../components/SpeakDialog/SpeakDialog";
 import ActionMenu from "./ActionMenu/ActionMenu";
 import EventsNotification from "./EventsNotification.jsx/EventsNotification";
@@ -113,7 +113,7 @@ const Battle = () => {
   };
 
   return (
-    <Container
+    <SitoContainer
       justifyContent="space-between"
       flexDirection="column"
       sx={{ padding: "18px 20px 10px 20px", height: "95vh" }}
@@ -129,10 +129,10 @@ const Battle = () => {
       <ActionBeep visible={showActionBeep} />
       <EventList visible={showEventList} />
       {/* <SpeakDialog visible={true} /> */}
-      <Container justifyContent="right">
+      <SitoContainer justifyContent="right">
         {enemies.map((item, i) => {
           return (
-            <Container
+            <SitoContainer
               key={`enemy${item.Name}${i}`}
               className={
                 target.player === 0 && target.index === i ? target.subclass : ""
@@ -145,12 +145,12 @@ const Battle = () => {
                   target.player === 0 && target.index === i ? target.class : ""
                 }
               />
-            </Container>
+            </SitoContainer>
           );
         })}
-      </Container>
+      </SitoContainer>
       <button onClick={doAttack}>Hola</button>
-      <Container>
+      <SitoContainer>
         {showAnimation && (
           <Animation
             which="slash"
@@ -160,11 +160,11 @@ const Battle = () => {
             }}
           />
         )}
-      </Container>
-      <Container justifyContent="left">
+      </SitoContainer>
+      <SitoContainer justifyContent="left">
         {players.map((item, i) => {
           return (
-            <Container
+            <SitoContainer
               key={`${item.Name}${i}`}
               className={
                 target.player === 1 && target.index === i ? target.subclass : ""
@@ -177,11 +177,11 @@ const Battle = () => {
                   target.player === 1 && target.index === i ? target.class : ""
                 } unit-ready`}
               />
-            </Container>
+            </SitoContainer>
           );
         })}
-      </Container>
-    </Container>
+      </SitoContainer>
+    </SitoContainer>
   );
 };
 

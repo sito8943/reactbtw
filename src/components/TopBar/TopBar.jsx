@@ -10,7 +10,7 @@ import { useLanguage } from "../../context/Language";
 // components
 import OffCanvas from "../OffCanvas/OffCanvas";
 import CharacterPortrait from "../CharacterPortrait/CharacterPortrait";
-import Container from "../Container/Container";
+import SitoContainer from "sito-container";
 
 const TopBar = () => {
   const { offCanvasState, setOffCanvasState } = useOffCanvas();
@@ -54,11 +54,11 @@ const TopBar = () => {
 
   return (
     <>
-      <Container alignItems="center" justifyContent="right" className={topBar}>
+      <SitoContainer alignItems="center" justifyContent="right" className={topBar}>
         <button className={button} onClick={toggleMenuHandler}>
           {offCanvasState.visible ? <MdMenuOpen /> : <MdMenu />}
         </button>
-      </Container>
+      </SitoContainer>
       <OffCanvas
         id="off-canvas"
         onClick={closeOffCanvas}

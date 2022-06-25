@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import { BasicIcons, AttributeIcons } from "../../../assets/icons/icons";
 
 // own components
-import Container from "../../../components/Container/Container";
+import SitoContainer from "sito-container";
 import Text from "../../../components/Text/Text";
 import Icon from "../../../components/Icon/Icon";
 
@@ -61,7 +61,7 @@ const ActionMenu = (props) => {
   };
 
   return (
-    <Container
+    <SitoContainer
       alignItems="center"
       justifyContent="center"
       sx={{
@@ -71,7 +71,7 @@ const ActionMenu = (props) => {
         height: "100vh",
       }}
     >
-      <Container
+      <SitoContainer
         ref={ref}
         sx={{
           transform: show ? "scale(1)" : "scale(0)",
@@ -89,7 +89,7 @@ const ActionMenu = (props) => {
         <Text className="no-selection" variant="h5" sx={{ color: "aliceblue" }}>
           {languageState.texts.Battle.Actions.Title} {playing.Name}?
         </Text>
-        <Container
+        <SitoContainer
           flexDirection="column"
           sx={{ width: "100%", overflow: "auto" }}
         >
@@ -136,9 +136,9 @@ const ActionMenu = (props) => {
               </Text>
             </button>
           )}
-        </Container>
-      </Container>
-    </Container>
+        </SitoContainer>
+      </SitoContainer>
+    </SitoContainer>
   );
 };
 

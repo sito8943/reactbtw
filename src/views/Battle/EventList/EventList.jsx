@@ -11,7 +11,7 @@ import { EventIcons } from "../../../assets/icons/icons";
 import { MdInfo } from "react-icons/md";
 
 // own component
-import Container from "../../../components/Container/Container";
+import SitoContainer from "sito-container";
 import Text from "../../../components/Text/Text";
 import Icon from "../../../components/Icon/Icon";
 
@@ -54,7 +54,7 @@ const EventList = (props) => {
   });
 
   return (
-    <Container
+    <SitoContainer
       alignItems="center"
       justifyContent="center"
       sx={{
@@ -64,7 +64,7 @@ const EventList = (props) => {
         height: "100vh",
       }}
     >
-      <Container
+      <SitoContainer
         ref={ref}
         sx={{
           transform: show ? "scale(1)" : "scale(0)",
@@ -82,10 +82,10 @@ const EventList = (props) => {
         <Text className="no-selection" variant="h5" sx={{ color: "aliceblue" }}>
           {languageState.texts.Battle.Events.Title}
         </Text>
-        <Container sx={{ overflow: "auto" }}>
+        <SitoContainer sx={{ overflow: "auto" }}>
           {battleState.notifications &&
             battleState.notifications.map((item, i) => (
-              <Container alignItems="center" key={`${item.label}${i}`}>
+              <SitoContainer alignItems="center" key={`${item.label}${i}`}>
                 <Icon
                   sx={{
                     color: "#bdbbbb",
@@ -103,11 +103,11 @@ const EventList = (props) => {
                   {languageState.texts.Battle.Events.Type[item.label]}
                 </Text>
                 {!item.read && <MdInfo className={`${warningBeep} beep`} />}
-              </Container>
+              </SitoContainer>
             ))}
-        </Container>
-      </Container>
-    </Container>
+        </SitoContainer>
+      </SitoContainer>
+    </SitoContainer>
   );
 };
 

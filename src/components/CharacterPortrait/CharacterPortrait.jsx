@@ -25,7 +25,7 @@ import femaleHighElf from "../../img/portrait/femalehighelf.webp";
 import { MdAddCircle } from "react-icons/md";
 
 // own components
-import Container from "../Container/Container";
+import SitoContainer from "sito-container";
 
 // styles
 import "./style.css";
@@ -234,14 +234,14 @@ const CharacterPortrait = (props) => {
 
   return (
     <>
-      <Container
+      <SitoContainer
         className="scale-div"
         flexDirection="column"
         alignItems="left"
         justifyContent="center"
       >
-        <Container>
-          <Container
+        <SitoContainer>
+          <SitoContainer
             flexDirection="column"
             alignItems="center"
             justifyContent="space-around"
@@ -250,7 +250,7 @@ const CharacterPortrait = (props) => {
             style={style}
             className={creationAnimationState.appearDone ? "" : "rotate-card"}
           >
-            <Container
+            <SitoContainer
               sx={{
                 width: "100%",
                 zIndex: 2,
@@ -276,7 +276,7 @@ const CharacterPortrait = (props) => {
                   }}
                 />
               </button>
-            </Container>
+            </SitoContainer>
             <span className={characterClass}>
               {
                 ClassIcons[
@@ -284,7 +284,7 @@ const CharacterPortrait = (props) => {
                 ]
               }
             </span>
-            <Container
+            <SitoContainer
               extraProps={{
                 onClick: !moveImg
                   ? () =>
@@ -303,12 +303,12 @@ const CharacterPortrait = (props) => {
                 className={imageContainer}
                 alt="character-portrait"
               />
-            </Container>
-            <Container
+            </SitoContainer>
+            <SitoContainer
               sx={{ zIndex: 1, width: "185px" }}
               flexDirection="column"
             >
-              <Container
+              <SitoContainer
                 sx={{
                   ...portraitRow,
                   opacity: localActive !== 2 && !changeAttributes ? 1 : 0,
@@ -344,8 +344,8 @@ const CharacterPortrait = (props) => {
                 ) : (
                   <span>{character.Name}</span>
                 )}
-              </Container>
-              <Container
+              </SitoContainer>
+              <SitoContainer
                 sx={{
                   ...portraitRow,
                   display: localActive === 2 ? "flex" : "none",
@@ -356,7 +356,7 @@ const CharacterPortrait = (props) => {
                 <span className={label}>
                   {languageState.texts.CharacterPortrait.Labels.Class}{" "}
                 </span>
-                <Container sx={{ marginTop: "5px" }} alignItems="center">
+                <SitoContainer sx={{ marginTop: "5px" }} alignItems="center">
                   {ClassIcons.map((item, i) => (
                     <Tippy
                       key={i}
@@ -379,9 +379,9 @@ const CharacterPortrait = (props) => {
                       </button>
                     </Tippy>
                   ))}
-                </Container>
-              </Container>
-              <Container
+                </SitoContainer>
+              </SitoContainer>
+              <SitoContainer
                 sx={{
                   ...portraitRow,
                   opacity: localActive !== 2 && !changeAttributes ? 1 : 0,
@@ -394,8 +394,8 @@ const CharacterPortrait = (props) => {
                 <span>
                   {character ? character.Level : contextState.character.Level}
                 </span>
-              </Container>
-              <Container
+              </SitoContainer>
+              <SitoContainer
                 sx={{
                   ...portraitRow,
                   display: localActive !== 2 ? "flex" : "none",
@@ -413,12 +413,12 @@ const CharacterPortrait = (props) => {
                     ]
                   }
                 </span>
-              </Container>
-            </Container>
-          </Container>
+              </SitoContainer>
+            </SitoContainer>
+          </SitoContainer>
           {seeMore && (
-            <Container sx={attributes}>
-              <Container
+            <SitoContainer sx={attributes}>
+              <SitoContainer
                 flexDirection="column"
                 className="scroll"
                 sx={{
@@ -434,16 +434,16 @@ const CharacterPortrait = (props) => {
                   <h3>
                     {languageState.texts.CharacterPortrait.Labels.Attributes}
                   </h3>
-                  <Container>
-                    <Container flexDirection="column">
-                      <Container
+                  <SitoContainer>
+                    <SitoContainer flexDirection="column">
+                      <SitoContainer
                         sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                         id="attack-row"
                       >
                         <span style={{ marginRight: "20px" }} className={label}>
                           {AttributeIcons.attack}
                         </span>
-                        <Container sx={{ marginBottom: "2px" }}>
+                        <SitoContainer sx={{ marginBottom: "2px" }}>
                           <Tippy
                             content={
                               seeMoreAnimation
@@ -460,14 +460,14 @@ const CharacterPortrait = (props) => {
                             </span>
                           </Tippy>
                           <span>{contextState.character.Attack.max}</span>
-                        </Container>
-                      </Container>
-                      <Container
+                        </SitoContainer>
+                      </SitoContainer>
+                      <SitoContainer
                         sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                         id="armor-row"
                       >
                         <span className={label}>{AttributeIcons.armor}</span>
-                        <Container sx={{ marginBottom: "2px" }}>
+                        <SitoContainer sx={{ marginBottom: "2px" }}>
                           <Tippy
                             content={
                               seeMoreAnimation
@@ -485,16 +485,16 @@ const CharacterPortrait = (props) => {
                           </Tippy>
 
                           <span>{contextState.character.Armor.max}</span>
-                        </Container>
-                      </Container>
-                      <Container
+                        </SitoContainer>
+                      </SitoContainer>
+                      <SitoContainer
                         sx={{ ...portraitRow, ...bigFont }}
                         id="luck-row"
                       >
                         <span style={{ marginRight: "20px" }}>
                           {AttributeIcons.luck}
                         </span>
-                        <Container sx={{ marginBottom: "2px" }}>
+                        <SitoContainer sx={{ marginBottom: "2px" }}>
                           <Tippy
                             content={
                               seeMoreAnimation
@@ -512,22 +512,22 @@ const CharacterPortrait = (props) => {
                           </Tippy>
 
                           <span>{contextState.character.Luck.max}</span>
-                        </Container>
-                      </Container>
-                    </Container>
+                        </SitoContainer>
+                      </SitoContainer>
+                    </SitoContainer>
 
-                    <Container
+                    <SitoContainer
                       flexDirection="column"
                       sx={{ marginLeft: "20px" }}
                     >
-                      <Container
+                      <SitoContainer
                         sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                         id="life-row"
                       >
                         <span style={{ marginRight: "20px" }}>
                           {AttributeIcons.life}
                         </span>
-                        <Container sx={{ marginBottom: "2px" }}>
+                        <SitoContainer sx={{ marginBottom: "2px" }}>
                           <Tippy
                             content={
                               seeMoreAnimation
@@ -548,14 +548,14 @@ const CharacterPortrait = (props) => {
                             {contextState.character.Life.current} /{" "}
                             {contextState.character.Life.max}
                           </span>
-                        </Container>
-                      </Container>
-                      <Container
+                        </SitoContainer>
+                      </SitoContainer>
+                      <SitoContainer
                         sx={{ ...portraitRow, ...bigFont, ...spaceAround }}
                         id="mana-row"
                       >
                         <span className={label}>{AttributeIcons.mana}</span>
-                        <Container sx={{ marginBottom: "2px" }}>
+                        <SitoContainer sx={{ marginBottom: "2px" }}>
                           <Tippy
                             content={
                               seeMoreAnimation
@@ -576,10 +576,10 @@ const CharacterPortrait = (props) => {
                             {contextState.character.Mana.current} /{" "}
                             {contextState.character.Mana.max}
                           </span>
-                        </Container>
-                      </Container>
-                    </Container>
-                  </Container>
+                        </SitoContainer>
+                      </SitoContainer>
+                    </SitoContainer>
+                  </SitoContainer>
                   <h3>
                     {languageState.texts.CharacterPortrait.Labels.Description}
                   </h3>
@@ -591,10 +591,10 @@ const CharacterPortrait = (props) => {
                     }
                   />
                 </>
-              </Container>
-            </Container>
+              </SitoContainer>
+            </SitoContainer>
           )}
-        </Container>
+        </SitoContainer>
 
         {edit && (
           <>
@@ -615,7 +615,7 @@ const CharacterPortrait = (props) => {
             ></div>
           </>
         )}
-      </Container>
+      </SitoContainer>
     </>
   );
 };

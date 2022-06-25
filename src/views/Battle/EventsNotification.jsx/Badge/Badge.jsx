@@ -2,14 +2,14 @@
 import PropTypes from "prop-types";
 
 // own components
-import Container from "../../../../components/Container/Container";
+import SitoContainer from "sito-container";
 
 const Badge = (props) => {
   const { count } = props;
   return (
     <>
       {count > 0 && (
-        <Container
+        <SitoContainer
           sx={{
             borderRadius: "100%",
             background: "red",
@@ -23,7 +23,7 @@ const Badge = (props) => {
           }}
         >
           {count}
-        </Container>
+        </SitoContainer>
       )}
     </>
   );

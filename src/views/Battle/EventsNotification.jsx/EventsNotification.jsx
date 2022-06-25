@@ -10,7 +10,7 @@ import { css } from "@emotion/css";
 import Tippy from "@tippyjs/react";
 
 // own components
-import Container from "../../../components/Container/Container";
+import SitoContainer from "sito-container";
 import Badge from "./Badge/Badge";
 
 // react-icons
@@ -93,7 +93,7 @@ const EventsNotification = (props) => {
   });
 
   return (
-    <Container
+    <SitoContainer
       className={shake ? "shake" : ""}
       sx={{
         position: "fixed",
@@ -101,7 +101,7 @@ const EventsNotification = (props) => {
         left: "10px",
       }}
     >
-      <Container
+      <SitoContainer
         sx={{
           transition: "all 400ms ease",
           transform: hide ? "scale(0)" : "scale(1)",
@@ -113,8 +113,8 @@ const EventsNotification = (props) => {
             <MdInfo className={eventIconCss} />
           </button>
         </Tippy>
-      </Container>
-    </Container>
+      </SitoContainer>
+    </SitoContainer>
   );
 };
 

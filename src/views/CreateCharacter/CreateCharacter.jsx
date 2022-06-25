@@ -8,7 +8,7 @@ import "tippy.js/dist/tippy.css"; // optional
 import { css } from "@emotion/css";
 
 // own components
-import Container from "../../components/Container/Container";
+import SitoContainer from "sito-container";
 import CharacterPortrait from "../../components/CharacterPortrait/CharacterPortrait";
 
 // context
@@ -84,7 +84,7 @@ const CreateCharacter = () => {
   });
 
   return (
-    <Container
+    <SitoContainer
       flexDirection={creationAnimationState.active === 3 ? "column" : "row"}
       justifyContent="center"
       alignItems="center"
@@ -93,7 +93,7 @@ const CreateCharacter = () => {
         height: "100vh",
       }}
     >
-      <Container
+      <SitoContainer
         sx={{
           width: "100%",
           height: "100%",
@@ -105,9 +105,9 @@ const CreateCharacter = () => {
         }}
       >
         <div></div>
-      </Container>
+      </SitoContainer>
       <CharacterPortrait edit />
-      <Container
+      <SitoContainer
         sx={{
           position: "absolute",
           bottom: "0",
@@ -184,9 +184,9 @@ const CreateCharacter = () => {
             <span>{languageState.texts.Creation.Buttons.Finish}</span>
           </button>
         )}
-      </Container>
+      </SitoContainer>
       {creationAnimationState.active === 3 && (
-        <Container>
+        <SitoContainer>
           <button
             className={skewButton}
             style={{ borderRadius: "5px" }}
@@ -194,9 +194,9 @@ const CreateCharacter = () => {
           >
             {languageState.texts.Creation.Buttons.Start}
           </button>
-        </Container>
+        </SitoContainer>
       )}
-    </Container>
+    </SitoContainer>
   );
 };
 

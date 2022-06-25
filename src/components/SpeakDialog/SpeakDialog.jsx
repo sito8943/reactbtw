@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 // own components
-import Container from "../Container/Container";
+import SitoContainer from "sito-container";
 import Text from "../Text/Text";
 
 // images
@@ -34,7 +34,7 @@ const SpeakDialog = (props) => {
   }, [visible]);
 
   return (
-    <Container
+    <SitoContainer
       sx={{
         transition: "all 400ms ease",
         left: "calc(100vw - 80vw)",
@@ -50,22 +50,22 @@ const SpeakDialog = (props) => {
       }}
       justifyContent="left"
     >
-      <Container>
+      <SitoContainer>
         <img
           className={portraitCss}
           src={portrait || character1}
           alt="unit-portrait"
         />
-      </Container>
-      <Container flexDirection="column" alignItems="left">
+      </SitoContainer>
+      <SitoContainer flexDirection="column" alignItems="left">
         <Text sx={{ color: "aliceblue" }} variant="h5">
           {name}
         </Text>
         <Text sx={{ color: "aliceblue", overflow: "auto" }} variant="body">
           {text}
         </Text>
-      </Container>
-    </Container>
+      </SitoContainer>
+    </SitoContainer>
   );
 };
 

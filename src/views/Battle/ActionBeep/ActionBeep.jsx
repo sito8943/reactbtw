@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 
 // own components
-import Container from "../../../components/Container/Container";
+import SitoContainer from "sito-container";
 
 // contexts
 import { useBattle } from "../../../context/BattleProvider";
@@ -15,7 +15,7 @@ const ActionBeep = (props) => {
   const { languageState } = useLanguage();
 
   return (
-    <Container
+    <SitoContainer
       sx={{
         position: "fixed",
         bottom: 20,
@@ -26,7 +26,7 @@ const ActionBeep = (props) => {
         transform: visible ? "scale(1)" : "scale(0)",
       }}
     >
-      <Container
+      <SitoContainer
         sx={{
           background: "#303030",
           borderRadius: 15,
@@ -36,8 +36,8 @@ const ActionBeep = (props) => {
         }}
       >
         {languageState.texts.Battle.Actions.Doing[battleState.actionType]}
-      </Container>
-    </Container>
+      </SitoContainer>
+    </SitoContainer>
   );
 };
 

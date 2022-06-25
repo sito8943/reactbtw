@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { css } from "@emotion/css";
 
 // own components
-import Container from "../../Container/Container";
+import SitoContainer from "sito-container";
 import Text from "../../Text/Text";
 
 // context
@@ -67,7 +67,7 @@ const CombatPortrait = (props) => {
   };
 
   return (
-    <Container
+    <SitoContainer
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
@@ -78,30 +78,30 @@ const CombatPortrait = (props) => {
       <Text variant="span" className="no-selection" sx={characterClass}>
         {ClassIcons[character.Class]}
       </Text>
-      <Container>
+      <SitoContainer>
         <img
           src={character.Photo ? character.Photo : femaleHighElf}
           className={`${imageContainer} no-selection`}
           alt="character-portrait"
         />
-      </Container>
-      <Container sx={portraitRow} id="name-row">
+      </SitoContainer>
+      <SitoContainer sx={portraitRow} id="name-row">
         <Text variant="span" sx={label} className="no-selection">
           {languageState.texts.CharacterPortrait.Labels.Name}{" "}
         </Text>
         <Text variant="span" className="no-selection">
           {character.Name}
         </Text>
-      </Container>
-      <Container sx={portraitRow} id="level-row">
+      </SitoContainer>
+      <SitoContainer sx={portraitRow} id="level-row">
         <Text variant="span" sx={label} className="no-selection">
           {languageState.texts.CharacterPortrait.Labels.Level}{" "}
         </Text>
         <Text variant="span" className="no-selection">
           {character.Level}
         </Text>
-      </Container>
-    </Container>
+      </SitoContainer>
+    </SitoContainer>
   );
 };
 
