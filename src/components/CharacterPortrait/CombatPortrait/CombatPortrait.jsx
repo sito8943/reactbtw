@@ -36,15 +36,18 @@ const CombatPortrait = (props) => {
     },
     color: "#5e6264",
     transition: "all 200ms ease",
+    cursor: "pointer",
   };
 
   const portraitRow = {
+    zIndex: 1,
     marginTop: "10px",
     alignItems: "center",
     transition: "all 400ms ease",
   };
 
   const label = {
+    zIndex: 1,
     marginRight: "10px",
     fontWeight: "500",
   };

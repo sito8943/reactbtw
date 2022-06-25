@@ -173,9 +173,9 @@ const Battle = () => {
               <CombatPortrait
                 id="item.Name"
                 character={item}
-                className={
+                className={`${
                   target.player === 1 && target.index === i ? target.class : ""
-                }
+                } unit-ready`}
               />
             </Container>
           );
