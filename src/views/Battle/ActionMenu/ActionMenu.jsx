@@ -49,7 +49,7 @@ const ActionMenu = (props) => {
     fontSize: "25px",
     marginRight: "10px",
     "&:hover": {
-      transform: "translateY(-10px)",
+      transform: "translateY(-5px)",
       backgroundColor: "#333",
     },
   });

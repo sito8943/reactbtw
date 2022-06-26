@@ -29,8 +29,29 @@ const Battle = () => {
     setShowAction(false);
   };
 
+  const onClickUnit = (e) => {
+    let node = e.target;
+    while (
+      node.id === "" ||
+      node.id === "name-row" ||
+      node.id.indexOf("-") === -1
+    )
+      node = node.parentNode;
+    const [team, index] = node.id.split("-");
+    console.log(team, index);
+    if (team === "good") {
+      setPlayingUnit(players[Number(index)]);
+      if (!showAction) setShowAction(true);
+    }
+  };
+
   // units
   const [playingUnit, setPlayingUnit] = useState();
+
+  useEffect(() => {
+    setShowAction(true);
+  }, [playingUnit]);
+
   const [enemies, setEnemies] = useState([]);
   const [players, setPlayers] = useState([]);
   const [allUnits, setAllUnits] = useState([]);
@@ -51,7 +72,10 @@ const Battle = () => {
       ...JSON.parse(dataUser),
       ...NPCEnum.character,
     });
+    player1.Name = "Locol";
+    player.SetAttribute("busy", false);
     player.SetAttribute("team", 1);
+    player1.SetAttribute("busy", false);
     player1.SetAttribute("team", 1);
     const enemy = new Character(NPCEnum.dummy);
     enemy.SetAttribute("team", 2);
@@ -193,13 +217,12 @@ const Battle = () => {
           return (
             <SitoContainer
               key={`${item.Name}${i}`}
+              id={`good-${i}`}
               className={
                 target.player === 1 && target.index === i ? target.subclass : ""
               }
               extraProps={{
-                onClick: (e) => {
-                  console.log("hola");
-                },
+                onClick: onClickUnit,
               }}
             >
               <CombatPortrait
@@ -207,7 +230,7 @@ const Battle = () => {
                 character={item}
                 className={`${
                   target.player === 1 && target.index === i ? target.class : ""
-                } unit-ready`}
+                } ${!item.busy ? "unit-ready" : ""}`}
               />
             </SitoContainer>
           );
