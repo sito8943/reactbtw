@@ -1,3 +1,9 @@
+export const AllActions = {
+  wait: { action: -1, priority: -1 },
+  attack: { action: 0, priority: 0 },
+  run: { action: 1, priority: 1 },
+};
+
 const SimpleTargetActions = ["attack"];
 
 const NoTargetActions = ["wait", "run"];

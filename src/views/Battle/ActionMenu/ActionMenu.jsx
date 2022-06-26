@@ -28,7 +28,7 @@ import ActionModal from "../../../components/Modal/ActionModal/ActionModal";
 import { useLanguage } from "../../../context/Language";
 
 const ActionMenu = (props) => {
-  const { visible, playing, onClose } = props;
+  const { visible, playing, onClose, action } = props;
 
   const { languageState } = useLanguage();
 
@@ -112,7 +112,13 @@ const ActionMenu = (props) => {
                   <Tippy
                     content={languageState.texts.Battle.Actions.Basics[item]}
                   >
-                    <button className={actions}>{BasicIcons[item]}</button>
+                    <button
+                      id={`basic-${item}`}
+                      onClick={action}
+                      className={actions}
+                    >
+                      {BasicIcons[item]}
+                    </button>
                   </Tippy>
                 </motion.div>
               ))}
@@ -130,7 +136,13 @@ const ActionMenu = (props) => {
                           languageState.texts.Battle.Actions.Basics[item]
                         }
                       >
-                        <button className={actions}>{BasicIcons[item]}</button>
+                        <button
+                          id={`skill-${item}`}
+                          onClick={action}
+                          className={actions}
+                        >
+                          {BasicIcons[item]}
+                        </button>
                       </Tippy>
                     </motion.div>
                   ))}{" "}
@@ -158,7 +170,13 @@ const ActionMenu = (props) => {
                           languageState.texts.Battle.Actions.Basics[item]
                         }
                       >
-                        <button className={actions}>{BasicIcons[item]}</button>
+                        <button
+                          id={`spell-${item}`}
+                          onClick={action}
+                          className={actions}
+                        >
+                          {BasicIcons[item]}
+                        </button>
                       </Tippy>
                     </motion.div>
                   ))}{" "}

@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 
 // models
 import Character, { NPCEnum } from "../../models/Character";
 import Field from "../../models/Field";
+
+// actions
+import { AllActions } from "../../models/Action";
 
 // own components
 import Animation from "../../components/Animation/Animation";
@@ -23,6 +26,35 @@ const Battle = () => {
   const { battleState, setBattleState } = useBattle();
   const { languageState } = useLanguage();
 
+  // turns
+  const [turns, setTurns] = useState(1);
+  // actions
+
+  const unitActionsReducer = (unitActionsState, action) => {
+    switch (action.type) {
+      case "init": {
+        const { goodUnits, badUnits } = action;
+        const newActions = [];
+        let row = [];
+        for (let i = 0; i < badUnits; i += 1) row.push(-1);
+        newActions.push(row);
+        row = [];
+        for (let i = 0; i < goodUnits; i += 1) row.push(-1);
+        return newActions;
+      }
+      case "set": {
+        const newActions = unitActionsState;
+        const { unit, team, newAction } = action;
+        newActions[team][unit] = newAction;
+        return newActions;
+      }
+      default:
+        return [[], []];
+    }
+  };
+
+  const [unitActions, setUniActions] = useReducer(unitActionsReducer, [[], []]);
+
   // modals
   const [showAction, setShowAction] = useState(false);
   const onCloseAction = () => {
@@ -38,7 +70,6 @@ const Battle = () => {
     )
       node = node.parentNode;
     const [team, index] = node.id.split("-");
-    console.log(team, index);
     if (team === "good") {
       setPlayingUnit(players[Number(index)]);
       if (!showAction) setShowAction(true);
@@ -73,17 +104,28 @@ const Battle = () => {
       ...NPCEnum.character,
     });
     player1.Name = "Locol";
+    player.SetAttribute("index", 0);
     player.SetAttribute("busy", false);
     player.SetAttribute("team", 1);
+    player1.SetAttribute("index", 1);
     player1.SetAttribute("busy", false);
     player1.SetAttribute("team", 1);
+
     const enemy = new Character(NPCEnum.dummy);
     enemy.SetAttribute("team", 2);
+    // local test
+    const localPlayers = [player, player1];
+    const localEnemies = [enemy];
     setPlayingUnit(player);
     setShowAction(true);
     setPlayers([player, player1]);
     setEnemies([enemy]);
     setAllUnits([player, player1, enemy]);
+    setUniActions({
+      type: "init",
+      goodUnits: localPlayers.length,
+      badUnits: localEnemies.length,
+    });
     order([player, enemy]);
     setBattleState({
       type: "init",
@@ -143,6 +185,30 @@ const Battle = () => {
     }, 500);
   };
 
+  const doRun = (unitIndex) => {};
+
+  const doBasic = (basicName, unitIndex, team) => {
+    switch (basicName) {
+      case "attack":
+        break;
+      case "run":
+        return setUniActions({ type: "set" });
+      default: // wait
+        break;
+    }
+  };
+
+  const actionSelected = (e) => {
+    let node = e.target;
+    while (node.id === "") node = node.parentNode;
+    console.log(node.id, playingUnit.index);
+    const [type, name] = node.id.split("-");
+    switch (type) {
+      default: // basic
+        return doBasic(name, playingUnit.index, "good");
+    }
+  };
+
   useEffect(() => {
     if (battleState.action) {
       setShowCharacterAction(false);
@@ -168,6 +234,7 @@ const Battle = () => {
         visible={showAction}
         onClose={onCloseAction}
         playing={playingUnit}
+        action={actionSelected}
       />
       <EventsNotification action={() => setShowEventList(true)} />
       {players.length > 0 && (
