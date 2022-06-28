@@ -400,8 +400,9 @@ const Battle = () => {
                   position: "absolute",
                   width: "232px",
                   zIndex: 2,
+                  transition: "all 500ms ease",
                   transform:
-                    playingUnit && playingUnit.index === i
+                    playingUnit && playingUnit.index === i && selectingTargets
                       ? "translateY(-20px)"
                       : "translateY(0)",
                 }}
