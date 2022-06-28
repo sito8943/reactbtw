@@ -251,10 +251,13 @@ const Battle = () => {
         setSelectingTargets(true);
         setCurrentAction(basicName);
         break;
-      case "run":
-        return setUnitActions({ type: "set" });
-      default: // wait
-        break;
+      default: // wait - run
+        return setUnitActions({
+          type: "set",
+          unit: unitIndex,
+          team,
+          newAction: AllActions[basicName].action,
+        });
     }
   };
 
