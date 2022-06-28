@@ -1,8 +1,7 @@
+import { useEffect } from "react";
+
 // prop types
 import PropTypes from "prop-types";
-
-// @emotion
-import { css } from "@emotion/css";
 
 // tippy
 import Tippy from "@tippyjs/react";
@@ -24,9 +23,10 @@ import SitoContainer from "sito-container";
 import ActionModal from "../../../components/Modal/ActionModal/ActionModal";
 
 // contexts
-
 import { useLanguage } from "../../../context/Language";
-import { useEffect } from "react";
+
+// styles
+import { actionTitle, actions, disabledActions } from "./style";
 
 const ActionMenu = (props) => {
   const { visible, playing, onClose, action } = props;
@@ -41,40 +41,6 @@ const ActionMenu = (props) => {
     // console.log(document.getElementById("action").children[1]);
     // console.log(document.getElementById("action").onkeydown);
   }, []);
-
-  // styles
-  const actionTitle = css({
-    margin: 0,
-  });
-
-  const actions = css({
-    border: "none",
-    cursor: "pointer",
-    background: "none",
-    padding: "5px",
-    paddingBottom: 0,
-    borderRadius: "1rem",
-    transition: "all 500ms ease",
-    color: "aliceblue",
-    fontSize: "25px",
-    marginRight: "10px",
-    "&:hover": {
-      transform: "translateY(-5px)",
-      backgroundColor: "#333",
-    },
-  });
-
-  const disabledActions = css({
-    border: "none",
-    padding: "5px",
-    paddingBottom: 0,
-    borderRadius: "1rem",
-    transition: "all 500ms ease",
-    color: "#828785",
-    fontSize: "25px",
-    backgroundColor: "#222",
-    marginRight: "10px",
-  });
 
   // animations
   const container = {

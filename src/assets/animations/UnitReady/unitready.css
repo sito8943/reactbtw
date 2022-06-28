@@ -3,7 +3,6 @@
   overflow: hidden;
   animation: float 4s linear infinite;
   cursor: pointer;
-  transition: all 1s ease;
 }
 
 .unit-ready:hover {

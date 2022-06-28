@@ -36,7 +36,7 @@ const CombatPortrait = (props) => {
       color: "#aeb4b9",
     },
     color: "#5e6264",
-    transition: "all 200ms ease",
+    transition: "all 500ms ease",
   };
 
   const portraitRow = {

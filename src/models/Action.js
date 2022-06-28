@@ -1,6 +1,9 @@
 export const AllActions = {
+  awaitingOrders: {
+    target: "waitingForOrder",
+  },
   opponentThinking: {
-    target: "waiting",
+    target: "waitingForOpponent",
   },
   wait: {
     action: -1,

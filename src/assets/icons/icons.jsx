@@ -30,6 +30,12 @@ import {
   GiCompass, // world
 } from "react-icons/gi";
 
+export const AllIcons = {
+  attack: <GiFist />,
+  wait: <GiNightSleep />,
+  run: <GiRun />,
+};
+
 export const BasicIcons = {
   icon: <GiHand />,
   attack: <GiFist />,

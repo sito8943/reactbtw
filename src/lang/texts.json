@@ -9,11 +9,13 @@
       "Errors": {
         "InvalidTarget": "Objetivo inválido"
       },
+      "CancelAction": "Esta unidad ya tiene una acción seleccionada, presiona para cancelar",
       "Actions": {
         "NoSkills": "No hay habilidades",
         "NoSpells": "No hay hechizos",
         "Doing": {
-          "waiting": "Esperando oponente",
+          "waitingForOpponent": "Esperando oponente",
+          "waitingForOrder": "Selecciona a una unidad",
           "simple": "Selecciona un objetivo",
           "multi": "Selecciona objetivos",
           "none": "Sin objetivos"

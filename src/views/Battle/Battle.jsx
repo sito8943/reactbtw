@@ -1,17 +1,14 @@
 import { useState, useEffect, useReducer } from "react";
+import Tippy from "@tippyjs/react";
 
 // models
 import Character, { NPCEnum } from "../../models/Character";
 import Field from "../../models/Field";
 
-// actions
-import { AllActions } from "../../models/Action";
-
 // own components
 import Animation from "../../components/Animation/Animation";
 import CombatPortrait from "../../components/CharacterPortrait/CombatPortrait/CombatPortrait";
 import SitoContainer from "sito-container";
-import SpeakDialog from "../../components/SpeakDialog/SpeakDialog";
 import ActionMenu from "./ActionMenu/ActionMenu";
 import EventsNotification from "./EventsNotification.jsx/EventsNotification";
 import EventList from "./EventList/EventList";
@@ -23,6 +20,10 @@ import { useBattle } from "../../context/BattleProvider";
 import { GetActionTargetType } from "../../models/Action";
 import { useCallback } from "react";
 import { parseNodeUnit, validTarget } from "../../utils/functions";
+import { AllIcons } from "../../assets/icons/icons";
+
+// styles
+import { actionSelected as actionSelectedStyle } from "./ActionMenu/style";
 
 const Battle = () => {
   const { battleState, setBattleState } = useBattle();
@@ -68,6 +69,7 @@ const Battle = () => {
         const newActions = unitActionsState;
         const { unit, team, newAction } = action;
         newActions[team === "good" ? 1 : 0][unit] = newAction;
+        console.log(newActions);
         return newActions;
       }
       default:
@@ -85,6 +87,14 @@ const Battle = () => {
   const onCloseAction = () => {
     setShowAction(false);
   };
+
+  useEffect(() => {
+    if (!showAction && playingUnit && !selectingTargets) {
+      console.log("hola");
+      setCurrentAction("awaitingOrders");
+      setShowActionBeep(true);
+    }
+  }, [showAction]);
 
   const [enemies, setEnemies] = useState([]);
   const [players, setPlayers] = useState([]);
@@ -131,7 +141,7 @@ const Battle = () => {
           type: "set",
           unit: playingUnit.index,
           team: "good",
-          newAction: AllActions[currentAction].action,
+          newAction: currentAction,
         });
         return cleanSelectionVars();
       }
@@ -252,12 +262,13 @@ const Battle = () => {
         setCurrentAction(basicName);
         break;
       default: // wait - run
-        return setUnitActions({
+        setUnitActions({
           type: "set",
           unit: unitIndex,
           team,
-          newAction: AllActions[basicName].action,
+          newAction: basicName,
         });
+        return cleanSelectionVars();
     }
   };
 
@@ -384,6 +395,32 @@ const Battle = () => {
                 onClick: onClickPlayerUnit,
               }}
             >
+              <SitoContainer
+                sx={{
+                  position: "absolute",
+                  width: "232px",
+                  zIndex: 2,
+                  transform:
+                    playingUnit && playingUnit.index === i
+                      ? "translateY(-20px)"
+                      : "translateY(0)",
+                }}
+                justifyContent="flex-end"
+              >
+                <Tippy content={languageState.texts.Battle.CancelAction}>
+                  <button
+                    style={{
+                      transition: "all 300ms ease",
+                      transform: AllIcons[unitActions[1][i]]
+                        ? "scale(1)"
+                        : "scale(0)",
+                    }}
+                    className={actionSelectedStyle}
+                  >
+                    {AllIcons[unitActions[1][i]]}
+                  </button>
+                </Tippy>
+              </SitoContainer>
               <CombatPortrait
                 id={item.Name}
                 character={item}
