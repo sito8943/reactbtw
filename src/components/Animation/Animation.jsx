@@ -9,6 +9,7 @@ import "../../assets/animations/Beep/beep.css";
 import "../../assets/animations/Shake/shake.css";
 import "../../assets/animations/Hit/hit.css";
 import "../../assets/animations/UnitReady/unitready.css";
+import "../../assets/animations/PossibleTarget/possibletarget.css";
 import Slash from "../../assets/animations/Attack/Slash";
 
 const Animation = (props) => {

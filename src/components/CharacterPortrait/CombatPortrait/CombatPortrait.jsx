@@ -21,7 +21,7 @@ import femaleHighElf from "../../../img/portrait/femalehighelf.webp";
 
 const CombatPortrait = (props) => {
   const { languageState } = useLanguage();
-  const { character, id, className, extraProps } = props;
+  const { character, id, className } = props;
 
   const combatPortrait = {
     padding: "10px",
@@ -74,7 +74,6 @@ const CombatPortrait = (props) => {
       sx={combatPortrait}
       id={id}
       className={className}
-      {...extraProps}
     >
       <Text variant="span" className="no-selection" sx={characterClass}>
         {ClassIcons[character.Class]}
@@ -110,14 +109,12 @@ CombatPortrait.defaultProps = {
   character: {},
   id: "",
   className: "",
-  extraProps: {},
 };
 
 CombatPortrait.propTypes = {
   character: PropTypes.object,
   id: PropTypes.string,
   className: PropTypes.string,
-  extraProps: PropTypes.func,
 };
 
 export default CombatPortrait;

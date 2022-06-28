@@ -22,6 +22,7 @@ import { useLanguage } from "../../context/Language";
 import { useBattle } from "../../context/BattleProvider";
 import { GetActionTargetType } from "../../models/Action";
 import { useCallback } from "react";
+import { parseNodeUnit, validTarget } from "../../utils/functions";
 
 const Battle = () => {
   const { battleState, setBattleState } = useBattle();
@@ -32,6 +33,10 @@ const Battle = () => {
   // actions
   const [currentAction, setCurrentAction] = useState("");
   const [selectingTargets, setSelectingTargets] = useState(false);
+
+  // error
+  const [errorCode, setErrorCode] = useState("");
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const unitActionsReducer = (unitActionsState, action) => {
     switch (action.type) {
@@ -64,19 +69,32 @@ const Battle = () => {
     setShowAction(false);
   };
 
-  const onClickUnit = (e) => {
-    let node = e.target;
-    while (
-      node.id === "" ||
-      node.id === "name-row" ||
-      node.id.indexOf("-") === -1
-    )
-      node = node.parentNode;
-    const [team, index] = node.id.split("-");
-    if (team === "good") {
-      setPlayingUnit(players[Number(index)]);
-      if (!showAction) setShowAction(true);
+  const onClickEnemyUnit = (e) => {
+    const node = parseNodeUnit(e.target);
+    const [, index] = node.id.split("-");
+    const numberIndex = Number(index);
+    if (selectingTargets) {
     }
+  };
+
+  const onClickPlayerUnit = (e) => {
+    const node = parseNodeUnit(e.target);
+    const [, index] = node.id.split("-");
+    const numberIndex = Number(index);
+    if (selectingTargets) {
+      const selectingResult = validTarget(
+        "player",
+        players[numberIndex],
+        currentAction
+      );
+      if (selectingResult.validated) {
+      } else {
+        setErrorCode(selectingResult.error);
+        setShowErrorModal(true);
+      }
+    }
+    if (players) setPlayingUnit(players[numberIndex]);
+    if (!showAction) setShowAction(true);
   };
 
   // units
@@ -274,13 +292,14 @@ const Battle = () => {
               className={
                 target.player === 0 && target.index === i ? target.subclass : ""
               }
+              extraProps={{
+                onClick: onClickEnemyUnit,
+              }}
             >
               <CombatPortrait
                 id="Hola"
                 character={item}
-                className={
-                  target.player === 0 && target.index === i ? target.class : ""
-                }
+                className={selectingTargets ? "possible-target" : ""}
               />
             </SitoContainer>
           );
@@ -308,7 +327,7 @@ const Battle = () => {
                 target.player === 1 && target.index === i ? target.subclass : ""
               }
               extraProps={{
-                onClick: onClickUnit,
+                onClick: onClickPlayerUnit,
               }}
             >
               <CombatPortrait

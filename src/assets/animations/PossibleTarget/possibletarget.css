@@ -1,0 +1,13 @@
+.possible-target {
+  cursor: pointer;
+  animation: change-background 3s ease infinite;
+}
+
+@keyframes change-background {
+  0% {
+    background-color: rgb(100, 11, 11);
+  }
+  100% {
+    background-color: #222;
+  }
+}
