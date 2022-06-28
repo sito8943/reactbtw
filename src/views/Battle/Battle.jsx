@@ -36,24 +36,41 @@ const Battle = () => {
 
   // error
   const [errorCode, setErrorCode] = useState("");
-  const [showErrorModal, setShowErrorModal] = useState(false);
+
+  const cleanSelectionVars = () => {
+    setSelectingTargets(false);
+    setCurrentAction("");
+    setPlayingUnit(undefined);
+  };
+
+  useEffect(() => {
+    console.log(errorCode);
+    if (errorCode !== "")
+      setTimeout(() => {
+        setErrorCode("");
+      }, 2000);
+  }, [errorCode]);
 
   const unitActionsReducer = (unitActionsState, action) => {
     switch (action.type) {
       case "init": {
         const { goodUnits, badUnits } = action;
+        console.log(action);
         const newActions = [];
         let row = [];
         for (let i = 0; i < badUnits; i += 1) row.push(-1);
         newActions.push(row);
         row = [];
         for (let i = 0; i < goodUnits; i += 1) row.push(-1);
+        newActions.push(row);
         return newActions;
       }
       case "set": {
         const newActions = unitActionsState;
         const { unit, team, newAction } = action;
-        newActions[team][unit] = newAction;
+        console.log(unit, team, newAction, unitActionsState);
+        newActions[team === "good" ? 1 : 0][unit] = newAction;
+        console.log(newActions);
         return newActions;
       }
       default:
@@ -61,7 +78,10 @@ const Battle = () => {
     }
   };
 
-  const [unitActions, setUniActions] = useReducer(unitActionsReducer, [[], []]);
+  const [unitActions, setUnitActions] = useReducer(unitActionsReducer, [
+    [],
+    [],
+  ]);
 
   // modals
   const [showAction, setShowAction] = useState(false);
@@ -74,6 +94,21 @@ const Battle = () => {
     const [, index] = node.id.split("-");
     const numberIndex = Number(index);
     if (selectingTargets) {
+      const selectingResult = validTarget(
+        "enemy",
+        players[numberIndex],
+        currentAction
+      );
+      if (selectingResult.error) setErrorCode(selectingResult.error);
+      else {
+        setUnitActions({
+          type: "set",
+          unit: playingUnit.index,
+          team: "good",
+          newAction: AllActions[currentAction].action,
+        });
+        return cleanSelectionVars();
+      }
     }
   };
 
@@ -87,10 +122,16 @@ const Battle = () => {
         players[numberIndex],
         currentAction
       );
-      if (selectingResult.validated) {
-      } else {
-        setErrorCode(selectingResult.error);
-        setShowErrorModal(true);
+      if (selectingResult.error) setErrorCode(selectingResult.error);
+      else {
+        console.log("hola");
+        setUnitActions({
+          type: "set",
+          unit: playingUnit.index,
+          team: "good",
+          newAction: currentAction,
+        });
+        return cleanSelectionVars();
       }
     }
     if (players) setPlayingUnit(players[numberIndex]);
@@ -142,7 +183,7 @@ const Battle = () => {
     setPlayers([player, player1]);
     setEnemies([enemy]);
     setAllUnits([player, player1, enemy]);
-    setUniActions({
+    setUnitActions({
       type: "init",
       goodUnits: localPlayers.length,
       badUnits: localEnemies.length,
@@ -205,7 +246,7 @@ const Battle = () => {
         setCurrentAction(basicName);
         break;
       case "run":
-        return setUniActions({ type: "set" });
+        return setUnitActions({ type: "set" });
       default: // wait
         break;
     }
@@ -281,14 +322,19 @@ const Battle = () => {
           visible={showCharacterAction}
         />
       )}
-      <ActionBeep visible={showActionBeep} action={currentAction} />
+      <ActionBeep
+        visible={showActionBeep}
+        action={currentAction}
+        errorCode={errorCode}
+      />
       <EventList visible={showEventList} />
       {/* <SpeakDialog visible={true} /> */}
       <SitoContainer justifyContent="right">
         {enemies.map((item, i) => {
           return (
             <SitoContainer
-              key={`enemy${item.Name}${i}`}
+              key={`${item.Name}${i}`}
+              id={`enemy-${i}`}
               className={
                 target.player === 0 && target.index === i ? target.subclass : ""
               }
@@ -297,7 +343,7 @@ const Battle = () => {
               }}
             >
               <CombatPortrait
-                id="Hola"
+                id="Dummy"
                 character={item}
                 className={selectingTargets ? "possible-target" : ""}
               />

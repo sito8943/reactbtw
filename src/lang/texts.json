@@ -6,6 +6,9 @@
       }
     },
     "Battle": {
+      "Errors": {
+        "InvalidTarget": "Objetivo inválido"
+      },
       "Actions": {
         "NoSkills": "No hay habilidades",
         "NoSpells": "No hay hechizos",

@@ -10,7 +10,7 @@ import { useLanguage } from "../../../context/Language";
 import { AllActions } from "../../../models/Action";
 
 const ActionBeep = (props) => {
-  const { visible, action } = props;
+  const { visible, action, errorCode } = props;
 
   const { languageState } = useLanguage();
 
@@ -26,7 +26,7 @@ const ActionBeep = (props) => {
         transform: visible ? "scale(1)" : "scale(0)",
       }}
     >
-      {action && (
+      {action && errorCode === "" && (
         <SitoContainer
           sx={{
             background: "#303030",
@@ -39,12 +39,27 @@ const ActionBeep = (props) => {
           {languageState.texts.Battle.Actions.Doing[AllActions[action].target]}
         </SitoContainer>
       )}
+      {errorCode !== "" && (
+        <SitoContainer
+          sx={{
+            background: "#9f0a26",
+            borderRadius: 15,
+            color: "aliceblue",
+            padding: "10px 20px",
+          }}
+          className="horizontal-shake"
+        >
+          {languageState.texts.Battle.Errors[errorCode]}
+        </SitoContainer>
+      )}
     </SitoContainer>
   );
 };
 
 ActionBeep.propTypes = {
   visible: PropTypes.bool.isRequired,
+  action: PropTypes.string,
+  errorCode: PropTypes.string,
 };
 
 export default ActionBeep;
