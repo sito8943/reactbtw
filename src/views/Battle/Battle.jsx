@@ -21,6 +21,7 @@ import ActionBeep from "./ActionBeep/ActionBeep";
 import { useLanguage } from "../../context/Language";
 import { useBattle } from "../../context/BattleProvider";
 import { GetActionTargetType } from "../../models/Action";
+import { useCallback } from "react";
 
 const Battle = () => {
   const { battleState, setBattleState } = useBattle();
@@ -30,6 +31,7 @@ const Battle = () => {
   const [turns, setTurns] = useState(1);
   // actions
   const [currentAction, setCurrentAction] = useState("");
+  const [selectingTargets, setSelectingTargets] = useState(false);
 
   const unitActionsReducer = (unitActionsState, action) => {
     switch (action.type) {
@@ -134,17 +136,6 @@ const Battle = () => {
       goodTeam: [player],
       evilTeam: [enemy],
     });
-
-    document.body.onkeydown = (e) => {
-      if (e.key === "Escape") {
-        console.log(showActionBeep, showCharacterAction);
-        if (showCharacterAction) setShowCharacterAction(false);
-        else if (showActionBeep) {
-          setShowActionBeep(false);
-          setShowCharacterAction(true);
-        }
-      }
-    };
   }, []);
 
   useEffect(() => {}, []);
@@ -192,6 +183,7 @@ const Battle = () => {
     switch (basicName) {
       case "attack":
         setShowActionBeep(true);
+        setSelectingTargets(true);
         setCurrentAction(basicName);
         break;
       case "run":
@@ -205,6 +197,7 @@ const Battle = () => {
     let node = e.target;
     while (node.id === "") node = node.parentNode;
     const [type, name] = node.id.split("-");
+    players[playingUnit.index].busy = true;
     switch (type) {
       default: // basic
         return doBasic(name, playingUnit.index, "good");
@@ -226,11 +219,35 @@ const Battle = () => {
     setBattleState({ type: "selecting-action", actionType });
   };
 
+  const keyHandlers = useCallback(
+    (e) => {
+      console.log(e);
+      if (e.key === "Escape") {
+        console.log(showAction);
+        if (showAction) setShowAction(false);
+        else if (showActionBeep) {
+          setShowActionBeep(false);
+          setShowAction(true);
+          players[playingUnit.index].busy = false;
+        }
+      }
+    },
+    [showAction, showActionBeep, players, playingUnit]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", keyHandlers);
+    return () => {
+      window.removeEventListener("keydown", keyHandlers);
+    };
+  }, [keyHandlers]);
+
   return (
     <SitoContainer
       justifyContent="space-between"
       flexDirection="column"
       sx={{ padding: "18px 20px 10px 20px", height: "95vh" }}
+      id="battle"
     >
       <ActionMenu
         visible={showAction}

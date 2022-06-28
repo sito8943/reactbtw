@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import SitoModal from "sito-modal";
 
 const ActionModal = (props) => {
-  const { children, visible, onClose } = props;
+  const { children, visible, onClose, id } = props;
 
   return (
     <SitoModal
@@ -16,6 +16,7 @@ const ActionModal = (props) => {
       }}
       visible={visible}
       onClose={onClose}
+      id={id}
     >
       {children}
     </SitoModal>
@@ -26,6 +27,7 @@ ActionModal.propTypes = {
   children: PropTypes.node,
   visible: PropTypes.bool,
   onClose: PropTypes.func,
+  id: PropTypes.string,
 };
 
 export default ActionModal;

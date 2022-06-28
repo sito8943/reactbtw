@@ -1,7 +1,25 @@
 export const AllActions = {
-  wait: { action: -1, priority: -1, type: "basic", target: "none" },
-  attack: { action: 0, priority: 0, type: "basic", target: "simple" },
-  run: { action: 1, priority: 1, type: "basic", target: "none" },
+  wait: {
+    action: -1,
+    priority: -1,
+    type: "basic",
+    target: "none",
+    affect: "player",
+  },
+  attack: {
+    action: 0,
+    priority: 0,
+    type: "basic",
+    target: "simple",
+    affect: "enemy",
+  },
+  run: {
+    action: 1,
+    priority: 1,
+    type: "basic",
+    target: "none",
+    affect: "player",
+  },
 };
 
 const SimpleTargetActions = ["attack"];

@@ -26,11 +26,21 @@ import ActionModal from "../../../components/Modal/ActionModal/ActionModal";
 // contexts
 
 import { useLanguage } from "../../../context/Language";
+import { useEffect } from "react";
 
 const ActionMenu = (props) => {
   const { visible, playing, onClose, action } = props;
 
   const { languageState } = useLanguage();
+
+  useEffect(() => {
+    /* console.log(document.getElementById("action"));
+    document.getElementById("action").onkeydown = (e) => {
+      console.log(e);
+    }; */
+    // console.log(document.getElementById("action").children[1]);
+    // console.log(document.getElementById("action").onkeydown);
+  }, []);
 
   // styles
   const actionTitle = css({
@@ -88,7 +98,7 @@ const ActionMenu = (props) => {
   };
 
   return (
-    <ActionModal visible={visible} onClose={onClose}>
+    <ActionModal id="action-modal" visible={visible} onClose={onClose}>
       {playing && playing.Name && (
         <>
           <h3
@@ -101,7 +111,7 @@ const ActionMenu = (props) => {
             viewport={{ once: true }}
             style={{ padding: 0 }}
           >
-            <SitoContainer>
+            <SitoContainer id="action-list">
               {/* basics */}
               {Object.keys(playing.Basics).map((item) => (
                 <motion.div
