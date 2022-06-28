@@ -1,4 +1,7 @@
 export const AllActions = {
+  opponentThinking: {
+    target: "waiting",
+  },
   wait: {
     action: -1,
     priority: -1,

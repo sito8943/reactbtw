@@ -1,6 +1,29 @@
+.targeter {
+  box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+  transform: translateY(-20px);
+  animation: change-border-color 1s ease infinite;
+}
+
 .possible-target {
   cursor: pointer;
-  animation: change-background 3s ease infinite;
+  animation: change-background 1s ease infinite;
+  transition: all 1s ease;
+}
+
+.possible-target:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes change-border-color {
+  0% {
+    border-color: dodgerblue;
+    background-color: rgba(30, 143, 255, 0.356);
+  }
+  100% {
+    border-color: #333;
+    background-color: #333;
+  }
 }
 
 @keyframes change-background {

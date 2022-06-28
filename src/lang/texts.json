@@ -13,6 +13,7 @@
         "NoSkills": "No hay habilidades",
         "NoSpells": "No hay hechizos",
         "Doing": {
+          "waiting": "Esperando oponente",
           "simple": "Selecciona un objetivo",
           "multi": "Selecciona objetivos",
           "none": "Sin objetivos"

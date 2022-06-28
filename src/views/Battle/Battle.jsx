@@ -55,7 +55,6 @@ const Battle = () => {
     switch (action.type) {
       case "init": {
         const { goodUnits, badUnits } = action;
-        console.log(action);
         const newActions = [];
         let row = [];
         for (let i = 0; i < badUnits; i += 1) row.push(-1);
@@ -68,9 +67,7 @@ const Battle = () => {
       case "set": {
         const newActions = unitActionsState;
         const { unit, team, newAction } = action;
-        console.log(unit, team, newAction, unitActionsState);
         newActions[team === "good" ? 1 : 0][unit] = newAction;
-        console.log(newActions);
         return newActions;
       }
       default:
@@ -88,6 +85,35 @@ const Battle = () => {
   const onCloseAction = () => {
     setShowAction(false);
   };
+
+  const [enemies, setEnemies] = useState([]);
+  const [players, setPlayers] = useState([]);
+  const [allUnits, setAllUnits] = useState([]);
+
+  const [showActionBeep, setShowActionBeep] = useState(false);
+  const [showAnimation, setShowAnimation] = useState(false);
+  const [showEventList, setShowEventList] = useState(false);
+  const [showCharacterAction, setShowCharacterAction] = useState(false);
+  const [target, setTarget] = useState({ offsetLeft: 0, offsetTop: 0 });
+
+  // units
+  const [playingUnit, setPlayingUnit] = useState();
+
+  useEffect(() => {
+    if (!playingUnit) {
+      let selected = false;
+      for (let i = 0; i < players.length && !selected; i += 1)
+        if (!players[i].busy) {
+          setPlayingUnit(players[i]);
+          setShowAction(true);
+          selected = true;
+        }
+      if (!selected) {
+        setCurrentAction("opponentThinking");
+        setShowActionBeep(true);
+      }
+    }
+  }, [playingUnit]);
 
   const onClickEnemyUnit = (e) => {
     const node = parseNodeUnit(e.target);
@@ -124,7 +150,6 @@ const Battle = () => {
       );
       if (selectingResult.error) setErrorCode(selectingResult.error);
       else {
-        console.log("hola");
         setUnitActions({
           type: "set",
           unit: playingUnit.index,
@@ -138,22 +163,11 @@ const Battle = () => {
     if (!showAction) setShowAction(true);
   };
 
-  // units
-  const [playingUnit, setPlayingUnit] = useState();
-
-  useEffect(() => {
-    setShowAction(true);
-  }, [playingUnit]);
-
-  const [enemies, setEnemies] = useState([]);
-  const [players, setPlayers] = useState([]);
-  const [allUnits, setAllUnits] = useState([]);
-
-  const [showActionBeep, setShowActionBeep] = useState(false);
-  const [showAnimation, setShowAnimation] = useState(false);
-  const [showEventList, setShowEventList] = useState(false);
-  const [showCharacterAction, setShowCharacterAction] = useState(false);
-  const [target, setTarget] = useState({ offsetLeft: 0, offsetTop: 0 });
+  const order = (localUnits = undefined) => {
+    let newOrder = allUnits;
+    if (localUnits) newOrder = localUnits;
+    console.log(newOrder);
+  };
 
   useEffect(() => {
     const dataUser = localStorage.getItem("btw-user-data");
@@ -196,14 +210,6 @@ const Battle = () => {
       evilTeam: [enemy],
     });
   }, []);
-
-  useEffect(() => {}, []);
-
-  const order = (localUnits = undefined) => {
-    let newOrder = allUnits;
-    if (localUnits) newOrder = localUnits;
-    console.log(newOrder);
-  };
 
   const doAttack = () => {
     setShowAnimation(true);
@@ -282,7 +288,6 @@ const Battle = () => {
     (e) => {
       console.log(e);
       if (e.key === "Escape") {
-        console.log(showAction);
         if (showAction) setShowAction(false);
         else if (showActionBeep) {
           setShowActionBeep(false);
@@ -381,7 +386,11 @@ const Battle = () => {
                 character={item}
                 className={`${
                   target.player === 1 && target.index === i ? target.class : ""
-                } ${!item.busy ? "unit-ready" : ""}`}
+                } ${!item.busy ? "unit-ready" : ""} ${
+                  playingUnit && playingUnit.index === i && selectingTargets
+                    ? "targeter"
+                    : ""
+                }`}
               />
             </SitoContainer>
           );

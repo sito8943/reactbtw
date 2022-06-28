@@ -3,6 +3,13 @@
   overflow: hidden;
   animation: float 4s linear infinite;
   cursor: pointer;
+  transition: all 1s ease;
+}
+
+.unit-ready:hover {
+  box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+  transform: translateY(-20px);
+  animation: none;
 }
 
 .unit-ready::before {

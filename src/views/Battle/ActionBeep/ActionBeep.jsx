@@ -29,7 +29,7 @@ const ActionBeep = (props) => {
       {action && errorCode === "" && (
         <SitoContainer
           sx={{
-            background: "#303030",
+            background: "dodgerblue",
             borderRadius: 15,
             color: "aliceblue",
             padding: "10px 20px",
