@@ -60,7 +60,7 @@ const ActionMenu = (props) => {
     paddingBottom: 0,
     borderRadius: "1rem",
     transition: "all 500ms ease",
-    color: "aliceblue",
+    color: "#828785",
     fontSize: "25px",
     backgroundColor: "#222",
     marginRight: "10px",
