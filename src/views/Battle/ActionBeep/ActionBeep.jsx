@@ -5,13 +5,13 @@ import PropTypes from "prop-types";
 import SitoContainer from "sito-container";
 
 // contexts
-import { useBattle } from "../../../context/BattleProvider";
 import { useLanguage } from "../../../context/Language";
 
-const ActionBeep = (props) => {
-  const { visible } = props;
+import { AllActions } from "../../../models/Action";
 
-  const { battleState } = useBattle();
+const ActionBeep = (props) => {
+  const { visible, action } = props;
+
   const { languageState } = useLanguage();
 
   return (
@@ -26,17 +26,19 @@ const ActionBeep = (props) => {
         transform: visible ? "scale(1)" : "scale(0)",
       }}
     >
-      <SitoContainer
-        sx={{
-          background: "#303030",
-          borderRadius: 15,
-          color: "aliceblue",
-          padding: "10px 20px",
-          animation: "action 2s infinite",
-        }}
-      >
-        {languageState.texts.Battle.Actions.Doing[battleState.actionType]}
-      </SitoContainer>
+      {action && (
+        <SitoContainer
+          sx={{
+            background: "#303030",
+            borderRadius: 15,
+            color: "aliceblue",
+            padding: "10px 20px",
+            animation: "action 2s infinite",
+          }}
+        >
+          {languageState.texts.Battle.Actions.Doing[AllActions[action].target]}
+        </SitoContainer>
+      )}
     </SitoContainer>
   );
 };

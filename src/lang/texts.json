@@ -10,9 +10,9 @@
         "NoSkills": "No hay habilidades",
         "NoSpells": "No hay hechizos",
         "Doing": {
-          "SimpleTarget": "Selecciona un objetivo",
-          "MultiTarget": "Selecciona objetivos",
-          "NoTarget": "Sin objetivos"
+          "simple": "Selecciona un objetivo",
+          "multi": "Selecciona objetivos",
+          "none": "Sin objetivos"
         },
         "Title": "Acciones de ",
         "Basics": {

@@ -29,6 +29,7 @@ const Battle = () => {
   // turns
   const [turns, setTurns] = useState(1);
   // actions
+  const [currentAction, setCurrentAction] = useState("");
 
   const unitActionsReducer = (unitActionsState, action) => {
     switch (action.type) {
@@ -190,6 +191,8 @@ const Battle = () => {
   const doBasic = (basicName, unitIndex, team) => {
     switch (basicName) {
       case "attack":
+        setShowActionBeep(true);
+        setCurrentAction(basicName);
         break;
       case "run":
         return setUniActions({ type: "set" });
@@ -201,7 +204,6 @@ const Battle = () => {
   const actionSelected = (e) => {
     let node = e.target;
     while (node.id === "") node = node.parentNode;
-    console.log(node.id, playingUnit.index);
     const [type, name] = node.id.split("-");
     switch (type) {
       default: // basic
@@ -244,7 +246,7 @@ const Battle = () => {
           visible={showCharacterAction}
         />
       )}
-      <ActionBeep visible={showActionBeep} />
+      <ActionBeep visible={showActionBeep} action={currentAction} />
       <EventList visible={showEventList} />
       {/* <SpeakDialog visible={true} /> */}
       <SitoContainer justifyContent="right">
