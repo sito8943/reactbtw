@@ -1,3 +1,5 @@
+// @ts-check
+
 export default class Destructible {
   constructor(options = { name: "", level: 1 }) {
     this.name = options.name;

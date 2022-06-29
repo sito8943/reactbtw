@@ -1,3 +1,5 @@
+// @ts-check
+
 export const ClassEnumType = {
   Fighter: 0,
   Hunter: 1,

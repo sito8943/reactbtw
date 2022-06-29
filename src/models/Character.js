@@ -33,6 +33,9 @@ export const NPCEnum = {
   },
 };
 
+/**
+ * @author Sito
+ */
 export default class Character extends Destructible {
   class = -1;
   attack = { current: 0, max: 0 };
