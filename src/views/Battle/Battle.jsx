@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect, useReducer, useCallback } from "react";
 import Tippy from "@tippyjs/react";
 
 // models
@@ -18,8 +18,12 @@ import ActionBeep from "./ActionBeep/ActionBeep";
 import { useLanguage } from "../../context/Language";
 import { useBattle } from "../../context/BattleProvider";
 import { GetActionTargetType } from "../../models/Action";
-import { useCallback } from "react";
+
+// utils
 import { parseNodeUnit, validTarget } from "../../utils/functions";
+import { isABot } from "../../utils/bots";
+
+// icons
 import { AllIcons } from "../../assets/icons/icons";
 
 // styles
@@ -67,8 +71,11 @@ const Battle = () => {
       }
       case "set": {
         const newActions = unitActionsState;
-        const { unit, team, newAction } = action;
-        newActions[team === "good" ? 1 : 0][unit] = newAction;
+        const { unit, team, newAction, target } = action;
+        newActions[team === "good" ? 1 : 0][unit] = {
+          action: newAction,
+          target,
+        };
         console.log(newActions);
         return newActions;
       }
@@ -142,6 +149,7 @@ const Battle = () => {
           unit: playingUnit.index,
           team: "good",
           newAction: currentAction,
+          target: index,
         });
         return cleanSelectionVars();
       }
@@ -165,6 +173,7 @@ const Battle = () => {
           unit: playingUnit.index,
           team: "good",
           newAction: currentAction,
+          target: index,
         });
         return cleanSelectionVars();
       }
@@ -225,6 +234,7 @@ const Battle = () => {
           unit: unitIndex,
           team,
           newAction: basicName,
+          target: -1,
         });
         return cleanSelectionVars();
     }
@@ -285,6 +295,20 @@ const Battle = () => {
   }, []);
 
   useEffect(() => {
+    if (enemies) {
+      enemies.forEach((item, i) => {
+        if (isABot(item) && item.busy) {
+          item.busy = true;
+          setUnitActions({
+            type: "set",
+            unit: i,
+            team: "enemy",
+            newAction: "attack",
+            target: 0,
+          });
+        }
+      });
+    }
     console.log(unitActions);
   }, [unitActions]);
 
@@ -417,13 +441,13 @@ const Battle = () => {
                   <button
                     style={{
                       transition: "all 300ms ease",
-                      transform: AllIcons[unitActions[1][i]]
+                      transform: AllIcons[unitActions[1][i].action]
                         ? "scale(1)"
                         : "scale(0)",
                     }}
                     className={actionSelectedStyle}
                   >
-                    {AllIcons[unitActions[1][i]]}
+                    {AllIcons[unitActions[1][i].action]}
                   </button>
                 </Tippy>
               </SitoContainer>
