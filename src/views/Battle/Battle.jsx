@@ -129,6 +129,9 @@ const Battle = () => {
       if (!selected || !enemyReady) {
         setCurrentAction("opponentThinking");
         setShowActionBeep(true);
+      } else {
+        setCurrentAction("");
+        setShowActionBeep(false);
       }
     }
   }, [playingUnit]);
