@@ -16,7 +16,6 @@ import ActionBeep from "./ActionBeep/ActionBeep";
 
 // contexts
 import { useLanguage } from "../../context/Language";
-import { useBattle } from "../../context/BattleProvider";
 import { GetActionTargetType } from "../../models/Action";
 
 // utils
@@ -30,7 +29,6 @@ import { AllIcons } from "../../assets/icons/icons";
 import { actionSelected as actionSelectedStyle } from "./ActionMenu/style";
 
 const Battle = () => {
-  const { battleState, setBattleState } = useBattle();
   const { languageState } = useLanguage();
 
   // turns
@@ -119,13 +117,16 @@ const Battle = () => {
   useEffect(() => {
     if (!playingUnit) {
       let selected = false;
+      let enemyReady = true;
       for (let i = 0; i < players.length && !selected; i += 1)
         if (!players[i].busy) {
           setPlayingUnit(players[i]);
           setShowAction(true);
           selected = true;
         }
-      if (!selected) {
+      for (let i = 0; i < enemies.length && enemyReady; i += 1)
+        if (!enemies[i].busy) enemyReady = false;
+      if (!selected || !enemyReady) {
         setCurrentAction("opponentThinking");
         setShowActionBeep(true);
       }
@@ -149,7 +150,7 @@ const Battle = () => {
           unit: playingUnit.index,
           team: "good",
           newAction: currentAction,
-          target: index,
+          target: numberIndex,
         });
         return cleanSelectionVars();
       }
@@ -173,7 +174,7 @@ const Battle = () => {
           unit: playingUnit.index,
           team: "good",
           newAction: currentAction,
-          target: index,
+          target: numberIndex,
         });
         return cleanSelectionVars();
       }
@@ -286,18 +287,12 @@ const Battle = () => {
       badUnits: localEnemies.length,
     });
     order([player, enemy]);
-    setBattleState({
-      type: "init",
-      field: new Field(),
-      goodTeam: [player],
-      evilTeam: [enemy],
-    });
   }, []);
 
   useEffect(() => {
     if (enemies) {
       enemies.forEach((item, i) => {
-        if (isABot(item) && item.busy) {
+        if (isABot(item) && !item.busy) {
           item.busy = true;
           setUnitActions({
             type: "set",
@@ -309,23 +304,7 @@ const Battle = () => {
         }
       });
     }
-    console.log(unitActions);
   }, [unitActions]);
-
-  useEffect(() => {
-    if (battleState.action) {
-      setShowCharacterAction(false);
-      setShowActionBeep(true);
-    } else setShowActionBeep(false);
-  }, [battleState.action]);
-
-  const action = (e) => {
-    let node = e.target;
-    if (node.nodeName === "path") node = node.parentNode;
-    if (node.nodeName === "svg") node = node.parentNode;
-    const actionType = GetActionTargetType(node.id.substring(1));
-    setBattleState({ type: "selecting-action", actionType });
-  };
 
   const keyHandlers = useCallback(
     (e) => {
@@ -363,13 +342,6 @@ const Battle = () => {
         action={actionSelected}
       />
       <EventsNotification action={() => setShowEventList(true)} />
-      {players.length > 0 && (
-        <ActionMenu
-          action={action}
-          playing={players[0]}
-          visible={showCharacterAction}
-        />
-      )}
       <ActionBeep
         visible={showActionBeep}
         action={currentAction}
