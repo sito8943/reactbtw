@@ -179,48 +179,6 @@ const Battle = () => {
     console.log(newOrder);
   };
 
-  useEffect(() => {
-    const dataUser = localStorage.getItem("btw-user-data");
-    const player = new Character({
-      ...JSON.parse(dataUser),
-      ...NPCEnum.character,
-    });
-    const player1 = new Character({
-      ...JSON.parse(dataUser),
-      ...NPCEnum.character,
-    });
-    player1.Name = "Locol";
-    player.SetAttribute("index", 0);
-    player.SetAttribute("busy", false);
-    player.SetAttribute("team", 1);
-    player1.SetAttribute("index", 1);
-    player1.SetAttribute("busy", false);
-    player1.SetAttribute("team", 1);
-
-    const enemy = new Character(NPCEnum.dummy);
-    enemy.SetAttribute("team", 2);
-    // local test
-    const localPlayers = [player, player1];
-    const localEnemies = [enemy];
-    setPlayingUnit(player);
-    setShowAction(true);
-    setPlayers([player, player1]);
-    setEnemies([enemy]);
-    setAllUnits([player, player1, enemy]);
-    setUnitActions({
-      type: "init",
-      goodUnits: localPlayers.length,
-      badUnits: localEnemies.length,
-    });
-    order([player, enemy]);
-    setBattleState({
-      type: "init",
-      field: new Field(),
-      goodTeam: [player],
-      evilTeam: [enemy],
-    });
-  }, []);
-
   const doAttack = () => {
     setShowAnimation(true);
     const currentTarget = document.getElementById("Hola");
@@ -282,6 +240,53 @@ const Battle = () => {
         return doBasic(name, playingUnit.index, "good");
     }
   };
+
+  useEffect(() => {
+    const dataUser = localStorage.getItem("btw-user-data");
+    const player = new Character({
+      ...JSON.parse(dataUser),
+      ...NPCEnum.character,
+    });
+    const player1 = new Character({
+      ...JSON.parse(dataUser),
+      ...NPCEnum.character,
+    });
+    player1.Name = "Locol";
+    player.SetAttribute("index", 0);
+    player.SetAttribute("busy", false);
+    player.SetAttribute("team", 1);
+    player1.SetAttribute("index", 1);
+    player1.SetAttribute("busy", false);
+    player1.SetAttribute("team", 1);
+
+    const enemy = new Character(NPCEnum.dummy);
+    enemy.SetAttribute("team", 2);
+    enemy.SetAttribute("bot", true);
+    // local test
+    const localPlayers = [player, player1];
+    const localEnemies = [enemy];
+    setPlayingUnit(player);
+    setShowAction(true);
+    setPlayers([player, player1]);
+    setEnemies([enemy]);
+    setAllUnits([player, player1, enemy]);
+    setUnitActions({
+      type: "init",
+      goodUnits: localPlayers.length,
+      badUnits: localEnemies.length,
+    });
+    order([player, enemy]);
+    setBattleState({
+      type: "init",
+      field: new Field(),
+      goodTeam: [player],
+      evilTeam: [enemy],
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log(unitActions);
+  }, [unitActions]);
 
   useEffect(() => {
     if (battleState.action) {
