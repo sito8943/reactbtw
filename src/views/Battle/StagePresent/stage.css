@@ -1,0 +1,36 @@
+.stage {
+  animation: stage-apparition 3s ease 1s;
+  opacity: 0;
+  background: #910c25;
+  padding: 10px;
+}
+
+@keyframes stage-apparition {
+  0% {
+    transform: translateY(-5px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
+
+/* @keyframes stage-apparition {
+  0% {
+    transform: translateX(-65vw) skewX(20deg);
+  }
+  35% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(65vw) skewX(20deg);
+  }
+} */

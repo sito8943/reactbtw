@@ -5,10 +5,13 @@ import Tippy from "@tippyjs/react";
 import Character, { NPCEnum } from "../../models/Character";
 import Field from "../../models/Field";
 
+// sito components
+import SitoContainer from "sito-container";
+
 // own components
 import Animation from "../../components/Animation/Animation";
 import CombatPortrait from "../../components/CharacterPortrait/CombatPortrait/CombatPortrait";
-import SitoContainer from "sito-container";
+import StagePresent from "./StagePresent/StagePresent";
 import ActionMenu from "./ActionMenu/ActionMenu";
 import EventsNotification from "./EventsNotification.jsx/EventsNotification";
 import EventList from "./EventList/EventList";
@@ -16,7 +19,6 @@ import ActionBeep from "./ActionBeep/ActionBeep";
 
 // contexts
 import { useLanguage } from "../../context/Language";
-import { GetActionTargetType } from "../../models/Action";
 
 // utils
 import { parseNodeUnit, validTarget } from "../../utils/functions";
@@ -28,11 +30,20 @@ import { AllIcons } from "../../assets/icons/icons";
 // styles
 import { actionSelected as actionSelectedStyle } from "./ActionMenu/style";
 
+const Stages = {
+  Start: 0,
+  Tactics: 1,
+  Combat: 2,
+  Win: 3,
+  Defeat: 4,
+};
+
 const Battle = () => {
   const { languageState } = useLanguage();
 
   // turns
   const [turns, setTurns] = useState(1);
+  const [stage, setStage] = useState(Stages.Start);
   // actions
   const [currentAction, setCurrentAction] = useState("");
   const [selectingTargets, setSelectingTargets] = useState(false);
@@ -47,7 +58,6 @@ const Battle = () => {
   };
 
   useEffect(() => {
-    console.log(errorCode);
     if (errorCode !== "")
       setTimeout(() => {
         setErrorCode("");
@@ -95,7 +105,6 @@ const Battle = () => {
 
   useEffect(() => {
     if (!showAction && playingUnit && !selectingTargets) {
-      console.log("hola");
       setCurrentAction("awaitingOrders");
       setShowActionBeep(true);
     }
@@ -115,7 +124,7 @@ const Battle = () => {
   const [playingUnit, setPlayingUnit] = useState();
 
   useEffect(() => {
-    if (!playingUnit) {
+    if (!playingUnit && stage === -1) {
       let selected = false;
       let enemyReady = true;
       for (let i = 0; i < players.length && !selected; i += 1)
@@ -281,7 +290,6 @@ const Battle = () => {
     const localPlayers = [player, player1];
     const localEnemies = [enemy];
     setPlayingUnit(player);
-    setShowAction(true);
     setPlayers([player, player1]);
     setEnemies([enemy]);
     setAllUnits([player, player1, enemy]);
@@ -313,7 +321,6 @@ const Battle = () => {
 
   const keyHandlers = useCallback(
     (e) => {
-      console.log(e);
       if (e.key === "Escape") {
         if (showAction) setShowAction(false);
         else if (showActionBeep) {
@@ -340,6 +347,7 @@ const Battle = () => {
       sx={{ padding: "18px 20px 10px 20px", height: "95vh" }}
       id="battle"
     >
+      <StagePresent stage={stage} />
       <ActionMenu
         visible={showAction}
         onClose={onCloseAction}

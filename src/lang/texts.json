@@ -9,6 +9,13 @@
       "Errors": {
         "InvalidTarget": "Objetivo inválido"
       },
+      "Stages": [
+        "Comienza la batalla!",
+        "Tácticas",
+        "Combate!",
+        "Victoria",
+        "Derrota"
+      ],
       "CancelAction": "Esta unidad ya tiene una acción seleccionada, presiona para cancelar",
       "Actions": {
         "NoSkills": "No hay habilidades",
