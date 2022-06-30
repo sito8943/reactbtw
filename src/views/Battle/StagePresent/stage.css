@@ -1,5 +1,5 @@
 .stage {
-  animation: stage-apparition 3s ease 1s;
+  animation: stage-apparition 1500ms ease;
   opacity: 0;
   background: #910c25;
   padding: 10px;

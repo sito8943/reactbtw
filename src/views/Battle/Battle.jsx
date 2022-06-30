@@ -44,6 +44,32 @@ const Battle = () => {
   // turns
   const [turns, setTurns] = useState(1);
   const [stage, setStage] = useState(Stages.Start);
+  const [previousStage, setPreviousStage] = useState(-1);
+
+  const nextStage = () => {
+    let delay = 2100;
+    let newStage = -1;
+    let newPreviousStage = -1;
+    console.log(stage, previousStage);
+    if (stage === Stages.Start && previousStage === -1) {
+      newStage = -1;
+      newPreviousStage = Stages.Start;
+    } else if (stage === -1 && previousStage === Stages.Start) {
+      delay = 100;
+      newStage = Stages.Tactics;
+      newPreviousStage = -1;
+    }
+    setTimeout(() => {
+      setStage(newStage);
+      setPreviousStage(newPreviousStage);
+      if (newStage === -1 && newPreviousStage === -1) setShowAction(true);
+    }, delay);
+  };
+
+  useEffect(() => {
+    nextStage();
+  }, [stage, previousStage]);
+
   // actions
   const [currentAction, setCurrentAction] = useState("");
   const [selectingTargets, setSelectingTargets] = useState(false);
@@ -104,7 +130,12 @@ const Battle = () => {
   };
 
   useEffect(() => {
-    if (!showAction && playingUnit && !selectingTargets) {
+    if (
+      !showAction &&
+      playingUnit &&
+      !selectingTargets &&
+      stage !== Stages.Start
+    ) {
       setCurrentAction("awaitingOrders");
       setShowActionBeep(true);
     }
@@ -117,7 +148,6 @@ const Battle = () => {
   const [showActionBeep, setShowActionBeep] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
   const [showEventList, setShowEventList] = useState(false);
-  const [showCharacterAction, setShowCharacterAction] = useState(false);
   const [target, setTarget] = useState({ offsetLeft: 0, offsetTop: 0 });
 
   // units
@@ -138,7 +168,10 @@ const Battle = () => {
       if (!selected && !enemyReady) {
         setCurrentAction("opponentThinking");
         setShowActionBeep(true);
-      } else {
+      }
+
+      if (!selected && enemyReady) {
+        setStage(Stages.Combat);
         setCurrentAction("");
         setShowActionBeep(false);
       }
@@ -347,7 +380,8 @@ const Battle = () => {
       sx={{ padding: "18px 20px 10px 20px", height: "95vh" }}
       id="battle"
     >
-      <StagePresent stage={stage} />
+      {stage !== -1 && <StagePresent stage={stage} />}
+
       <ActionMenu
         visible={showAction}
         onClose={onCloseAction}
