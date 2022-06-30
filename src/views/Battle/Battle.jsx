@@ -126,7 +126,7 @@ const Battle = () => {
         }
       for (let i = 0; i < enemies.length && enemyReady; i += 1)
         if (!enemies[i].busy) enemyReady = false;
-      if (!selected || !enemyReady) {
+      if (!selected && !enemyReady) {
         setCurrentAction("opponentThinking");
         setShowActionBeep(true);
       } else {
@@ -276,6 +276,7 @@ const Battle = () => {
     const enemy = new Character(NPCEnum.dummy);
     enemy.SetAttribute("team", 2);
     enemy.SetAttribute("bot", true);
+    enemy.SetAttribute("busy", false);
     // local test
     const localPlayers = [player, player1];
     const localEnemies = [enemy];
@@ -296,6 +297,7 @@ const Battle = () => {
     if (enemies) {
       enemies.forEach((item, i) => {
         if (isABot(item) && !item.busy) {
+          console.log(item);
           item.busy = true;
           setUnitActions({
             type: "set",
