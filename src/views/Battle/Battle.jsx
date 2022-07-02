@@ -50,7 +50,7 @@ const Battle = () => {
     let delay = 2100;
     let newStage = -1;
     let newPreviousStage = -1;
-    console.log(stage, previousStage);
+    // console.log(stage, previousStage);
     if (stage === Stages.Start && previousStage === -1) {
       newStage = -1;
       newPreviousStage = Stages.Start;
@@ -62,7 +62,15 @@ const Battle = () => {
     setTimeout(() => {
       setStage(newStage);
       setPreviousStage(newPreviousStage);
-      if (newStage === -1 && newPreviousStage === -1) setShowAction(true);
+      if (
+        newStage === -1 &&
+        newPreviousStage === -1 &&
+        stage !== Stages.Combat
+      ) {
+        setShowAction(true);
+        console.log("VIendo como no mostrar el action menu aqui")
+        console.log("perra", showAction, playingUnit, selectingTargets, stage);
+      }
     }, delay);
   };
 
@@ -136,6 +144,7 @@ const Battle = () => {
       !selectingTargets &&
       stage !== Stages.Start
     ) {
+      console.log("hola");
       setCurrentAction("awaitingOrders");
       setShowActionBeep(true);
     }
@@ -173,6 +182,7 @@ const Battle = () => {
       if (!selected && enemyReady) {
         setStage(Stages.Combat);
         setCurrentAction("");
+        setPlayingUnit(undefined);
         setShowActionBeep(false);
       }
     }
@@ -231,7 +241,7 @@ const Battle = () => {
   const order = (localUnits = undefined) => {
     let newOrder = allUnits;
     if (localUnits) newOrder = localUnits;
-    console.log(newOrder);
+    // console.log(newOrder);
   };
 
   const doAttack = () => {
@@ -338,7 +348,7 @@ const Battle = () => {
     if (enemies) {
       enemies.forEach((item, i) => {
         if (isABot(item) && !item.busy) {
-          console.log(item);
+          // console.log(item);
           item.busy = true;
           setUnitActions({
             type: "set",
