@@ -26,7 +26,9 @@ const StagePresent = (props) => {
         left: 0,
       }}
     >
-      <h1 className="stage">{languageState.texts.Battle.Stages[stage]}</h1>
+      <h1 className={stage === 0 || stage === 2 ? "combat" : "stage"}>
+        {languageState.texts.Battle.Stages[stage]}
+      </h1>
     </SitoContainer>
   );
 };

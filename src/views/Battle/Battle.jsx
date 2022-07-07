@@ -67,9 +67,8 @@ const Battle = () => {
         newPreviousStage === -1 &&
         stage !== Stages.Combat
       ) {
-        setShowAction(true);
-        console.log("VIendo como no mostrar el action menu aqui")
-        console.log("perra", showAction, playingUnit, selectingTargets, stage);
+        if ((!playingUnit, !selectingTargets)) setShowAction(false);
+        else setShowAction(true);
       }
     }, delay);
   };
