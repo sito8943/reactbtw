@@ -104,7 +104,7 @@ const CreateCharacter = () => {
           position: "absolute",
         }}
       >
-        <div></div>
+        <div />
       </SitoContainer>
       <CharacterPortrait edit />
       <SitoContainer

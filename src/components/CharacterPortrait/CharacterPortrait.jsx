@@ -461,7 +461,7 @@ const CharacterPortrait = (props) => {
                               }
                             </span>
                           </Tippy>
-                          <span>{contextState.character.Attack.max}</span>
+                          <span>{contextState.character.Attack}</span>
                         </SitoContainer>
                       </SitoContainer>
                       <SitoContainer
@@ -486,7 +486,7 @@ const CharacterPortrait = (props) => {
                             </span>
                           </Tippy>
 
-                          <span>{contextState.character.Armor.max}</span>
+                          <span>{contextState.character.Armor}</span>
                         </SitoContainer>
                       </SitoContainer>
                       <SitoContainer
@@ -511,7 +511,7 @@ const CharacterPortrait = (props) => {
                             </span>
                           </Tippy>
 
-                          <span>{contextState.character.Luck.max}</span>
+                          <span>{contextState.character.Luck}</span>
                         </SitoContainer>
                       </SitoContainer>
                     </SitoContainer>
@@ -542,10 +542,7 @@ const CharacterPortrait = (props) => {
                             </span>
                           </Tippy>
 
-                          <span>
-                            {contextState.character.Life.current} /{" "}
-                            {contextState.character.Life.max}
-                          </span>
+                          <span>{contextState.character.Life}</span>
                         </SitoContainer>
                       </SitoContainer>
                       <SitoContainer
@@ -570,10 +567,7 @@ const CharacterPortrait = (props) => {
                             </span>
                           </Tippy>
 
-                          <span>
-                            {contextState.character.Mana.current} /{" "}
-                            {contextState.character.Mana.max}
-                          </span>
+                          <span>{contextState.character.Mana}</span>
                         </SitoContainer>
                       </SitoContainer>
                       <SitoContainer
@@ -598,7 +592,7 @@ const CharacterPortrait = (props) => {
                             </span>
                           </Tippy>
 
-                          <span>{contextState.character.Speed.current}</span>
+                          <span>{contextState.character.Speed}</span>
                         </SitoContainer>
                       </SitoContainer>
                     </SitoContainer>
