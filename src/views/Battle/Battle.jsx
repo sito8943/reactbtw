@@ -29,6 +29,7 @@ import { AllIcons } from "../../assets/icons/icons";
 
 // styles
 import { actionSelected as actionSelectedStyle } from "./ActionMenu/style";
+import { addAnimation, removeAnimation } from "../../utils/animation";
 
 const Stages = {
   Start: 0,
@@ -45,16 +46,19 @@ const Battle = () => {
   const [turns, setTurns] = useState(1);
   const [stage, setStage] = useState(Stages.Start);
   const [previousStage, setPreviousStage] = useState(-1);
+  const [playingOrder, setPlayingOrder] = useState([]);
 
   const nextStage = () => {
     let delay = 2100;
     let newStage = -1;
     let newPreviousStage = -1;
-    // console.log(stage, previousStage);
+    // start
     if (stage === Stages.Start && previousStage === -1) {
       newStage = -1;
       newPreviousStage = Stages.Start;
-    } else if (stage === -1 && previousStage === Stages.Start) {
+    }
+    // after start
+    else if (stage === -1 && previousStage === Stages.Start) {
       delay = 100;
       newStage = Stages.Tactics;
       newPreviousStage = -1;
@@ -67,14 +71,29 @@ const Battle = () => {
         newPreviousStage === -1 &&
         stage !== Stages.Combat
       ) {
-        if ((!playingUnit, !selectingTargets)) setShowAction(false);
-        else setShowAction(true);
+        addAnimation(players[0], "targeter");
+        setPlayingUnit(players[0]);
+        setShowAction(true);
       }
     }, delay);
   };
 
   useEffect(() => {
-    nextStage();
+    if (stage === Stages.Combat) {
+      console.log(stage);
+      playingOrder.forEach((item, i) => {
+        const { action, target } = unitActions[item.team][i];
+        setPlayingUnit(item);
+        switch (action) {
+          case "attack": {
+          }
+          case "run": {
+          }
+          default:
+            break;
+        }
+      });
+    } else nextStage();
   }, [stage, previousStage]);
 
   // actions
@@ -87,6 +106,7 @@ const Battle = () => {
   const cleanSelectionVars = () => {
     setSelectingTargets(false);
     setCurrentAction("");
+    removeAnimation(playingUnit, "targeter");
     setPlayingUnit(undefined);
   };
 
@@ -143,7 +163,6 @@ const Battle = () => {
       !selectingTargets &&
       stage !== Stages.Start
     ) {
-      console.log("hola");
       setCurrentAction("awaitingOrders");
       setShowActionBeep(true);
     }
@@ -177,10 +196,10 @@ const Battle = () => {
         setCurrentAction("opponentThinking");
         setShowActionBeep(true);
       }
-
       if (!selected && enemyReady) {
         setStage(Stages.Combat);
         setCurrentAction("");
+        removeAnimation(playingUnit, "targeter");
         setPlayingUnit(undefined);
         setShowActionBeep(false);
       }
@@ -233,14 +252,18 @@ const Battle = () => {
         return cleanSelectionVars();
       }
     }
-    if (players) setPlayingUnit(players[numberIndex]);
+    if (players) {
+      console.log("hola");
+      removeAnimation(playingUnit, "targeter");
+      setPlayingUnit(players[numberIndex]);
+    }
     if (!showAction) setShowAction(true);
   };
 
   const order = (localUnits = undefined) => {
     let newOrder = allUnits;
     if (localUnits) newOrder = localUnits;
-    // console.log(newOrder);
+    setPlayingOrder(newOrder);
   };
 
   const doAttack = () => {
@@ -274,9 +297,11 @@ const Battle = () => {
     }, 500);
   };
 
-  const doRun = (unitIndex) => {};
+  const doRun = (team, unitIndex) => {};
 
-  const doBasic = (basicName, unitIndex, team) => {
+  const doWait = (team, unitIndex) => {};
+
+  const targetBasic = (basicName, unitIndex, team) => {
     switch (basicName) {
       case "attack":
         setShowActionBeep(true);
@@ -302,7 +327,7 @@ const Battle = () => {
     players[playingUnit.index].busy = true;
     switch (type) {
       default: // basic
-        return doBasic(name, playingUnit.index, "good");
+        return targetBasic(name, playingUnit.index, "good");
     }
   };
 
@@ -325,13 +350,12 @@ const Battle = () => {
     player1.SetAttribute("team", 1);
 
     const enemy = new Character(NPCEnum.dummy);
-    enemy.SetAttribute("team", 2);
+    enemy.SetAttribute("team", 0);
     enemy.SetAttribute("bot", true);
     enemy.SetAttribute("busy", false);
     // local test
     const localPlayers = [player, player1];
     const localEnemies = [enemy];
-    setPlayingUnit(player);
     setPlayers([player, player1]);
     setEnemies([enemy]);
     setAllUnits([player, player1, enemy]);
@@ -484,11 +508,9 @@ const Battle = () => {
                 character={item}
                 className={`${
                   target.player === 1 && target.index === i ? target.class : ""
-                } ${!item.busy ? "unit-ready" : ""} ${
-                  playingUnit && playingUnit.index === i && selectingTargets
-                    ? "targeter"
-                    : ""
-                }`}
+                } ${!item.busy ? "unit-ready" : ""} ${item.GetAttribute(
+                  "extraAnimation"
+                )}`}
               />
             </SitoContainer>
           );
