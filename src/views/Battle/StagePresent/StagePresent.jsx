@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 // sito components
@@ -10,8 +11,18 @@ import { useLanguage } from "../../../context/Language";
 import "./stage.css";
 
 const StagePresent = (props) => {
-  const { stage } = props;
+  const { stage, hide } = props;
   const { languageState } = useLanguage();
+
+  const [toHide, setToHide] = useState(false);
+
+  useEffect(() => {
+    if (hide)
+      setTimeout(() => {
+        setToHide(true);
+      }, 1000);
+    setToHide(false);
+  }, [hide]);
 
   return (
     <SitoContainer
@@ -21,7 +32,7 @@ const StagePresent = (props) => {
         height: "100vh",
         width: "100vw",
         position: "absolute",
-        zIndex: 3,
+        zIndex: toHide ? -1 : 3,
         top: 0,
         left: 0,
       }}

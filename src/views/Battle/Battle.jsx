@@ -66,21 +66,20 @@ const Battle = () => {
     setTimeout(() => {
       setStage(newStage);
       setPreviousStage(newPreviousStage);
-      if (
+      console.log("hola1");
+      /* if (
         newStage === -1 &&
         newPreviousStage === -1 &&
         stage !== Stages.Combat
       ) {
-        addAnimation(players[0], "targeter");
         setPlayingUnit(players[0]);
         setShowAction(true);
-      }
+      } */
     }, delay);
   };
 
   useEffect(() => {
     if (stage === Stages.Combat) {
-      console.log(stage);
       playingOrder.forEach((item, i) => {
         const { action, target } = unitActions[item.team][i];
         setPlayingUnit(item);
@@ -93,6 +92,10 @@ const Battle = () => {
             break;
         }
       });
+    } else if (stage === Stages.Tactics) {
+      setTimeout(() => {
+        lookForFreeUnit();
+      }, 1000);
     } else nextStage();
   }, [stage, previousStage]);
 
@@ -180,16 +183,21 @@ const Battle = () => {
   // units
   const [playingUnit, setPlayingUnit] = useState();
 
+  const lookForFreeUnit = () => {
+    let selected = false;
+    for (let i = 0; i < players.length && !selected; i += 1)
+      if (!players[i].busy) {
+        setPlayingUnit(players[i]);
+        setShowAction(true);
+        return true;
+      }
+    return false;
+  };
+
   useEffect(() => {
     if (!playingUnit && stage === -1) {
-      let selected = false;
       let enemyReady = true;
-      for (let i = 0; i < players.length && !selected; i += 1)
-        if (!players[i].busy) {
-          setPlayingUnit(players[i]);
-          setShowAction(true);
-          selected = true;
-        }
+      const selected = lookForFreeUnit();
       for (let i = 0; i < enemies.length && enemyReady; i += 1)
         if (!enemies[i].busy) enemyReady = false;
       if (!selected && !enemyReady) {
@@ -253,7 +261,6 @@ const Battle = () => {
       }
     }
     if (players) {
-      console.log("hola");
       removeAnimation(playingUnit, "targeter");
       setPlayingUnit(players[numberIndex]);
     }
@@ -344,9 +351,11 @@ const Battle = () => {
     player1.Name = "Locol";
     player.SetAttribute("index", 0);
     player.SetAttribute("busy", false);
+    addAnimation(player, "unit-ready");
     player.SetAttribute("team", 1);
     player1.SetAttribute("index", 1);
     player1.SetAttribute("busy", false);
+    addAnimation(player1, "unit-ready");
     player1.SetAttribute("team", 1);
 
     const enemy = new Character(NPCEnum.dummy);
@@ -413,7 +422,9 @@ const Battle = () => {
       sx={{ padding: "18px 20px 10px 20px", height: "95vh" }}
       id="battle"
     >
-      {stage !== -1 && <StagePresent stage={stage} />}
+      {stage !== -1 && (
+        <StagePresent hide={stage === Stages.Tactics} stage={stage} />
+      )}
 
       <ActionMenu
         visible={showAction}
@@ -508,9 +519,7 @@ const Battle = () => {
                 character={item}
                 className={`${
                   target.player === 1 && target.index === i ? target.class : ""
-                } ${!item.busy ? "unit-ready" : ""} ${item.GetAttribute(
-                  "extraAnimation"
-                )}`}
+                } ${item.GetAttribute("extraAnimation")}`}
               />
             </SitoContainer>
           );

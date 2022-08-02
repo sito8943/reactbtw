@@ -22,7 +22,7 @@ export const removeAnimation = (unit, animation) => {
  */
 export const addAnimation = (unit, animation) => {
   const extraAnimation = unit.GetAttribute("extraAnimation");
-  if (extraAnimation)
+  if (extraAnimation && extraAnimation.indexOf(animation) === -1)
     unit.SetAttribute("extraAnimation", `${extraAnimation} ${animation}`);
   else unit.SetAttribute("extraAnimation", animation);
 };
