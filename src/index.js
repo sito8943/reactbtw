@@ -1,5 +1,7 @@
 import { StrictMode } from "react";
 import * as ReactDOMClient from "react-dom/client";
+
+import { NextUIProvider } from "@nextui-org/react";
 //import App from "./App";
 
 // context
@@ -33,33 +35,35 @@ const root = ReactDOMClient.createRoot(container);
 
 root.render(
   <StrictMode>
-    <LanguageProvider>
-      <ContextProvider>
-        <GraphicConfigProvider>
-          <AudioConfigProvider>
-            <OffCanvasProvider>
-              <AudioControllerProvider>
-                <CreationAnimationProvider>
-                  <BrowserRouter>
-                    <Routes>
-                      <Route path="/creation" element={<CreateCharacter />} />
-                      <Route
-                        path="/"
-                        element={
-                          <BattleProvider>
-                            <CardTester />
-                            {/*<Battle />*/}
-                          </BattleProvider>
-                        }
-                      />
-                    </Routes>
-                  </BrowserRouter>
-                </CreationAnimationProvider>
-              </AudioControllerProvider>
-            </OffCanvasProvider>
-          </AudioConfigProvider>
-        </GraphicConfigProvider>
-      </ContextProvider>
-    </LanguageProvider>
+    <NextUIProvider>
+      <LanguageProvider>
+        <ContextProvider>
+          <GraphicConfigProvider>
+            <AudioConfigProvider>
+              <OffCanvasProvider>
+                <AudioControllerProvider>
+                  <CreationAnimationProvider>
+                    <BrowserRouter>
+                      <Routes>
+                        <Route path="/creation" element={<CreateCharacter />} />
+                        <Route
+                          path="/"
+                          element={
+                            <BattleProvider>
+                              <CardTester />
+                              {/*<Battle />*/}
+                            </BattleProvider>
+                          }
+                        />
+                      </Routes>
+                    </BrowserRouter>
+                  </CreationAnimationProvider>
+                </AudioControllerProvider>
+              </OffCanvasProvider>
+            </AudioConfigProvider>
+          </GraphicConfigProvider>
+        </ContextProvider>
+      </LanguageProvider>
+    </NextUIProvider>
   </StrictMode>
 );
