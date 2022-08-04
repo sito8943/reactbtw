@@ -33,7 +33,7 @@ const AudioController = () => {
     if (audioConfigState.bfx) {
       creation.load();
     }
-  }, []);
+  }, [audioConfigState]);
 
   useEffect(() => {
     if (audioControllerState.popUp) {
