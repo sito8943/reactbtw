@@ -33,7 +33,7 @@ const root = ReactDOMClient.createRoot(container);
 
 root.render(
   <StrictMode>
-    {/* <LanguageProvider>
+    <LanguageProvider>
       <ContextProvider>
         <GraphicConfigProvider>
           <AudioConfigProvider>
@@ -47,7 +47,8 @@ root.render(
                         path="/"
                         element={
                           <BattleProvider>
-                            <Battle />
+                            <CardTester />
+                            {/*<Battle />*/}
                           </BattleProvider>
                         }
                       />
@@ -59,7 +60,6 @@ root.render(
           </AudioConfigProvider>
         </GraphicConfigProvider>
       </ContextProvider>
-                      </LanguageProvider> */}
-    <CardTester />
+    </LanguageProvider>
   </StrictMode>
 );
