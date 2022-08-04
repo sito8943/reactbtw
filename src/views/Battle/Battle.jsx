@@ -15,7 +15,10 @@ import StagePresent from "./StagePresent/StagePresent";
 import ActionMenu from "./ActionMenu/ActionMenu";
 import EventsNotification from "./EventsNotification.jsx/EventsNotification";
 import EventList from "./EventList/EventList";
-import ActionBeep from "./ActionBeep/ActionBeep";
+import ActionBeep, {
+  ActionAffectEnumId,
+  ActionEnumId,
+} from "./ActionBeep/ActionBeep";
 
 // contexts
 import { useLanguage } from "../../context/Language";
@@ -30,6 +33,7 @@ import { AllIcons } from "../../assets/icons/icons";
 // styles
 import { actionSelected as actionSelectedStyle } from "./ActionMenu/style";
 import { addAnimation, removeAnimation } from "../../utils/animation";
+import { AllActions } from "../../models/Action";
 
 const Stages = {
   Start: 0,
@@ -66,7 +70,6 @@ const Battle = () => {
     setTimeout(() => {
       setStage(newStage);
       setPreviousStage(newPreviousStage);
-      console.log("hola1");
       /* if (
         newStage === -1 &&
         newPreviousStage === -1 &&
@@ -107,8 +110,7 @@ const Battle = () => {
   const [errorCode, setErrorCode] = useState("");
 
   const cleanSelectionVars = () => {
-    setSelectingTargets(false);
-    setCurrentAction("");
+    if (!playingUnit.busy) addAnimation(playingUnit, "unit-ready");
     removeAnimation(playingUnit, "targeter");
     setPlayingUnit(undefined);
   };
@@ -156,20 +158,14 @@ const Battle = () => {
   // modals
   const [showAction, setShowAction] = useState(false);
   const onCloseAction = () => {
+    console.log(currentAction);
     cleanSelectionVars();
     setShowAction(false);
   };
 
   useEffect(() => {
-    if (
-      !showAction &&
-      playingUnit &&
-      !selectingTargets &&
-      stage !== Stages.Start
-    ) {
-      setCurrentAction("awaitingOrders");
-      setActionBeep(true);
-    }
+    if (!showAction && stage !== Stages.Start)
+      showActionBeep(ActionEnumId.waitingForOrder);
   }, [showAction]);
 
   const [enemies, setEnemies] = useState([]);
@@ -179,8 +175,10 @@ const Battle = () => {
   const [actionBeep, setActionBeep] = useState(false);
 
   const showActionBeep = (message) => {
+    if (message === ActionEnumId.none) return setActionBeep(false);
     setCurrentAction(message);
     setActionBeep(true);
+    setShowAction(false);
   };
 
   const [showAnimation, setShowAnimation] = useState(false);
@@ -195,6 +193,7 @@ const Battle = () => {
     for (let i = 0; i < players.length && !selected; i += 1)
       if (!players[i].busy) {
         setPlayingUnit(players[i]);
+        removeAnimation(players[i], "unit-ready");
         addAnimation(players[i], "targeter");
         setShowAction(true);
         return true;
@@ -203,22 +202,26 @@ const Battle = () => {
   };
 
   useEffect(() => {
-    if (!playingUnit && stage === -1) {
+    console.log(stage);
+    // if no unit selected and is in tactics stage
+    if ((!playingUnit && stage === -1) || stage === 1) {
       let enemyReady = true;
       const selected = lookForFreeUnit();
+      // looks if an enemy unit is not ready
       for (let i = 0; i < enemies.length && enemyReady; i += 1)
         if (!enemies[i].busy) enemyReady = false;
-      if (!selected && !enemyReady) {
-        setCurrentAction("opponentThinking");
-        setActionBeep(true);
-      }
-      if (!selected && enemyReady) {
-        setStage(Stages.Combat);
-        setCurrentAction("");
-        removeAnimation(playingUnit, "targeter");
-        setPlayingUnit(undefined);
-        setActionBeep(false);
-      }
+      // if all player units are ready to play and the enemy is not ready
+      if (!selected && !enemyReady)
+        showActionBeep(ActionEnumId.waitingForOpponent);
+      // no unit selected and enemy is ready goes to combat
+      if (!selected && enemyReady) setStage(Stages.Combat);
+    }
+    // if an unit is selected
+    else if (playingUnit) {
+      setShowAction(true);
+      removeAnimation(playingUnit, "unit-ready");
+      addAnimation(playingUnit, "targeter");
+      showActionBeep(ActionEnumId.none);
     }
   }, [playingUnit]);
 
@@ -226,23 +229,30 @@ const Battle = () => {
     const node = parseNodeUnit(e.target);
     const [, index] = node.id.split("-");
     const numberIndex = Number(index);
-    if (selectingTargets) {
-      const selectingResult = validTarget(
-        "enemy",
-        players[numberIndex],
-        currentAction
-      );
-      if (selectingResult.error) setErrorCode(selectingResult.error);
-      else {
-        setUnitActions({
-          type: "set",
-          unit: playingUnit.index,
-          team: "good",
-          newAction: currentAction,
-          target: numberIndex,
-        });
-        return cleanSelectionVars();
-      }
+    if (selectingTargets) return clickEnemyToTarget(numberIndex);
+    else return clickForInfo(numberIndex);
+  };
+
+  const clickForInfo = (unitNumber) => {};
+
+  const clickEnemyToTarget = (enemyNumber) => {
+    const selectingResult = validTarget(
+      "enemy",
+      players[enemyNumber],
+      currentAction
+    );
+    if (selectingResult.error) setErrorCode(selectingResult.error);
+    else {
+      setSelectingTargets(false);
+      showActionBeep(ActionEnumId.none);
+      setUnitActions({
+        type: "set",
+        unit: playingUnit.index,
+        team: "good",
+        newAction: currentAction,
+        target: enemyNumber,
+      });
+      return cleanSelectionVars();
     }
   };
 
@@ -250,31 +260,27 @@ const Battle = () => {
     const node = parseNodeUnit(e.target);
     const [, index] = node.id.split("-");
     const numberIndex = Number(index);
-    console.log(selectingTargets, players, showAction);
-    if (selectingTargets) {
-      const selectingResult = validTarget(
-        "player",
-        players[numberIndex],
-        currentAction
-      );
-      if (selectingResult.error) setErrorCode(selectingResult.error);
-      else {
-        setUnitActions({
-          type: "set",
-          unit: playingUnit.index,
-          team: "good",
-          newAction: currentAction,
-          target: numberIndex,
-        });
-        return cleanSelectionVars();
-      }
-    } else if (players) {
-      removeAnimation(playingUnit, "targeter");
+    if (selectingTargets) return clickPlayerToTarget(numberIndex);
+    else if (currentAction === ActionEnumId.waitingForOrder)
       setPlayingUnit(players[numberIndex]);
-    } else if (!showAction) {
-      console.log("hola1");
-      setPlayingUnit(players[numberIndex]);
-      setShowAction(true);
+  };
+
+  const clickPlayerToTarget = (playerNumber) => {
+    const selectingResult = validTarget(
+      "player",
+      players[playerNumber],
+      currentAction
+    );
+    if (selectingResult.error) setErrorCode(selectingResult.error);
+    else {
+      setUnitActions({
+        type: "set",
+        unit: playingUnit.index,
+        team: "good",
+        newAction: currentAction,
+        target: playerNumber,
+      });
+      return cleanSelectionVars();
     }
   };
 
@@ -320,11 +326,11 @@ const Battle = () => {
   const doWait = (team, unitIndex) => {};
 
   const targetBasic = (basicName, unitIndex, team) => {
+    console.log(playingUnit);
     switch (basicName) {
       case "attack":
-        setActionBeep(true);
         setSelectingTargets(true);
-        setCurrentAction(basicName);
+        showActionBeep(basicName);
         break;
       default: // wait - run
         setUnitActions({
@@ -337,6 +343,43 @@ const Battle = () => {
         return cleanSelectionVars();
     }
   };
+
+  useEffect(() => {
+    if (currentAction && selectingTargets) {
+      switch (AllActions[currentAction].target) {
+        case ActionEnumId.multi:
+          if (AllActions[currentAction].affect === ActionAffectEnumId.player)
+            players.forEach((item) => {
+              addAnimation(item, "possible-target");
+            });
+          if (AllActions[currentAction].affect === ActionAffectEnumId.enemy)
+            enemies.forEach((item) => {
+              addAnimation(item, "possible-target");
+            });
+          break;
+        case ActionEnumId.simple:
+          if (AllActions[currentAction].affect === ActionAffectEnumId.player)
+            players.forEach((item) => {
+              addAnimation(item, "possible-target");
+            });
+          if (AllActions[currentAction].affect === ActionAffectEnumId.enemy)
+            enemies.forEach((item) => {
+              addAnimation(item, "possible-target");
+            });
+          break;
+        default:
+          console.log(currentAction);
+          break;
+      }
+    } else {
+      players.forEach((item) => {
+        removeAnimation(item, "possible-target");
+      });
+      enemies.forEach((item) => {
+        removeAnimation(item, "possible-target");
+      });
+    }
+  }, [selectingTargets]);
 
   const actionSelected = (e) => {
     let node = e.target;
@@ -411,11 +454,11 @@ const Battle = () => {
         if (showAction) {
           cleanSelectionVars();
           setShowAction(false);
-          showActionBeep("awaitingOrders");
+          showActionBeep(ActionEnumId.waitingForOrder);
         } else if (actionBeep) {
-          setActionBeep(false);
-          setShowAction(true);
           players[playingUnit.index].busy = false;
+          setShowAction(true);
+          showActionBeep(ActionEnumId.none);
         }
       }
     },
@@ -442,7 +485,7 @@ const Battle = () => {
 
       <ActionMenu
         visible={showAction}
-        onClose={onCloseAction}
+        onClose={() => {}}
         playing={playingUnit}
         action={actionSelected}
       />
@@ -454,6 +497,7 @@ const Battle = () => {
       />
       <EventList visible={showEventList} />
       {/* <SpeakDialog visible={true} /> */}
+      {/* Enemy team */}
       <SitoContainer justifyContent="right">
         {enemies.map((item, i) => {
           return (
@@ -470,7 +514,7 @@ const Battle = () => {
               <CombatPortrait
                 id="Dummy"
                 character={item}
-                className={selectingTargets ? "possible-target" : ""}
+                className={item.GetAttribute("extraAnimation")}
               />
             </SitoContainer>
           );

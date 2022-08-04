@@ -24,7 +24,7 @@
   content: "";
   position: absolute;
   inset: 4px;
-  background: #222;
+  /* background: #222; */
   border-radius: 1rem;
 }
 

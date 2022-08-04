@@ -11,8 +11,8 @@ const ActionModal = (props) => {
       backdropBackground="#22222299"
       backdropFilter="blur(1px)"
       sx={{
-        width: "250px",
-        height: "80px",
+        width: "auto",
+        height: "auto",
       }}
       visible={visible}
       onClose={onClose}

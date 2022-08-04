@@ -50,8 +50,8 @@ root.render(
                           path="/"
                           element={
                             <BattleProvider>
-                              <CardTester />
-                              {/*<Battle />*/}
+                              {/*<CardTester />*/}
+                              <Battle />
                             </BattleProvider>
                           }
                         />

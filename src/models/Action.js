@@ -1,9 +1,11 @@
 export const AllActions = {
-  awaitingOrders: {
+  waitingForOrder: {
     target: "waitingForOrder",
+    id: "waitingForOrder",
   },
-  opponentThinking: {
+  waitingForOpponent: {
     target: "waitingForOpponent",
+    id: "waitingForOpponent",
   },
   wait: {
     action: -1,
@@ -11,6 +13,7 @@ export const AllActions = {
     type: "basic",
     target: "none",
     affect: "player",
+    id: "wait",
   },
   attack: {
     action: 0,
@@ -18,6 +21,7 @@ export const AllActions = {
     type: "basic",
     target: "simple",
     affect: "enemy",
+    id: "attack",
   },
   run: {
     action: 1,
@@ -25,6 +29,7 @@ export const AllActions = {
     type: "basic",
     target: "none",
     affect: "player",
+    id: "run",
   },
 };
 

@@ -28,7 +28,7 @@
 
 @keyframes change-background {
   0% {
-    background-color: rgb(100, 11, 11);
+    background-color: rgb(153, 11, 11);
   }
   100% {
     background-color: #222;

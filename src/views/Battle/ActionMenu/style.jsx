@@ -9,7 +9,7 @@ export const actionSelected = css({
   border: "none",
   cursor: "pointer",
   background: "#333",
-  padding: "5px",
+  padding: "5px 9px",
   paddingBottom: 0,
   borderRadius: "100%",
   color: "aliceblue",
@@ -21,7 +21,7 @@ export const actions = css({
   border: "none",
   cursor: "pointer",
   background: "none",
-  padding: "5px",
+  padding: "5px 9px",
   paddingBottom: 0,
   borderRadius: "100%",
   transition: "all 500ms ease",
@@ -36,7 +36,7 @@ export const actions = css({
 
 export const disabledActions = css({
   border: "none",
-  padding: "5px",
+  padding: "5px 9px",
   paddingBottom: 0,
   borderRadius: "1rem",
   transition: "all 500ms ease",

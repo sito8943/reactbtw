@@ -65,7 +65,7 @@ const CombatPortrait = (props) => {
     zIndex: 2,
     fontSize: "12rem",
     position: "absolute",
-    opacity: 0.1,
+    opacity: 0.2,
   };
 
   return (
@@ -81,14 +81,15 @@ const CombatPortrait = (props) => {
         src={CardBackground.forest1}
         sx={{
           position: "absolute",
-          width: "100%",
-          height: "100%",
+          width: "96%",
+          height: "97%",
           top: 0,
           left: 0,
           borderRadius: "1rem",
           objectFit: "cover",
           objectPosition: "center",
           filter: "brightness(0.5)",
+          margin: "2%",
         }}
       />
       <Text variant="span" className="no-selection" sx={characterClass}>

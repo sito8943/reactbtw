@@ -9,6 +9,19 @@ import { useLanguage } from "../../../context/Language";
 
 import { AllActions } from "../../../models/Action";
 
+export const ActionEnumId = {
+  waitingForOpponent: "waitingForOpponent",
+  waitingForOrder: "waitingForOrder",
+  simple: "simple",
+  multi: "multi",
+  none: "none",
+};
+
+export const ActionAffectEnumId = {
+  player: "player",
+  enemy: "enemy",
+};
+
 const ActionBeep = (props) => {
   const { visible, action, errorCode } = props;
 
