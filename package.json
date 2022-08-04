@@ -52,8 +52,8 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.1",
     "react-toggle-button": "^2.2.0",
-    "sito-container": "^0.2.14",
-    "sito-image": "^0.2.12",
+    "sito-container": "^0.2.21",
+    "sito-image": "^0.2.20",
     "sito-modal": "^0.1.8"
   }
 }

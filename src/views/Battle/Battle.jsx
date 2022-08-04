@@ -95,7 +95,7 @@ const Battle = () => {
     } else if (stage === Stages.Tactics) {
       setTimeout(() => {
         lookForFreeUnit();
-      }, 1000);
+      }, 1500);
     } else nextStage();
   }, [stage, previousStage]);
 
@@ -156,6 +156,7 @@ const Battle = () => {
   // modals
   const [showAction, setShowAction] = useState(false);
   const onCloseAction = () => {
+    cleanSelectionVars();
     setShowAction(false);
   };
 
@@ -167,7 +168,7 @@ const Battle = () => {
       stage !== Stages.Start
     ) {
       setCurrentAction("awaitingOrders");
-      setShowActionBeep(true);
+      setActionBeep(true);
     }
   }, [showAction]);
 
@@ -175,7 +176,13 @@ const Battle = () => {
   const [players, setPlayers] = useState([]);
   const [allUnits, setAllUnits] = useState([]);
 
-  const [showActionBeep, setShowActionBeep] = useState(false);
+  const [actionBeep, setActionBeep] = useState(false);
+
+  const showActionBeep = (message) => {
+    setCurrentAction(message);
+    setActionBeep(true);
+  };
+
   const [showAnimation, setShowAnimation] = useState(false);
   const [showEventList, setShowEventList] = useState(false);
   const [target, setTarget] = useState({ offsetLeft: 0, offsetTop: 0 });
@@ -188,6 +195,7 @@ const Battle = () => {
     for (let i = 0; i < players.length && !selected; i += 1)
       if (!players[i].busy) {
         setPlayingUnit(players[i]);
+        addAnimation(players[i], "targeter");
         setShowAction(true);
         return true;
       }
@@ -202,14 +210,14 @@ const Battle = () => {
         if (!enemies[i].busy) enemyReady = false;
       if (!selected && !enemyReady) {
         setCurrentAction("opponentThinking");
-        setShowActionBeep(true);
+        setActionBeep(true);
       }
       if (!selected && enemyReady) {
         setStage(Stages.Combat);
         setCurrentAction("");
         removeAnimation(playingUnit, "targeter");
         setPlayingUnit(undefined);
-        setShowActionBeep(false);
+        setActionBeep(false);
       }
     }
   }, [playingUnit]);
@@ -242,6 +250,7 @@ const Battle = () => {
     const node = parseNodeUnit(e.target);
     const [, index] = node.id.split("-");
     const numberIndex = Number(index);
+    console.log(selectingTargets, players, showAction);
     if (selectingTargets) {
       const selectingResult = validTarget(
         "player",
@@ -259,12 +268,14 @@ const Battle = () => {
         });
         return cleanSelectionVars();
       }
-    }
-    if (players) {
+    } else if (players) {
       removeAnimation(playingUnit, "targeter");
       setPlayingUnit(players[numberIndex]);
+    } else if (!showAction) {
+      console.log("hola1");
+      setPlayingUnit(players[numberIndex]);
+      setShowAction(true);
     }
-    if (!showAction) setShowAction(true);
   };
 
   const order = (localUnits = undefined) => {
@@ -311,7 +322,7 @@ const Battle = () => {
   const targetBasic = (basicName, unitIndex, team) => {
     switch (basicName) {
       case "attack":
-        setShowActionBeep(true);
+        setActionBeep(true);
         setSelectingTargets(true);
         setCurrentAction(basicName);
         break;
@@ -397,15 +408,18 @@ const Battle = () => {
   const keyHandlers = useCallback(
     (e) => {
       if (e.key === "Escape") {
-        if (showAction) setShowAction(false);
-        else if (showActionBeep) {
-          setShowActionBeep(false);
+        if (showAction) {
+          cleanSelectionVars();
+          setShowAction(false);
+          showActionBeep("awaitingOrders");
+        } else if (actionBeep) {
+          setActionBeep(false);
           setShowAction(true);
           players[playingUnit.index].busy = false;
         }
       }
     },
-    [showAction, showActionBeep, players, playingUnit]
+    [showAction, actionBeep, players, playingUnit]
   );
 
   useEffect(() => {
@@ -434,7 +448,7 @@ const Battle = () => {
       />
       <EventsNotification action={() => setShowEventList(true)} />
       <ActionBeep
-        visible={showActionBeep}
+        visible={actionBeep}
         action={currentAction}
         errorCode={errorCode}
       />

@@ -20,7 +20,7 @@ const StagePresent = (props) => {
     if (hide)
       setTimeout(() => {
         setToHide(true);
-      }, 1000);
+      }, 1500);
     setToHide(false);
   }, [hide]);
 

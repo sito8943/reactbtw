@@ -8,9 +8,9 @@ import Character from "../models/Character";
  * @param {string} animation
  */
 export const removeAnimation = (unit, animation) => {
-  const extraAnimation = unit.GetAttribute("extraAnimation");
+  let extraAnimation = unit.GetAttribute("extraAnimation");
   if (extraAnimation) {
-    extraAnimation.replace(animation, "");
+    extraAnimation = extraAnimation.replace(animation, "");
     unit.SetAttribute("extraAnimation", extraAnimation);
   }
 };

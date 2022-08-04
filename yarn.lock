@@ -2979,6 +2979,11 @@ cliui@^7.0.2:
     strip-ansi "^6.0.0"
     wrap-ansi "^7.0.0"
 
+clsx@^1.1.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
+  integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -7449,6 +7454,14 @@ react-scripts@5.0.1, react-scripts@^5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-shimmer@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-shimmer/-/react-shimmer-3.2.0.tgz#f25e48dc3276822b2ed46a23c3c1c7e4bfd952f8"
+  integrity sha512-sLUYOulTt4Pf8/ezwRaDdVblEyrD0zkJEH1OsFvgNZbc0n5FTQa8anBrtAoCFCQthOOWgFmD89RPVeILyM9WjQ==
+  dependencies:
+    clsx "^1.1.0"
+    prop-types "^15.7.2"
+
 react-toggle-button@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/react-toggle-button/-/react-toggle-button-2.2.0.tgz#a1b92143aa0df414642fcb141f0879f545bc5a89"
@@ -7944,10 +7957,10 @@ sito-container@^0.2.14:
     react-dom "^18.2.0"
     react-scripts "5.0.1"
 
-sito-image@^0.2.12:
-  version "0.2.12"
-  resolved "https://registry.yarnpkg.com/sito-image/-/sito-image-0.2.12.tgz#ec5327fc26841809d033c2156ba878f0bf48c46b"
-  integrity sha512-tZYZbW/jhCOcY/f2cWrT+lkj4b5UE5e88l6dtvjWoLVF9AxXj9sCXecajlBfeIuZDHOPszwM5WsWX1Yt+19ImQ==
+sito-container@^0.2.21:
+  version "0.2.21"
+  resolved "https://registry.yarnpkg.com/sito-container/-/sito-container-0.2.21.tgz#ffbe8a878baf68c8e79c94ac44462e1b3d55f315"
+  integrity sha512-fX7UBVunMshoQm8CZHz4fRSgwUpx4N3RnvwDJdwRmqrf8Vbvk19XcfzaoJBqJ9VfVA4h5PYunJ/LTO5bv/6aQw==
   dependencies:
     "@emotion/css" "^11.9.0"
     "@emotion/react" "^11.9.3"
@@ -7955,6 +7968,19 @@ sito-image@^0.2.12:
     react "^18.2.0"
     react-dom "^18.2.0"
     react-scripts "5.0.1"
+
+sito-image@^0.2.20:
+  version "0.2.20"
+  resolved "https://registry.yarnpkg.com/sito-image/-/sito-image-0.2.20.tgz#01e184a57895e973ab8d668c85f8107dadf41700"
+  integrity sha512-EqhNxR94dZ4m1amViffAhIND/MZttSpnmqsvszFT9hPdtCKaJ8bCCsb1+4eFNl04Ss3PfRRqdnuGAjin1A+xZA==
+  dependencies:
+    "@emotion/css" "^11.9.0"
+    "@emotion/react" "^11.9.3"
+    "@emotion/styled" "^11.9.3"
+    react "^18.2.0"
+    react-dom "^18.2.0"
+    react-scripts "5.0.1"
+    react-shimmer "^3.2.0"
 
 sito-modal@^0.1.8:
   version "0.1.8"

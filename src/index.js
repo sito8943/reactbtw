@@ -24,6 +24,7 @@ import "tippy.js/dist/tippy.css"; // optional
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CreateCharacter from "./views/CreateCharacter/CreateCharacter";
+import CardTester from "./CardTester";
 
 const container = document.getElementById("root");
 
@@ -32,15 +33,13 @@ const root = ReactDOMClient.createRoot(container);
 
 root.render(
   <StrictMode>
-    <LanguageProvider>
+    {/* <LanguageProvider>
       <ContextProvider>
         <GraphicConfigProvider>
           <AudioConfigProvider>
             <OffCanvasProvider>
               <AudioControllerProvider>
                 <CreationAnimationProvider>
-                  {/*<App />*/}
-                  {/**/}
                   <BrowserRouter>
                     <Routes>
                       <Route path="/creation" element={<CreateCharacter />} />
@@ -60,6 +59,7 @@ root.render(
           </AudioConfigProvider>
         </GraphicConfigProvider>
       </ContextProvider>
-    </LanguageProvider>
+                      </LanguageProvider> */}
+    <CardTester />
   </StrictMode>
 );
